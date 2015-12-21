@@ -223,7 +223,8 @@ exec --no-startup-id gnome-settings-daemon
 exec --no-startup-id  /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id telegram
 exec --no-startup-id chrome
-exec --no-startup-id /home/lorian/Dropbox/dotfiles/i3/setup.sh
+exec --no-startup-id xrandr --output HDMI1 --auto --left-of VGA1
+exec --no-startup-id /home/lorian/Dropbox/dotfiles/i3/setup_background.sh
 exec --no-startup-id nm-applet
 exec --no-startup-id dropbox start
 #exec --no-startup-id skype

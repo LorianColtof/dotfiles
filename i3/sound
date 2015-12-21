@@ -1,0 +1,45 @@
+#!/usr/bin/env python
+import os
+import sys
+
+def readLines(cmd):
+	return os.popen(cmd).read().split('\n')
+
+def setMuted(channel, muted):
+	s = "mute"
+	if not muted:
+		s = "unmuted"
+	os.system("amixer -c 1 set {0} {1}".format(channel, s))
+def isMuted(channel):
+	return readLines('amixer -c 1 get {0}'.format(channel))[-2].endswith('[off]')
+
+def mute():
+	setMuted("Master", True)
+	setMuted("Headphone", True)
+	setMuted("Speaker", True)
+
+def unmute():
+	setMuted("Master", False)
+	setMuted("Headphone", False)
+	setMuted("Speaker", False)
+
+def toggleMuted():
+	if not isMuted("Master"):
+		mute()
+	else:
+		unmute()
+def up():
+	unmute()
+	os.system("amixer -c 1 -q set Master 2dB+ unmute")
+def down():
+	unmute()
+	os.system("amixer -c 1 -q set Master 2dB- unmute")
+
+if __name__ == "__main__":
+	if sys.argv[1] == "+":
+		up()
+	elif sys.argv[1] == "-":
+		down()
+	elif sys.argv[1] == "togglemute":
+		toggleMuted()
+	os.system("killall -s SIGUSR1 python3")

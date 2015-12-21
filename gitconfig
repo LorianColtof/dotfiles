@@ -1,0 +1,7 @@
+[user]
+	name = Lorian Coltof
+	email = loriancoltof@gmail.com
+[core]
+	editor = vim
+[push]
+	default = simple

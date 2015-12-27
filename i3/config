@@ -199,7 +199,7 @@ bar {
 }
 
 #bar {
-#	status_command /home/lorian/.i3/bar_test.sh
+#	status_command python3 /home/lorian/Dropbox/i3pystatus/i3statusconf.py
 #	position top
 #	workspace_buttons no
 #	tray_output none
@@ -240,3 +240,5 @@ client.urgent #2f343a #900000 #ffffff #900000
 
 focus_follows_mouse no
 workspace_auto_back_and_forth yes
+
+exec i3-msg workspace $2

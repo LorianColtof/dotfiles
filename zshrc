@@ -63,9 +63,9 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 zstyle ':completion:*' menu select
 
 source $_SCRIPTDIR/aliases
+source $_SCRIPTDIR/env
 
 alias loadrc="source ~/.zshrc"
 
-export PATH=$PATH:/opt/cabal/head/bin:/opt/ghc/7.8.4/bin
 
 setopt NO_HUP

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export WINEDEBUG=-all
+export WINEPREFIX=~/.wine32
+export MONO_MWF_SCALING=disable
+
+export PATH=$PATH:/opt/cabal/head/bin:/opt/ghc/7.8.4/bin

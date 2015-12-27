@@ -13,7 +13,7 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'Syntastic'
 
-"Plugin 'majutsushi/tagbar'
+Plugin 'majutsushi/tagbar'
 
 Plugin 'Valloric/YouCompleteMe'
 
@@ -26,6 +26,12 @@ Plugin 'haya14busa/incsearch.vim'
 Plugin 'bling/vim-airline'
 
 Plugin 'altercation/vim-colors-solarized'
+
+Plugin 'hynek/vim-python-pep8-indent'
+
+Plugin 'nathanaelkane/vim-indent-guides'
+
+Plugin 'airblade/vim-gitgutter'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -104,6 +110,8 @@ if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
 
+set background=dark
+colorscheme peachpuff
 set number
 set smartindent
 set tabstop=4
@@ -112,7 +120,7 @@ set shiftwidth=4
 
 au BufRead,BufNewFile *.pl set filetype=prolog
 au BufRead,BufNewFile *.pgf set filetype=tex
-au BufRead,BufNewFile *.cu set filetype=cp
+au BufRead,BufNewFile *.cu set filetype=cpp
 au BufRead,BufNewFile *.hs set expandtab
 
 set clipboard=unnamedplus
@@ -120,10 +128,15 @@ set clipboard=unnamedplus
 vnoremap < <gv
 vnoremap > >gv
 
+set t_Co=256                    " set color scheme to 256
 set backspace=2
 set cursorline
-hi CursorLine   cterm=NONE ctermbg=gray
-
+hi CursorLine cterm=NONE ctermbg=7
+hi Visual ctermbg=244
+let g:indent_guides_auto_colors = 0
+hi IndentGuidesOdd  ctermbg=240
+hi IndentGuidesEven ctermbg=245
+hi Search term=reverse ctermfg=15 ctermbg=69
 
 map <NL> :wa<CR>:!make<CR>
 " <Ctrl-l> redraws the screen and removes any search highlighting.
@@ -133,7 +146,8 @@ highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 "match OverLength /\%81v.\+/
 
 nmap <leader>l :set list!<CR>
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▶-,eol:¬
+
 
 
 set hlsearch
@@ -173,7 +187,11 @@ let g:airline#extensions#tabline#enabled = 1
 set ttimeoutlen=50 " Stop the delay in airline when leaving insertmode.
 
 set laststatus=2                " always show the statusbar.
-set t_Co=256                    " set color scheme to 256
 set termencoding=utf-8
 
 set ic
+
+nmap <F8> :TagbarToggle<CR>
+nmap <C-O> :pc<CR>
+
+nmap  <C-I> <Plug>IndentGuidesToggle

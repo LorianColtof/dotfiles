@@ -169,7 +169,7 @@ bindsym $mod+C exec "nm-connection-editor"
 bindsym Mod4+F5 exec "brightness -"
 bindsym Mod4+F6 exec "brightness +"
 
-bindsym Mod4+L exec i3lock -g
+bindsym Mod4+L exec "/home/lorian/Dropbox/dotfiles/i3/lock.sh" 
 
 bindsym $mod+Shift+F exec quickswitch.py -d "dmenu -i -l 20"
 bindsym $mod+B exec "chrome"
@@ -228,7 +228,7 @@ exec --no-startup-id /home/lorian/Dropbox/dotfiles/i3/setup_background.sh
 exec --no-startup-id nm-applet
 exec --no-startup-id dropbox start
 #exec --no-startup-id skype
-exec xautolock -time 15 -locker "i3lock -g" &
+exec xautolock -time 15 -locker "/home/lorian/Dropbox/dotfiles/i3/lock.sh"
 #exec --no-startup-id "/home/lorian/uvavpn_trayicon/uvavpn_trayicon"
 #exec --no-startup-id bash -c "sleep 10; redshift-gtk"
 exec redshift-gtk

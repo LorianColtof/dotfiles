@@ -38,6 +38,8 @@ Plugin 'airblade/vim-gitgutter'
 
 Plugin 'rhlobo/vim-super-retab'
 
+Plugin 'scrooloose/nerdtree'
+
 call vundle#end()
 
 " Brief help

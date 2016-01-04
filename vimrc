@@ -40,6 +40,8 @@ Plugin 'rhlobo/vim-super-retab'
 
 Plugin 'scrooloose/nerdtree'
 
+Plugin 'PotatoesMaster/i3-vim-syntax'
+
 call vundle#end()
 
 " Brief help

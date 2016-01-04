@@ -1,4 +1,5 @@
 from i3pystatus import Status
+import os
 
 status = Status(standalone=True)
 
@@ -6,7 +7,7 @@ status = Status(standalone=True)
 # Tue 30 Jul 11:59:46 PM Week 31
 #                          ^-- calendar week
 status.register("clock",
-    format="%a %-d %b %T Week %V",
+    format="%a %-d %b %Y %T Week %V",
 )
 
 # Show CPU usage bar
@@ -17,10 +18,11 @@ status.register("cpu_usage_bar",
 status.register("temp",
     format="{temp:.0f}°C",)
 
-status.register("backlight",
-	format="Backlight: {percentage}%",
-	backlight="intel_backlight"
-	)
+if os.path.isdir("/sys/class/backlight/intel_backlight"):
+	status.register("backlight",
+		format="Backlight: {percentage}%",
+		backlight="intel_backlight"
+		)
 
 
 # The battery monitor has many formatting options, see README for details
@@ -34,17 +36,18 @@ status.register("backlight",
 # goes below 5 percent while discharging. The block will also color RED.
 # If you don't have a desktop notification demon yet, take a look at dunst:
 #   http://www.knopwob.org/dunst/
-status.register("battery",
-    format="{status} |{bar_design}| {percentage_design:.0f}% {remaining:%E%hh:%Mm} {consumption:.2f}W",
-	not_present_text="(no battery)",
-    alert=True,
-    alert_percentage=4,
-	color='#4b6dff',
-    status={
-        "DIS": "↓",
-        "CHR": "↑",
-        "FULL": "=",
-    },)
+if os.path.isdir("/sys/class/power_supply/BAT0"):
+	status.register("battery",
+		format="{status} |{bar_design}| {percentage_design:.0f}% {remaining:%E%hh:%Mm} {consumption:.2f}W",
+		not_present_text="(no battery)",
+		alert=True,
+		alert_percentage=4,
+		color='#4b6dff',
+		status={
+			"DIS": "↓",
+			"CHR": "↑",
+			"FULL": "=",
+		},)
 
 # Shows the address and up/down state of eth0. If it is up the address is shown in
 # green (the default value of color_up) and the CIDR-address is shown

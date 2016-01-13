@@ -6,6 +6,7 @@ if has("syntax")
   syntax on
 endif
 
+
 " -------------------------- Plugins --------------------------
 
 " set the runtime path to include Vundle and initialize
@@ -22,7 +23,7 @@ Plugin 'Valloric/YouCompleteMe'
 
 Plugin 'plasticboy/vim-markdown'
 
-Plugin 'dag/vim2hs'
+Plugin 'neovimhaskell/haskell-vim'
 
 Plugin 'haya14busa/incsearch.vim'
 
@@ -42,7 +43,15 @@ Plugin 'scrooloose/nerdtree'
 
 Plugin 'PotatoesMaster/i3-vim-syntax'
 
+Plugin 'scrooloose/nerdcommenter'
+
+Plugin 'honza/vim-snippets'
+
+Plugin 'SirVer/ultisnips'
+
 call vundle#end()
+
+filetype plugin indent on
 
 " Brief help
 " :PluginList		- lists configured plugins
@@ -84,7 +93,7 @@ endif
 " -------------------------- Keymaps --------------------------
 
 " Toggle tagbar
-nmap <silent> <C-c> :TagbarToggle<CR>
+nmap <silent> <C-v> :TagbarToggle<CR>
 
 " Close scratch
 nmap <silent> <C-O> :pc<CR>
@@ -96,7 +105,8 @@ nmap  <silent> <C-I> <Plug>IndentGuidesToggle
 map <NL> :make<CR>
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
-nnoremap <silent> <C-l> :nohl<CR><C-l>
+"nnoremap <silent> <C-s> :nohl<CR>
+nnoremap <C-s> :nohl<CR>
 
 " Make < > shifts keep selection
 vnoremap < <gv
@@ -120,6 +130,25 @@ map g# <Plug>(incsearch-nohl-g#)
 nnoremap <silent> <leader>c :call g:ToggleColorColumn()<CR>
 
 nmap <silent> <C-T> :RetabIndent<CR>
+
+nmap <silent> <C-G> :!grunt screeps<CR>
+
+
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+noremap <C-up> <C-w>k
+noremap <C-down> <C-w>j
+noremap <C-left> <C-w>h
+noremap <C-right> <C-w>l
+
+"Easier comment toggle
+map <C-_> <plug>NERDCommenterToggle
+vmap <C-_> <plug>NERDCommenterToggle<CR>gv
+
+" imap <NL> <Plug>snipMateTrigger
 
 " -------------------------- Colors --------------------------
 
@@ -158,6 +187,10 @@ endfunction
 
 execute 'hi ColorColumn ctermbg='.(s:column_limit_color)
 
+" Better split window opening
+set splitbelow
+set splitright
+
 
 " -------------------------- Other settings --------------------------
 
@@ -168,9 +201,17 @@ set mouse=a		" Enable mouse usage (all modes)
 
 set backspace=2				" Make backspace work
 set number					" Always show line numbers
+
+set autoindent
 set smartindent
+set expandtab
 set tabstop=4
+set softtabstop=4
 set shiftwidth=4
+set smarttab
+"set breakindent
+
+
 
 set clipboard=unnamedplus	" Use the X clipboard
 
@@ -209,4 +250,14 @@ set termencoding=utf-8
 let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
 
 let g:tagbar_autofocus=1		" Autofocus on the tagbar when it is opened.
+let g:syntastic_javascript_checkers = ['jsxhint']
+
+let g:UltiSnipsUsePythonVersion = 2
+let g:UltiSnipsExpandTrigger="<c-f>"
+let g:UltiSnipsListSnippets="<c-a>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+
+
 

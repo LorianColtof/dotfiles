@@ -40,7 +40,7 @@ if os.path.isdir("/sys/class/power_supply/BAT0"):
 	status.register("battery",
 		format="{status} |{bar_design}| {percentage_design:.0f}% {remaining:%E%hh:%Mm} {consumption:.2f}W",
 		not_present_text="(no battery)",
-		alert=True,
+		alert=False,
 		alert_percentage=4,
 		color='#4b6dff',
 		status={

@@ -212,17 +212,17 @@ bar {
 #}
 
 for_window [title="Guake!"] floating enable
-for_window [title=".+Google Chrome"] border pixel 1
 for_window [instance="truecrypt"] floating enable
 for_window [instance="lxappearance"] floating enable
 for_window [instance="gnome-terminal"] border pixel 1
 for_window [instance="gnome-terminal" title="Editing Profile .*"] border normal
 for_window [title="Quit i3"] floating enable border none
-for_window [instance="Telegram"] border none
+for_window [class="(T|t)elegram"] border none
 for_window [title="Authenticate"] border none
+for_window [class="Photoshop.exe"] border none
 
 assign [class="Telegram"] $1
-assign [class="(google-chrome)|(Chrome)"] $2
+#assign [class="(google-chrome)|(Chrome)"] $2
 
 
 exec --no-startup-id gnome-settings-daemon

@@ -163,6 +163,8 @@ hi CursorLine cterm=NONE ctermbg=7
 " Visual selection color
 hi Visual ctermbg=244
 
+hi SyntasticError ctermfg=232 ctermbg=160
+
 " Indent guide colors
 let g:indent_guides_auto_colors = 0
 hi IndentGuidesOdd	ctermbg=240
@@ -251,6 +253,8 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
 
 let g:tagbar_autofocus=1		" Autofocus on the tagbar when it is opened.
 let g:syntastic_javascript_checkers = ['jsxhint']
+let g:syntastic_python_checkers = ['python', 'pyflakes'] ", 'pep8']
+let g:syntastic_python_flake8_args='--ignore=E501'
 
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsExpandTrigger="<c-f>"

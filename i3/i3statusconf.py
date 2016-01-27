@@ -57,7 +57,7 @@ if os.path.isdir("/sys/class/power_supply/BAT0"):
 #
 # Note: the network module requires PyPI package netifaces
 status.register("network",
-    interface="eth0",
+    interface="enp3s0",
 	format_down="{interface}",
     format_up="{interface}: {v4cidr}",)
 
@@ -79,8 +79,8 @@ status.register("disk",
 # Note: requires libpulseaudio from PyPI
 status.register("pulseaudio",
     format="{muted} ♪ {volume}%",
-	muted=" (muted)"
-	)
+    muted=" (muted)"
+)
 
 
 status.run()

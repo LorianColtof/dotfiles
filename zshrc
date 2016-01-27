@@ -69,3 +69,8 @@ alias loadrc="source ~/.zshrc"
 
 
 setopt NO_HUP
+
+
+bindkey "${terminfo[khome]}" beginning-of-line
+bindkey "${terminfo[kend]}" end-of-line
+

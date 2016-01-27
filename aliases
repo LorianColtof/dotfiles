@@ -1,6 +1,7 @@
 #!/bin/bash
 alias ls='ls --color=auto'
 alias ll='ls -al'
+alias grep='grep --color=auto'
 alias gs='git status'
 alias cduva='cd /home/lorian/Dropbox/UvA/'
 alias cdssl='cd /home/lorian/Dropbox/SSL-Leiden/'
@@ -12,7 +13,6 @@ alias copy="xclip -selection c"
 
 alias clearl="clear;ls -l"
 alias wine32="WINEPREFIX=~/.wine32 wine"
-alias sudo='sudo env PATH=$PATH'
 
 alias uvavpn="sudo /opt/uvavpn/ncsvc -h uvavpn.uva.nl -u 10769153 -r users -f /opt/uvavpn/certificaat-uvavpn.der"
 

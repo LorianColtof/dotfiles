@@ -26,6 +26,11 @@ set $mod Mod1
 #font pango:DejaVu Sans Mono 10
 #096BAA
 
+
+# Set path of config file, so we can easily execute scripts from this directory
+set $confpath /home/lorian/Dropbox/arch-dotfiles/i3
+
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -131,7 +136,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "/home/lorian/Dropbox/dotfiles/i3/exit_terminal.sh"
+bindsym $mod+Shift+e exec $confpath/exit_terminal.sh
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -162,9 +167,9 @@ bindsym $mod+r mode "resize"
 bindsym $mod+p focus parent
 bindsym $mod+a focus child
 
-#bindsym XF86AudioRaiseVolume exec ~/.i3/sound +
-#bindsym XF86AudioLowerVolume exec ~/.i3/sound -
-#bindsym XF86AudioMute exec ~/.i3/sound togglemute
+bindsym XF86AudioRaiseVolume exec $confpath/sound +
+bindsym XF86AudioLowerVolume exec $confpath/sound -
+bindsym XF86AudioMute exec $confpath/sound togglemute
 
 #bindsym XF86KbdBrightnessDown exec ~/.i3/keyboard_backlight down
 #bindsym XF86KbdBrightnessUp exec ~/.i3/keyboard_backlight up
@@ -174,23 +179,24 @@ bindsym $mod+C exec "nm-connection-editor"
 bindsym Mod4+F5 exec "brightness -"
 bindsym Mod4+F6 exec "brightness +"
 
-bindsym Mod4+L exec "/home/lorian/Dropbox/dotfiles/i3/lock.sh"
+bindsym Mod4+L exec $confpath/lock.sh
 
 bindsym $mod+Shift+F exec quickswitch.py -d "dmenu -i -l 20"
 bindsym $mod+B exec "chrome"
 
-bindcode 248 exec /home/lorian/Dropbox/dotfiles/i3/start_arandr.py
+bindcode 248 exec $confpath/start_arandr.py
 
-bindsym $mod+Shift+N exec nemo
+bindsym $mod+Shift+N exec nautilus
 
 
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 font pango:DejaVu Sans Mono 10
+#font pango:Monospace 10
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	status_command python3 /home/lorian/Dropbox/dotfiles/i3/i3statusconf.py
+	status_command python3 $confpath/i3statusconf.py
     font pango:Monospace 10
 	colors {
 		separator #666666
@@ -220,21 +226,20 @@ for_window [title="Quit i3"] floating enable border none
 for_window [class="(T|t)elegram"] border none
 for_window [title="Authenticate"] border none
 for_window [class="Photoshop.exe"] border none
-
+for_window [class="Termite"] border pixel 1
 assign [class="Telegram"] $1
 #assign [class="(google-chrome)|(Chrome)"] $2
 
 
 exec --no-startup-id gnome-settings-daemon
-exec --no-startup-id  /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id telegram
 exec --no-startup-id chrome
-# exec --no-startup-id xrandr --output HDMI1 --auto --left-of VGA1
-exec --no-startup-id /home/lorian/Dropbox/dotfiles/i3/setup_background.sh
+exec --no-startup-id $confpath/setup_background.sh
 exec --no-startup-id nm-applet
 exec --no-startup-id dropbox start
 #exec --no-startup-id skype
-exec xautolock -time 15 -locker "/home/lorian/Dropbox/dotfiles/i3/lock.sh"
+exec xautolock -time 15 -locker "$confpath/lock.sh"
 #exec --no-startup-id "/home/lorian/uvavpn_trayicon/uvavpn_trayicon"
 #exec --no-startup-id bash -c "sleep 10; redshift-gtk"
 exec redshift-gtk

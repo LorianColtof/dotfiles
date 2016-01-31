@@ -22,6 +22,6 @@ alias viminstallplugins="vim -c PluginInstall"
 alias ssldeclaraties='nemo /home/lorian/Dropbox/SSL-Leiden/Declaraties & 2> /dev/null'
 
 alias cddotfiles="cd /home/lorian/Dropbox/dotfiles/"
-
+alias sudo='sudo -E'
 
 

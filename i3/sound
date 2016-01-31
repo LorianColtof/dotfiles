@@ -1,45 +1,39 @@
 #!/usr/bin/env python
-import os
+import shutil
+import subprocess
 import sys
 
-def readLines(cmd):
-	return os.popen(cmd).read().split('\n')
 
-def setMuted(channel, muted):
-	s = "mute"
-	if not muted:
-		s = "unmuted"
-	os.system("amixer -c 1 set {0} {1}".format(channel, s))
-def isMuted(channel):
-	return readLines('amixer -c 1 get {0}'.format(channel))[-2].endswith('[off]')
+class SoundController:
+    has_amixer = False
 
-def mute():
-	setMuted("Master", True)
-	setMuted("Headphone", True)
-	setMuted("Speaker", True)
+    step = 5
+    currently_muted = False
 
-def unmute():
-	setMuted("Master", False)
-	setMuted("Headphone", False)
-	setMuted("Speaker", False)
+    def __init__(self):
+        self.has_amixer = shutil.which('alsamixer') is not None
 
-def toggleMuted():
-	if not isMuted("Master"):
-		mute()
-	else:
-		unmute()
-def up():
-	unmute()
-	os.system("amixer -c 1 -q set Master 2dB+ unmute")
-def down():
-	unmute()
-	os.system("amixer -c 1 -q set Master 2dB- unmute")
+    def switch_mute(self):
+        if self.has_amixer:
+            command = "amixer -q -D pulse sset Master 1+ toggle"
+            subprocess.run(command.split())
+
+    def increase_volume(self):
+        if self.has_amixer:
+            command = "amixer -q -D pulse sset Master %s%%+" % self.step
+            subprocess.run(command.split())
+
+    def decrease_volume(self):
+        if self.has_amixer:
+            command = "amixer -q -D pulse sset Master %s%%-" % self.step
+            subprocess.run(command.split())
 
 if __name__ == "__main__":
-	if sys.argv[1] == "+":
-		up()
-	elif sys.argv[1] == "-":
-		down()
-	elif sys.argv[1] == "togglemute":
-		toggleMuted()
-	os.system("killall -s SIGUSR1 python3")
+    c = SoundController()
+
+    if sys.argv[1] == "+":
+        c.increase_volume()
+    elif sys.argv[1] == "-":
+        c.decrease_volume()
+    elif sys.argv[1] == "togglemute":
+        c.switch_mute()

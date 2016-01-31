@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 # Topmenu and the submenus are based of the example found at this location http://blog.skeltonnetworks.com/2010/03/python-curses-custom-menu/
 # The rest of the work was done by Matthew Bennett and he requests you keep these two mentions when you reuse the code :-)
@@ -30,7 +30,7 @@ curses.use_default_colors()
 curses.init_pair(1, curses.COLOR_GREEN, -1)
 
 #n = curses.color_pair(1)
-n = curses.A_NORMAL 
+n = curses.A_NORMAL
 h = n | curses.A_REVERSE | curses.A_BOLD
 
 #n is the coloring for a non highlighted menu option
@@ -67,7 +67,7 @@ def shutdown_action():
 	return False
 
 menu_data = {
-	'type': MENU, 
+	'type': MENU,
 	'title': " Please select an option ",
 	'options':[
 					{'title': "Cancel", 'type': EXITMENU},
@@ -87,7 +87,7 @@ def runmenu(menu, parent):
 	pos=0 #pos is the zero-based index of the hightlighted menu option. Every time runmenu is called, position returns to 0, when runmenu ends the position is returned and tells the program what opt$
 	oldpos=None # used to prevent the screen being redrawn every time
 	x = None #control for while loop, let's you scroll through options until return key is pressed then returns pos to program
-	
+
 	(max_y, max_x) = screen.getmaxyx()
 
 	# Loop until return key is pressed
@@ -95,7 +95,7 @@ def runmenu(menu, parent):
 		if pos != oldpos:
 			oldpos = pos
 			screen.border(0)
-			screen.addstr(0, (max_x - len(menu['title']))/2, menu['title'], curses.A_BOLD) 
+			screen.addstr(0, (max_x - len(menu['title']))/2, menu['title'], curses.A_BOLD)
 
 			# Display all the menu items, showing the 'pos' item highlighted
 			for index in range(optioncount):
@@ -154,10 +154,10 @@ def confirmation(action):
 	title = "{0}: Are you sure?".format(action)
 
 
-	pos=1 
+	pos=1
 	oldpos=None # used to prevent the screen being redrawn every time
 	x = None #control for while loop, let's you scroll through options until return key is pressed then returns pos to program
-	
+
 	(max_y, max_x) = screen.getmaxyx()
 
 	# Loop until return key is pressed
@@ -165,7 +165,7 @@ def confirmation(action):
 		if pos != oldpos:
 			oldpos = pos
 			screen.border(0)
-			screen.addstr(0, (max_x - len(title))/2, title, curses.A_BOLD) 
+			screen.addstr(0, (max_x - len(title))/2, title, curses.A_BOLD)
 
 			# Display all the menu items, showing the 'pos' item highlighted
 			screen.addstr(max_y/2, 10, "Yes", h if pos == 0 else n)
@@ -177,14 +177,14 @@ def confirmation(action):
 		x = screen.getch() # Gets user input
 
 		# What is user input?
-		
-		if x == curses.KEY_LEFT: 
+
+		if x == curses.KEY_LEFT:
 			pos = 0
 		elif x == curses.KEY_RIGHT:
 			pos = 1
 		elif x == 27:
 			return 0
-		
+
 
 	# return index of the selected item
 	return pos == 0

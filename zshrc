@@ -67,5 +67,6 @@ source $_SCRIPTDIR/env
 
 alias loadrc="source ~/.zshrc"
 
-
 setopt NO_HUP
+
+source $_SCRIPTDIR/agnoster.zsh-theme

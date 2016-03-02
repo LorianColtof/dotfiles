@@ -24,4 +24,4 @@ alias ssldeclaraties='nemo /home/lorian/Dropbox/SSL-Leiden/Declaraties & 2> /dev
 alias cddotfiles="cd /home/lorian/Dropbox/arch-dotfiles/"
 alias sudo='sudo -E'
 
-
+alias xdg-open='DE=gnome xdg-open'

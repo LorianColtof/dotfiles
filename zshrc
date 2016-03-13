@@ -1,27 +1,22 @@
 _SCRIPTDIR=$(cd $(dirname $0);echo $PWD)
 
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
+[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 GIT_PROMPT_EXECUTABLE="haskell"
 source /home/lorian/Dropbox/zsh-git-prompt/zshrc.sh
 
 # Set up the prompt
-RIGHT_PROMPT='$(git_super_status) %F{blue}[$(date +"%d-%m-%Y-%T")]'
+RPROMPT='$(git_super_status)' # '%F{blue}[$(date +"%d-%m-%Y-%T")]'
 
 export EDITOR=vim
 bindkey -v
 export KEYTIMEOUT=1
 
-function zle-line-init zle-keymap-select {
-    VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
-    RPROMPT="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$RIGHT_PROMPT"
-    zle reset-prompt
-}
 function precmd () {
 	print -Pn "\e]2;%n@%M | %~\a"
 }
-
-zle -N zle-line-init
-zle -N zle-keymap-select
 
 autoload -Uz promptinit
 promptinit
@@ -70,3 +65,4 @@ alias loadrc="source ~/.zshrc"
 setopt NO_HUP
 
 source $_SCRIPTDIR/agnoster.zsh-theme
+source /etc/profile.d/vte.sh

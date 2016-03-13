@@ -23,5 +23,4 @@ alias ssldeclaraties='nemo /home/lorian/Dropbox/SSL-Leiden/Declaraties & 2> /dev
 
 alias cddotfiles="cd /home/lorian/Dropbox/dotfiles/"
 
-
-
+alias venvactivate="source ./venv/bin/activate.zsh"

@@ -29,7 +29,7 @@ Plugin 'haya14busa/incsearch.vim'
 
 Plugin 'bling/vim-airline'
 
-Plugin 'altercation/vim-colors-solarized'
+Plugin 'vim-airline/vim-airline-themes'
 
 Plugin 'hynek/vim-python-pep8-indent'
 
@@ -48,6 +48,10 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'honza/vim-snippets'
 
 Plugin 'SirVer/ultisnips'
+
+Plugin 'chriskempson/base16-vim'
+
+Plugin 'ctrlpvim/ctrlp.vim'
 
 call vundle#end()
 
@@ -90,6 +94,8 @@ if exists("+undofile")
   set undofile
 endif
 
+" Don't clear clipboard on close
+autocmd VimLeave * call system("xclip -selection c", getreg('+'))
 " -------------------------- Keymaps --------------------------
 
 " Toggle tagbar
@@ -150,18 +156,30 @@ vmap <C-_> <plug>NERDCommenterToggle<CR>gv
 
 " imap <NL> <Plug>snipMateTrigger
 
+"map <C-S-W> za
+
+inoremap # x<BS>#
+
 " -------------------------- Colors --------------------------
 
 set background=dark			" Terminal background is dark
-colorscheme peachpuff		" Peachpuff color scheme
-set t_Co=256				" Set color scheme to 256
+"colorscheme peachpuff		" Peachpuff color scheme
+"set t_Co=256				" Set color scheme to 256
+set t_Co=256
+let base16colorspace=256
+colorscheme base16-default
+
+"set background=dark			" Terminal background is dark
+"set t_Co=256				" Set color scheme to 256
+"let base16colorspace=256
+"colorscheme base16-default
 
 " Highlight cursor line
 set cursorline
-hi CursorLine cterm=NONE ctermbg=7
+"hi CursorLine cterm=NONE ctermbg=7
 
 " Visual selection color
-hi Visual ctermbg=244
+"hi Visual ctermbg=244
 
 hi SyntasticError ctermfg=232 ctermbg=160
 
@@ -213,7 +231,10 @@ set shiftwidth=4
 set smarttab
 "set breakindent
 
+set foldmethod=indent
+set foldnestmax=1
 
+set wildmenu
 
 set clipboard=unnamedplus	" Use the X clipboard
 
@@ -253,15 +274,12 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
 
 let g:tagbar_autofocus=1		" Autofocus on the tagbar when it is opened.
 let g:syntastic_javascript_checkers = ['jsxhint']
-let g:syntastic_python_checkers = ['python', 'pyflakes'] ", 'pep8']
-let g:syntastic_python_flake8_args='--ignore=E501'
+let g:syntastic_python_checkers = ['python', 'pyflakes', 'pep8']
+"let g:syntastic_python_pep8_args='--ignore=E501'
 
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsExpandTrigger="<c-f>"
 let g:UltiSnipsListSnippets="<c-a>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-
-
-
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'

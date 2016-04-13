@@ -2,7 +2,9 @@
 import shutil
 import subprocess
 import sys
+import re
 
+VOLUME_REGEX = re.compile(r"Front Left:.+\[(\d+)%\]\s\[((on)|(off))\]")
 
 class SoundController:
     has_amixer = False
@@ -28,6 +30,18 @@ class SoundController:
             command = "amixer -q -D pulse sset Master %s%%-" % self.step
             subprocess.run(command.split())
 
+    def get_volume(self):
+        if self.has_amixer:
+            command = "amixer -D pulse get Master"
+            proc = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+            out, err = proc.communicate()
+            for line in out.decode("utf-8").split("\n"):
+                m = VOLUME_REGEX.match(line.strip())
+                if m:
+                    return int(m.group(1)), m.group(2) == 'off'
+
+            return None
+
 if __name__ == "__main__":
     c = SoundController()
 
@@ -39,3 +53,8 @@ if __name__ == "__main__":
         c.switch_mute()
 
     subprocess.run(["pkill", "-SIGUSR1", "-f", "python3 .+/i3statusconf\.py"])
+    vol, muted = c.get_volume()
+    subprocess.run("volnoti-show{} {}".format(" -m" if muted else "", vol).split())
+    subprocess.run(["mplayer",
+                    "/usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"])
+

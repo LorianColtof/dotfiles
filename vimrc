@@ -29,6 +29,8 @@ Plugin 'haya14busa/incsearch.vim'
 
 Plugin 'bling/vim-airline'
 
+Plugin 'vim-airline/vim-airline-themes'
+
 Plugin 'hynek/vim-python-pep8-indent'
 
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -48,6 +50,8 @@ Plugin 'honza/vim-snippets'
 Plugin 'SirVer/ultisnips'
 
 Plugin 'chriskempson/base16-vim'
+
+Plugin 'ctrlpvim/ctrlp.vim'
 
 call vundle#end()
 
@@ -90,6 +94,8 @@ if exists("+undofile")
   set undofile
 endif
 
+" Don't clear clipboard on close
+autocmd VimLeave * call system("xclip -selection c", getreg('+'))
 " -------------------------- Keymaps --------------------------
 
 " Toggle tagbar
@@ -149,6 +155,8 @@ map <C-_> <plug>NERDCommenterToggle
 vmap <C-_> <plug>NERDCommenterToggle<CR>gv
 
 " imap <NL> <Plug>snipMateTrigger
+
+inoremap # z<BS>#
 
 " -------------------------- Colors --------------------------
 
@@ -213,7 +221,10 @@ set shiftwidth=4
 set smarttab
 "set breakindent
 
+set foldmethod=indent
+set foldnestmax=1
 
+set wildmenu
 
 set clipboard=unnamedplus	" Use the X clipboard
 
@@ -254,10 +265,12 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
 let g:tagbar_autofocus=1		" Autofocus on the tagbar when it is opened.
 let g:syntastic_javascript_checkers = ['jsxhint']
 let g:syntastic_python_checkers = ['python', 'pyflakes', 'pep8']
-let g:syntastic_python_flake8_args='--ignore=E501'
+"let g:syntastic_python_flake8_args='--ignore=E501'
 
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsExpandTrigger="<c-f>"
 let g:UltiSnipsListSnippets="<c-a>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'

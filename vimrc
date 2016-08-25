@@ -53,6 +53,8 @@ Plugin 'chriskempson/base16-vim'
 
 Plugin 'ctrlpvim/ctrlp.vim'
 
+Plugin 'tpope/vim-fugitive'
+
 call vundle#end()
 
 filetype plugin indent on
@@ -108,7 +110,7 @@ nmap <silent> <C-O> :pc<CR>
 nmap  <silent> <C-I> <Plug>IndentGuidesToggle
 
 " <Ctrl+Enter> to run make
-map <NL> :make<CR>
+noremap <NL> :make<CR>
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 "nnoremap <silent> <C-s> :nohl<CR>
@@ -137,7 +139,8 @@ nnoremap <silent> <leader>c :call g:ToggleColorColumn()<CR>
 
 nmap <silent> <C-T> :RetabIndent<CR>
 
-nmap <silent> <C-G> :!grunt screeps<CR>
+"nmap <silent> <C-G> :!grunt screeps<CR>
+nmap <silent> <C-G> :make<CR>
 
 
 noremap <C-h> <C-w>h
@@ -158,12 +161,20 @@ vmap <C-_> <plug>NERDCommenterToggle<CR>gv
 
 inoremap # z<BS>#
 
+noremap <Up> <Nop>
+"noremap <Down> <Nop>
+"noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+"Move blocks of text up and down with the arrow keys
+vnoremap <silent> <down> :m '>+1<CR>gv=gv
+vnoremap <silent> <up> :m '<-2<CR>gv=gv
 " -------------------------- Colors --------------------------
 
 set background=dark			" Terminal background is dark
 set t_Co=256				" Set color scheme to 256
 let base16colorspace=256
-colorscheme base16-default
+colorscheme base16-default-dark
 
 " Highlight cursor line
 set cursorline
@@ -222,12 +233,14 @@ set smarttab
 "set breakindent
 
 set foldmethod=indent
-set foldnestmax=1
+set foldnestmax=2
 
 set wildmenu
 
 set clipboard=unnamedplus	" Use the X clipboard
 
+" BASH
+"set shell=bash
 
 set so=10					" Set scroll limit
 

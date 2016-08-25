@@ -16,7 +16,7 @@ source /home/lorian/Dropbox/zsh-git-prompt/zshrc.sh
 
 zstyle ':prompt:grml:right:setup' use-rprompt false
 # Set up the prompt
-RIGHT_PROMPT='$(git_super_status) %F{blue}[$(date +"%d-%m-%Y-%T")]'
+RIGHT_PROMPT='$(git_super_status)' # %F{blue}[$(date +"%d-%m-%Y-%T")]'
 
 RPROMPT=$RIGHT_PROMPT
 
@@ -65,7 +65,9 @@ HISTFILE=~/.zsh_history
 
 #zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 #zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-#zstyle ':completion:*' menu select
+zstyle ':completion:*' menu select
+
+export PATH=$PATH:/home/lorian/.gem/ruby/2.3.0/bin/
 
 source $_SCRIPTDIR/aliases
 source $_SCRIPTDIR/env
@@ -77,4 +79,5 @@ alias loadrc="source ~/.zshrc"
 setopt NO_HUP
 
 source $_SCRIPTDIR/agnoster.zsh-theme
-
+source $_SCRIPTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /etc/profile.d/vte.sh

@@ -11,10 +11,10 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 # Alt
-set $mod Mod1
+#set $mod Mod1
 
 # Super key
-#set $mod Mod4
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
@@ -45,7 +45,7 @@ bindsym $mod+d exec rofi -show run -run-shell-command "{terminal} -e 'zsh -i -c 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
- bindsym $mod+shift+d exec i3-dmenu-desktop --dmenu="rofi -dmenu"
+ bindsym $mod+shift+d exec i3-dmenu-desktop --dmenu="rofi -i -dmenu"
 
 # change focus
 bindsym $mod+j focus left
@@ -179,9 +179,10 @@ bindsym $mod+C exec "nm-connection-editor"
 bindsym Mod4+F5 exec "brightness -"
 bindsym Mod4+F6 exec "brightness +"
 
-bindsym Mod4+L exec $confpath/lock.sh
+bindsym Ctrl+Alt+L exec $confpath/lock.sh
 
 bindsym $mod+Shift+F exec rofi -show window
+bindsym $mod+Shift+S exec $confpath/rofi_ssh.sh
 bindsym $mod+B exec "chrome"
 
 bindcode 248 exec $confpath/start_arandr.py
@@ -194,18 +195,18 @@ font pango:DejaVu Sans Mono 9
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	status_command python3 $confpath/i3statusconf.py
+    status_command python3 $confpath/i3statusconf.py
     font pango:DejaVu Sans Mono 9
-	colors {
-		separator #666666
-		background #222222
-		statusline #dddddd
-		focused_workspace #0088CC #0088CC #ffffff
-		active_workspace #333333 #333333 #ffffff
-		inactive_workspace #333333 #333333 #888888
-		urgent_workspace #2f343a #900000 #ffffff
-	}
-	tray_output primary
+    colors {
+        separator #666666
+        background #222222
+        statusline #dddddd
+        focused_workspace #0088CC #0088CC #ffffff
+        active_workspace #333333 #333333 #ffffff
+        inactive_workspace #333333 #333333 #888888
+        urgent_workspace #2f343a #900000 #ffffff
+    }
+    tray_output all
 }
 
 #bar {
@@ -221,7 +222,7 @@ for_window [instance="lxappearance"] floating enable
 for_window [instance="gnome-terminal"] border pixel 1
 for_window [instance="gnome-terminal" title="Editing Profile .*"] border normal
 for_window [class="(T|t)elegram"] border none
-for_window [title="Authenticate"] border none
+for_window [title="^Authenticate$"] border none
 for_window [class="Photoshop.exe"] border none
 for_window [class="Termite"] border pixel 1
 for_window [title="Quit i3"] floating enable border none
@@ -241,6 +242,7 @@ exec xautolock -time 15 -locker "$confpath/lock.sh"
 #exec --no-startup-id "/home/lorian/uvavpn_trayicon/uvavpn_trayicon"
 #exec --no-startup-id bash -c "sleep 10; redshift-gtk"
 exec redshift-gtk
+exec --no-startup-id volnoti
 
 client.focused #0088CC #0088CC #ffffff #dddddd
 client.focused_inactive #333333 #333333 #888888 #292d2e

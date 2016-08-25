@@ -25,3 +25,28 @@ alias cddotfiles="cd /home/lorian/Dropbox/arch-dotfiles/"
 alias sudo='sudo -E'
 
 alias xdg-open='DE=gnome xdg-open'
+alias mountstack="sudo mount -t davfs https://loriancoltof.stackstorage.com/remote.php/webdav/ /mnt/stack"
+
+alias venvactivate="source venv-arch/bin/activate.zsh"
+
+#venvactivate() {
+    #if [ -d ./venv ]; then
+        #if type deactivate &> /dev/null; then
+            #deactivate
+        #fi
+        #unlink ./venv
+    #fi
+    #ln -s ./venv-arch venv
+    #source ./venv/bin/activate.zsh
+    #echo "Virtual environment activated"
+#}
+
+#venvdeactivate() {
+    #if [ ! -d ./venv ]; then
+        #echo "Virtual environment is not activated"
+    #else
+        #deactivate
+        #unlink ./venv
+        #echo "Virtual environment deactivated"
+    #fi
+#}

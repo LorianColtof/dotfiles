@@ -1,45 +1,54 @@
 #!/usr/bin/env python
-import os
+import shutil
+import subprocess
 import sys
 
-def readLines(cmd):
-	return os.popen(cmd).read().split('\n')
+class SoundController:
+    def __init__(self):
+        self.has_pulseaudio_ctl = shutil.which('pulseaudio-ctl') is not None
+        if not self.has_pulseaudio_ctl:
+            sys.stderr.write('pulseaudio-ctl is not installed')
 
-def setMuted(channel, muted):
-	s = "mute"
-	if not muted:
-		s = "unmuted"
-	os.system("amixer -c 1 set {0} {1}".format(channel, s))
-def isMuted(channel):
-	return readLines('amixer -c 1 get {0}'.format(channel))[-2].endswith('[off]')
+    def toggle_mute(self):
+        if self.has_pulseaudio_ctl:
+            command = "pulseaudio-ctl mute"
+            subprocess.run(command.split())
 
-def mute():
-	setMuted("Master", True)
-	setMuted("Headphone", True)
-	setMuted("Speaker", True)
+    def increase_volume(self):
+        if self.has_pulseaudio_ctl:
+            command = "pulseaudio-ctl up"
+            subprocess.run(command.split())
 
-def unmute():
-	setMuted("Master", False)
-	setMuted("Headphone", False)
-	setMuted("Speaker", False)
+    def decrease_volume(self):
+        if self.has_pulseaudio_ctl:
+            command = "pulseaudio-ctl down"
+            subprocess.run(command.split())
 
-def toggleMuted():
-	if not isMuted("Master"):
-		mute()
-	else:
-		unmute()
-def up():
-	unmute()
-	os.system("amixer -c 1 -q set Master 2dB+ unmute")
-def down():
-	unmute()
-	os.system("amixer -c 1 -q set Master 2dB- unmute")
+    def get_volume(self):
+        if self.has_pulseaudio_ctl:
+            command = "pulseaudio-ctl full-status"
+            proc = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+            out, err = proc.communicate()
+            (volume, sink_mute, _) = out.split()
+
+            volume = int(volume.decode('utf-8'))
+            sink_mute = sink_mute == b'yes'
+
+            return (volume, sink_mute)
 
 if __name__ == "__main__":
-	if sys.argv[1] == "+":
-		up()
-	elif sys.argv[1] == "-":
-		down()
-	elif sys.argv[1] == "togglemute":
-		toggleMuted()
-	os.system("killall -s SIGUSR1 python3")
+    c = SoundController()
+
+    if sys.argv[1] == "up":
+        c.increase_volume()
+    elif sys.argv[1] == "down":
+        c.decrease_volume()
+    elif sys.argv[1] == "mute":
+        c.toggle_mute()
+
+    subprocess.run(["pkill", "-SIGUSR1", "-f", "python3 .+/i3statusconf\.py"])
+    vol, muted = c.get_volume()
+    subprocess.run("volnoti-show{} {}".format(" -m" if muted else "", vol).split())
+    subprocess.run(["mplayer",
+                    "/usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"])
+

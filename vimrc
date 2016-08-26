@@ -120,7 +120,8 @@ nmap <silent> <C-O> :pc<CR>
 " Toggle indent guides
 nmap  <silent> <C-I> <Plug>IndentGuidesToggle
 
-noremap <F2> :!make<CR>
+" <Ctrl+Enter> to run make
+noremap <NL> :make<CR>
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 "nnoremap <silent> <C-s> :nohl<CR>
@@ -149,7 +150,8 @@ nnoremap <silent> <leader>x :call g:ToggleColorColumn()<CR>
 
 nmap <silent> <C-T> :RetabIndent<CR>
 
-nmap <silent> <C-G> :!grunt screeps<CR>
+"nmap <silent> <C-G> :!grunt screeps<CR>
+nmap <silent> <C-G> :make<CR>
 
 
 noremap <C-h> <C-w>h
@@ -166,46 +168,25 @@ noremap <C-right> <C-w>l
 map <C-_> <plug>NERDCommenterToggle
 vmap <C-_> <plug>NERDCommenterToggle<CR>gv
 
-" imap <NL> <Plug>snipMateTrigger
-
-"map <C-S-W> za
-
 inoremap # x<BS>#
 
 noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
+"noremap <Down> <Nop>
+"noremap <Left> <Nop>
 noremap <Right> <Nop>
-inoremap  <Left>   <NOP>
-inoremap  <Right>  <NOP>
 
-call camelcasemotion#CreateMotionMappings('<leader>')
-"map <silent> w <Plug>CamelCaseMotion_w
-"map <silent> b <Plug>CamelCaseMotion_b
-"map <silent> e <Plug>CamelCaseMotion_e
-"map <silent> ge <Plug>CamelCaseMotion_ge
-"sunmap w
-"sunmap b
-"sunmap e
-"sunmap ge
-
+"Move blocks of text up and down with the arrow keys
+vnoremap <silent> <down> :m '>+1<CR>gv=gv
+vnoremap <silent> <up> :m '<-2<CR>gv=gv
 " -------------------------- Colors --------------------------
 
 set background=dark			" Terminal background is dark
-"colorscheme peachpuff		" Peachpuff color scheme
-"set t_Co=256				" Set color scheme to 256
-set t_Co=256
+set t_Co=256				" Set color scheme to 256
 let base16colorspace=256
 colorscheme base16-default-dark
 
-"set background=dark			" Terminal background is dark
-"set t_Co=256				" Set color scheme to 256
-"let base16colorspace=256
-"colorscheme base16-default
-
 " Highlight cursor line
 set cursorline
-"hi CursorLine cterm=NONE ctermbg=7
 
 " Visual selection color
 "hi Visual ctermbg=244
@@ -261,13 +242,10 @@ set smarttab
 "set breakindent
 
 set foldmethod=indent
-set foldnestmax=1
+set foldnestmax=2
 
 set wildmenu
-
 set clipboard=unnamedplus	" Use the X clipboard
-
-
 set so=10					" Set scroll limit
 
 " Line wrapping
@@ -308,14 +286,10 @@ let g:syntastic_javascript_checkers = ['jsxhint']
 let g:syntastic_python_checkers = ['python', 'flake8', 'pep8']
 let g:syntastic_python_pep8_args='--ignore=E114,E265'
 
-" let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsExpandTrigger="<c-f>"
 let g:UltiSnipsListSnippets="<c-a>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-
 let g:ycm_confirm_extra_conf = 0
-
-"set iskeyword-=_

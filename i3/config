@@ -26,7 +26,9 @@ set $mod Mod4
 #font pango:DejaVu Sans Mono 10
 #096BAA
 
-set $confpath /home/lorian/Dropbox/dotfiles/i3
+# Set path of config file, so we can easily execute scripts from this directory
+set $confpath /home/lorian/Dropbox/arch-dotfiles/i3
+
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -43,8 +45,7 @@ bindsym $mod+d exec rofi -show run -run-shell-command "{terminal} -e 'zsh -i -c 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+shift+d exec i3-dmenu-desktop --dmenu="rofi -dmenu -i" i3-dmenu-desktop
-
+ bindsym $mod+shift+d exec i3-dmenu-desktop --dmenu="rofi -i -dmenu"
 
 bindsym $mod+shift+s exec $confpath/runrofissh.sh
 # change focus
@@ -167,89 +168,78 @@ bindsym $mod+r mode "resize"
 bindsym $mod+p focus parent
 bindsym $mod+a focus child
 
-#bindsym XF86AudioRaiseVolume exec ~/Drobox/dotfiles/i3/sound +
-#bindsym XF86AudioLowerVolume exec ~/Drobox/dotfiles/i3/sound -
-#bindsym XF86AudioMute exec ~/Dropbox/dotfiles/i3/sound togglemute
+bindsym XF86AudioRaiseVolume exec $confpath/sound up
+bindsym XF86AudioLowerVolume exec $confpath/sound down
+bindsym XF86AudioMute exec $confpath/sound mute
 
-#bindsym XF86KbdBrightnessDown exec ~/.i3/keyboard_backlight down
-#bindsym XF86KbdBrightnessUp exec ~/.i3/keyboard_backlight up
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+bindsym XF86KbdBrightnessDown exec asus-kbd-backlight down
+bindsym XF86KbdBrightnessUp exec asus-kbd-backlight up
 
 bindsym $mod+C exec "nm-connection-editor"
 
 bindsym Mod4+F5 exec "brightness -"
 bindsym Mod4+F6 exec "brightness +"
 
-bindsym Ctrl+Mod1+L exec "$confpath/lock.sh"
+bindsym Ctrl+Mod1+L exec $confpath/lock.sh
 
-bindsym $mod+Shift+F exec  rofi -show window
+bindsym $mod+Shift+F exec rofi -show window
+bindsym $mod+Shift+S exec $confpath/rofi_ssh.sh
 bindsym $mod+B exec "chrome"
 
 bindcode 248 exec $confpath/start_arandr.py
 
-bindsym $mod+Shift+N exec nemo
+bindsym $mod+Shift+N exec nautilus
 
 
-#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-#font pango:DejaVu Sans Mono 10
-font pango:Monospace 10
+font pango:DejaVu Sans Mono 9
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	status_command python3 $confpath/i3statusconf.py
-    font pango:Monospace 10
-	colors {
-		separator #666666
-		background #222222
-		statusline #dddddd
-		focused_workspace #0088CC #0088CC #ffffff
-		active_workspace #333333 #333333 #ffffff
-		inactive_workspace #333333 #333333 #888888
-		urgent_workspace #2f343a #900000 #ffffff
-	}
-	#tray_output primary
+    status_command python3 $confpath/i3statusconf.py
+    font pango:DejaVu Sans Mono 9
+    colors {
+        separator #666666
+        background #222222
+        statusline #dddddd
+        focused_workspace #0088CC #0088CC #ffffff
+        active_workspace #333333 #333333 #ffffff
+        inactive_workspace #333333 #333333 #888888
+        urgent_workspace #2f343a #900000 #ffffff
+    }
 }
-
-#bar {
-#	status_command python3 /home/lorian/Dropbox/i3pystatus/i3statusconf.py
-#	position top
-#	workspace_buttons no
-#	tray_output none
-#}
 
 for_window [title="Guake!"] floating enable
 for_window [instance="truecrypt"] floating enable
 for_window [instance="lxappearance"] floating enable
 for_window [instance="gnome-terminal"] border pixel 1
 for_window [instance="gnome-terminal" title="Editing Profile .*"] border normal
-for_window [title="Quit i3"] floating enable border none
 for_window [class="(T|t)elegram"] border none
 for_window [title="^Authenticate$"] border none
 for_window [class="Photoshop.exe"] border none
-for_window [class="(Termite)|(X-terminal-emulator)"] border pixel 1
 for_window [class="Tk" title="Figure.*"] floating enable
 for_window [title="Box2D.*"] floating enable
 for_window [title="screenkey"] floating enable
-
+for_window [class="Termite"] border pixel 1
+for_window [title="Quit i3"] floating enable border none
 assign [class="Telegram"] $1
-#assign [class="(google-chrome)|(Chrome)"] $2
 
 
-exec --no-startup-id gnome-settings-daemon
-exec --no-startup-id  /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
-# exec --no-startup-id xrandr --output HDMI1 --auto --left-of VGA1
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon
 exec --no-startup-id $confpath/setup_background.sh
+exec --no-startup-id xautolock -time 15 -locker "$confpath/lock.sh"
 exec --no-startup-id nm-applet
-exec --no-startup-id dropbox start
-#exec --no-startup-id skype
-exec xautolock -time 15 -locker "$confpath/lock.sh"
-#exec --no-startup-id "/home/lorian/uvavpn_trayicon/uvavpn_trayicon"
-#exec --no-startup-id bash -c "sleep 10; redshift-gtk"
-exec redshift-gtk
-exec compton --vsync opengl
-
-#exec --no-startup-id i3-msg 'workspace $1; exec telegram'
-#exec --no-startup-id i3-msg 'workspace $2; exec chrome'
+exec --no-startup-id dropbox
+exec --no-startup-id redshift-gtk
+exec --no-startup-id volnoti
+#exec compton --vsync opengl
 exec --no-startup-id i3-msg 'workspace $1; exec telegram; workspace $2; exec chrome'
 
 client.focused #0088CC #0088CC #ffffff #dddddd
@@ -259,6 +249,3 @@ client.urgent #2f343a #900000 #ffffff #900000
 
 focus_follows_mouse no
 workspace_auto_back_and_forth yes
-
-#exec i3-msg "workspace $1; move workspace right"
-#exec i3-msg "workspace $2; move workspace left"

@@ -1,10 +1,10 @@
 [user]
-	name = Lorian Coltof
-	email = loriancoltof@gmail.com
+    name = Lorian Coltof
+    email = loriancoltof@gmail.com
 [core]
-	editor = vim
+    editor = vim
 [push]
-	default = simple
+    default = simple
 [diff]
 	tool = vimdiff
 [pull]

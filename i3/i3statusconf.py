@@ -15,7 +15,8 @@ status.register("cpu_usage_bar", format="CPU:{usage_bar}")
 status.register("temp", format="{temp:.0f}°C")
 
 if os.path.isdir("/sys/class/backlight/intel_backlight"):
-    status.register("backlight", format="Backlight: {percentage}%", backlight="intel_backlight")
+    status.register("backlight", format="Backlight: {percentage}%",
+                    backlight="intel_backlight")
 
 
 # The battery monitor has many formatting options, see README for details
@@ -31,7 +32,7 @@ if os.path.isdir("/sys/class/backlight/intel_backlight"):
 #   http://www.knopwob.org/dunst/
 if os.path.isdir("/sys/class/power_supply/BAT0"):
     status.register("battery",
-                    format="{status} |{bar_design}| {percentage_design:.2f}% {remaining:%E%hh:%Mm} {consumption:.2f}W",
+                    format="{status} |{bar_design}| {percentage_design:.2f}% {remaining:%E%hh:%Mm} {consumption:.2f}W",  # noqa
                     not_present_text="(no battery)",
                     alert=False,
                     alert_percentage=4,
@@ -42,23 +43,23 @@ if os.path.isdir("/sys/class/power_supply/BAT0"):
                         "FULL": "=",
                     })
 
-# Shows the address and up/down state of eth0. If it is up the address is shown in
-# green (the default value of color_up) and the CIDR-address is shown
+# Shows the address and up/down state of eth0. If it is up the address is shown
+# in green (the default value of color_up) and the CIDR-address is shown
 # (i.e. 10.10.10.42/24).
 # If it's down just the interface name (eth0) will be displayed in red
 # (defaults of format_down and color_down)
 #
 # Note: the network module requires PyPI package netifaces
 status.register("network",
-                interface="eth0",
+                interface="enp3s0",
                 format_down="{interface}",
                 format_up="{interface}: {v4cidr}",)
 
 # Note: requires both netifaces and basiciw (for essid and quality)
 status.register("network",
-                interface="wlan0",
+                interface="wlp5s0",
                 format_down="{interface}",
-                format_up="{interface}: {essid} {quality:03.0f}% ({v4cidr})")
+                format_up="{interface}: {essid} {quality:03.0f}% ({v4cidr})",)
 
 # Shows disk usage of /
 # Format:

@@ -1,7 +1,3 @@
 #!/bin/bash
-# Sets the background image with feh from the settings of Cinnamon
-
-BACKGROUND=$(gsettings get org.cinnamon.desktop.background picture-uri)
-BACKGROUND=${BACKGROUND#\'file://}
-BACKGROUND=${BACKGROUND%\'}
+BACKGROUND=~/Dropbox/arch-linux-wallpaper-light.png
 feh --bg-fill $BACKGROUND

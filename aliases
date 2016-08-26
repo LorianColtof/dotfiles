@@ -22,31 +22,9 @@ alias viminstallplugins="vim -c PluginInstall"
 alias ssldeclaraties='nemo /home/lorian/Dropbox/SSL-Leiden/Declaraties & 2> /dev/null'
 alias sudo='sudo -E'
 
-alias cddotfiles="cd /home/lorian/Dropbox/dotfiles/"
-alias mountstack="sudo mount -t davfs https://loriancoltof.stackstorage.com/remote.php/webdav/ /mnt/stack"
-
 alias pls='sudo /usr/bin/zsh -c "$(fc -ln -1)"'
 
-alias venvactivate='source venv-laptop/bin/activate.zsh'
+alias cddotfiles="cd /home/lorian/Dropbox/arch-dotfiles/"
+alias sudo='sudo -E'
 
-#venvactivate() {
-    #if [ -d ./venv ]; then
-        #if type deactivate &> /dev/null; then
-            #deactivate
-        #fi
-        #unlink ./venv
-    #fi
-    #ln -s ./venv-laptop venv
-    #source ./venv/bin/activate.zsh
-    #echo "Virtual environment activated"
-#}
-
-#venvdeactivate() {
-    #if [ ! -d ./venv ]; then
-        #echo "Virtual environment is not activated"
-    #else
-        #deactivate
-        #unlink ./venv
-        #echo "Virtual environment deactivated"
-    #fi
-#}
+alias mountstack="sudo mount -t davfs https://loriancoltof.stackstorage.com/remote.php/webdav/ /mnt/stack"

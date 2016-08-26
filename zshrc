@@ -1,28 +1,35 @@
 _SCRIPTDIR=$(cd $(dirname $0);echo $PWD)
 
+#source $_SCRIPTDIR/agnoster.zsh-theme
+#source $_SCRIPTDIR/avit.zsh-theme
+# Load grml zsh config
+source /etc/zsh/zshrc
 
 
-setopt PROMPT_SUBST
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+
 
 if [[ $OS -ne Windows_NT ]]
 then
 	GIT_PROMPT_EXECUTABLE="haskell"
 	source /home/lorian/Dropbox/zsh-git-prompt/zshrc.sh
 	# Set up the prompt
-	RPROMPT='$(git_super_status)' # '%F{blue}[$(date +"%d-%m-%Y-%T")]'
+	RPROMPT='$(git_super_status)'
 fi
 
+zstyle ':prompt:grml:right:setup' use-rprompt false
+# Set up the prompt
+RIGHT_PROMPT='$(git_super_status)' # %F{blue}[$(date +"%d-%m-%Y-%T")]'
 
-export EDITOR=vim
+RPROMPT=$RIGHT_PROMPT
+
 bindkey -v
-export KEYTIMEOUT=1
 
 function precmd () {
-	print -Pn "\e]2;%n@%M | %~\a"
+    print -Pn "\e]2;%n@%M | %~\a"
 }
 
 autoload -Uz promptinit
@@ -33,7 +40,6 @@ else
 	prompt adam1
 fi
 
-
 setopt histignorealldups sharehistory
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
@@ -43,26 +49,28 @@ HISTFILE=~/.zsh_history
 
 
 # Use modern completion system
-autoload -Uz compinit
-compinit
+#autoload -Uz compinit
+#compinit
 
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-eval "$(dircolors -b)"
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
+#zstyle ':completion:*' auto-description 'specify: %d'
+#zstyle ':completion:*' completer _expand _complete _correct _approximate
+#zstyle ':completion:*' format 'Completing %d'
+#zstyle ':completion:*' group-name ''
+#eval "$(dircolors -b)"
+#zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+#zstyle ':completion:*' list-colors ''
+#zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+#zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+#zstyle ':completion:*' menu select=long
+#zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+#zstyle ':completion:*' use-compctl false
+#zstyle ':completion:*' verbose true
 
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+#zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+#zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 zstyle ':completion:*' menu select
+
+export PATH=$PATH:/home/lorian/.gem/ruby/2.3.0/bin/
 
 source $_SCRIPTDIR/aliases
 source $_SCRIPTDIR/env
@@ -72,11 +80,4 @@ alias loadrc="source ~/.zshrc"
 setopt NO_HUP
 
 source $_SCRIPTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-#if [[ $OS -ne Windows_NT ]]
-#then
-	source $_SCRIPTDIR/agnoster.zsh-theme
-#fi
-
-VTESCRIPT=/etc/profile.d/vte.sh
-[[ -s $VTESCRIPT ]] && source $VTESCRIPT
+source $_SCRIPTDIR/agnoster.zsh-theme

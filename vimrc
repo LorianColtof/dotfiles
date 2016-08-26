@@ -53,6 +53,16 @@ Plugin 'chriskempson/base16-vim'
 
 Plugin 'ctrlpvim/ctrlp.vim'
 
+Plugin 'othree/html5.vim'
+
+Plugin 'pangloss/vim-javascript'
+
+Plugin 'Lokaltog/vim-easymotion'
+
+Plugin 'bkad/CamelCaseMotion'
+
+Plugin 'tpope/vim-fugitive'
+
 call vundle#end()
 
 filetype plugin indent on
@@ -69,6 +79,7 @@ filetype plugin indent on
 
 au BufRead,BufNewFile *.pl set filetype=prolog				" Prolog source files
 au BufRead,BufNewFile *.pgf set filetype=tex				" LaTeX PGF figures
+au BufRead,BufNewFile *.cls set filetype=tex
 au BufRead,BufNewFile *.cu set filetype=cpp					" CUDA source files
 au BufRead,BufNewFile *.hs set expandtab					" Haskell doesn't like tabs as indentation
 au BufRead,BufNewFile gitconfig set filetype=gitconfig		" gitconfig file in dotfiles repo
@@ -87,7 +98,7 @@ if exists("+undofile")
   " :help undo-persistence
   " This is only present in 7.3+
   if isdirectory($HOME . '/.vim/undo') == 0
-	:silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+    :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
   endif
   set undodir=./.vim-undo//
   set undodir+=~/.vim/undo//
@@ -98,8 +109,10 @@ endif
 autocmd VimLeave * call system("xclip -selection c", getreg('+'))
 " -------------------------- Keymaps --------------------------
 
+let g:mapleader = ','
+
 " Toggle tagbar
-nmap <silent> <C-v> :TagbarToggle<CR>
+nmap <silent> <leader>v :TagbarToggle<CR>
 
 " Close scratch
 nmap <silent> <C-O> :pc<CR>
@@ -107,12 +120,11 @@ nmap <silent> <C-O> :pc<CR>
 " Toggle indent guides
 nmap  <silent> <C-I> <Plug>IndentGuidesToggle
 
-" <Ctrl+Enter> to run make
-map <NL> :make<CR>
+noremap <F2> :!make<CR>
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 "nnoremap <silent> <C-s> :nohl<CR>
-nnoremap <C-s> :nohl<CR>
+"nnoremap <C-s> :nohl<CR>
 
 " Make < > shifts keep selection
 vnoremap < <gv
@@ -133,7 +145,7 @@ map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 
 " Toggle column limit
-nnoremap <silent> <leader>c :call g:ToggleColorColumn()<CR>
+nnoremap <silent> <leader>x :call g:ToggleColorColumn()<CR>
 
 nmap <silent> <C-T> :RetabIndent<CR>
 
@@ -160,6 +172,23 @@ vmap <C-_> <plug>NERDCommenterToggle<CR>gv
 
 inoremap # x<BS>#
 
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+inoremap  <Left>   <NOP>
+inoremap  <Right>  <NOP>
+
+call camelcasemotion#CreateMotionMappings('<leader>')
+"map <silent> w <Plug>CamelCaseMotion_w
+"map <silent> b <Plug>CamelCaseMotion_b
+"map <silent> e <Plug>CamelCaseMotion_e
+"map <silent> ge <Plug>CamelCaseMotion_ge
+"sunmap w
+"sunmap b
+"sunmap e
+"sunmap ge
+
 " -------------------------- Colors --------------------------
 
 set background=dark			" Terminal background is dark
@@ -167,7 +196,7 @@ set background=dark			" Terminal background is dark
 "set t_Co=256				" Set color scheme to 256
 set t_Co=256
 let base16colorspace=256
-colorscheme base16-default
+colorscheme base16-default-dark
 
 "set background=dark			" Terminal background is dark
 "set t_Co=256				" Set color scheme to 256
@@ -195,14 +224,14 @@ hi Search term=reverse ctermfg=15 ctermbg=69
 let g:column_limit=80
 let s:column_limit_color=202
 function! g:ToggleColorColumn()
-	if &colorcolumn != ''
-		set colorcolumn&
-		match OverLength //
-	else
-		execute 'set colorcolumn='.(g:column_limit+1)
-		execute 'highlight OverLength ctermfg=15 ctermbg='.(s:column_limit_color)
-		execute 'match OverLength /\%'.(g:column_limit+1).'v.\+/'
-	endif
+    if &colorcolumn != ''
+        set colorcolumn&
+        match OverLength //
+    else
+        execute 'set colorcolumn='.(g:column_limit+1)
+        execute 'highlight OverLength ctermfg=15 ctermbg='.(s:column_limit_color)
+        execute 'match OverLength /\%'.(g:column_limit+1).'v.\+/'
+    endif
 endfunction
 
 execute 'hi ColorColumn ctermbg='.(s:column_limit_color)
@@ -250,6 +279,8 @@ set listchars=tab:▶-,eol:¬	" Chars show in list mode
 set hlsearch 				" Highlight search
 set incsearch				" Incremental serach
 
+set autoread
+
 " Automically unhighlight search results
 let g:incsearch#auto_nohlsearch = 1
 
@@ -260,7 +291,7 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline_powerline_fonts = 1 " Enable powerline icons.
 
 if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 
 let g:airline_symbols.whitespace = 'Ξ'
@@ -274,12 +305,17 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
 
 let g:tagbar_autofocus=1		" Autofocus on the tagbar when it is opened.
 let g:syntastic_javascript_checkers = ['jsxhint']
-let g:syntastic_python_checkers = ['python', 'pyflakes', 'pep8']
-"let g:syntastic_python_pep8_args='--ignore=E501'
+let g:syntastic_python_checkers = ['python', 'flake8', 'pep8']
+let g:syntastic_python_pep8_args='--ignore=E114,E265'
 
-let g:UltiSnipsUsePythonVersion = 2
+" let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsExpandTrigger="<c-f>"
 let g:UltiSnipsListSnippets="<c-a>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+
+let g:ycm_confirm_extra_conf = 0
+
+"set iskeyword-=_

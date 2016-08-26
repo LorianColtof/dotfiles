@@ -1,14 +1,21 @@
 _SCRIPTDIR=$(cd $(dirname $0);echo $PWD)
 
+
+
+setopt PROMPT_SUBST
+
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
-GIT_PROMPT_EXECUTABLE="haskell"
-source /home/lorian/Dropbox/zsh-git-prompt/zshrc.sh
+if [[ $OS -ne Windows_NT ]]
+then
+	GIT_PROMPT_EXECUTABLE="haskell"
+	source /home/lorian/Dropbox/zsh-git-prompt/zshrc.sh
+	# Set up the prompt
+	RPROMPT='$(git_super_status)' # '%F{blue}[$(date +"%d-%m-%Y-%T")]'
+fi
 
-# Set up the prompt
-RPROMPT='$(git_super_status)' # '%F{blue}[$(date +"%d-%m-%Y-%T")]'
 
 export EDITOR=vim
 bindkey -v
@@ -64,5 +71,12 @@ alias loadrc="source ~/.zshrc"
 
 setopt NO_HUP
 
-source $_SCRIPTDIR/agnoster.zsh-theme
-source /etc/profile.d/vte.sh
+source $_SCRIPTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+#if [[ $OS -ne Windows_NT ]]
+#then
+	source $_SCRIPTDIR/agnoster.zsh-theme
+#fi
+
+VTESCRIPT=/etc/profile.d/vte.sh
+[[ -s $VTESCRIPT ]] && source $VTESCRIPT

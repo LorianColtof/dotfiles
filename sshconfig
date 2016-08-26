@@ -1,3 +1,9 @@
 Host pi
-    HostName loriancoltof.nl 
+    HostName loriancoltof.nl
+    User lorian
+Host viabapc
+    HostName via1.hosting.os3.nl
+    User via
+Host robots
+    HostName robots.loriancoltof.nl
     User lorian

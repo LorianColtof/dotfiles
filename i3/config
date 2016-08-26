@@ -11,10 +11,10 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 # Alt
-set $mod Mod1
+#set $mod Mod1
 
 # Super key
-#set $mod Mod4
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
@@ -26,6 +26,8 @@ set $mod Mod1
 #font pango:DejaVu Sans Mono 10
 #096BAA
 
+set $confpath /home/lorian/Dropbox/dotfiles/i3
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -36,12 +38,15 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec rofi -show run -run-shell-command "{terminal} -e 'zsh -i -c {cmd}'"
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
- bindsym $mod+shift+d exec i3-dmenu-desktop
+bindsym $mod+shift+d exec i3-dmenu-desktop --dmenu="rofi -dmenu -i" i3-dmenu-desktop
 
+
+bindsym $mod+shift+s exec $confpath/runrofissh.sh
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -131,7 +136,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "/home/lorian/Dropbox/dotfiles/i3/exit_terminal.sh"
+bindsym $mod+Shift+e exec $confpath/exit_terminal.sh
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -162,9 +167,9 @@ bindsym $mod+r mode "resize"
 bindsym $mod+p focus parent
 bindsym $mod+a focus child
 
-#bindsym XF86AudioRaiseVolume exec ~/.i3/sound +
-#bindsym XF86AudioLowerVolume exec ~/.i3/sound -
-#bindsym XF86AudioMute exec ~/.i3/sound togglemute
+#bindsym XF86AudioRaiseVolume exec ~/Drobox/dotfiles/i3/sound +
+#bindsym XF86AudioLowerVolume exec ~/Drobox/dotfiles/i3/sound -
+#bindsym XF86AudioMute exec ~/Dropbox/dotfiles/i3/sound togglemute
 
 #bindsym XF86KbdBrightnessDown exec ~/.i3/keyboard_backlight down
 #bindsym XF86KbdBrightnessUp exec ~/.i3/keyboard_backlight up
@@ -174,23 +179,24 @@ bindsym $mod+C exec "nm-connection-editor"
 bindsym Mod4+F5 exec "brightness -"
 bindsym Mod4+F6 exec "brightness +"
 
-bindsym Mod4+L exec "/home/lorian/Dropbox/dotfiles/i3/lock.sh"
+bindsym Ctrl+Mod1+L exec "$confpath/lock.sh"
 
-bindsym $mod+Shift+F exec quickswitch.py -d "dmenu -i -l 20"
+bindsym $mod+Shift+F exec  rofi -show window
 bindsym $mod+B exec "chrome"
 
-bindcode 248 exec /home/lorian/Dropbox/dotfiles/i3/start_arandr.py
+bindcode 248 exec $confpath/start_arandr.py
 
 bindsym $mod+Shift+N exec nemo
 
 
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-font pango:DejaVu Sans Mono 10
+#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+#font pango:DejaVu Sans Mono 10
+font pango:Monospace 10
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	status_command python3 /home/lorian/Dropbox/dotfiles/i3/i3statusconf.py
+	status_command python3 $confpath/i3statusconf.py
     font pango:Monospace 10
 	colors {
 		separator #666666
@@ -201,7 +207,7 @@ bar {
 		inactive_workspace #333333 #333333 #888888
 		urgent_workspace #2f343a #900000 #ffffff
 	}
-	tray_output primary
+	#tray_output primary
 }
 
 #bar {
@@ -218,8 +224,12 @@ for_window [instance="gnome-terminal"] border pixel 1
 for_window [instance="gnome-terminal" title="Editing Profile .*"] border normal
 for_window [title="Quit i3"] floating enable border none
 for_window [class="(T|t)elegram"] border none
-for_window [title="Authenticate"] border none
+for_window [title="^Authenticate$"] border none
 for_window [class="Photoshop.exe"] border none
+for_window [class="(Termite)|(X-terminal-emulator)"] border pixel 1
+for_window [class="Tk" title="Figure.*"] floating enable
+for_window [title="Box2D.*"] floating enable
+for_window [title="screenkey"] floating enable
 
 assign [class="Telegram"] $1
 #assign [class="(google-chrome)|(Chrome)"] $2
@@ -227,17 +237,20 @@ assign [class="Telegram"] $1
 
 exec --no-startup-id gnome-settings-daemon
 exec --no-startup-id  /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id telegram
-exec --no-startup-id chrome
 # exec --no-startup-id xrandr --output HDMI1 --auto --left-of VGA1
-exec --no-startup-id /home/lorian/Dropbox/dotfiles/i3/setup_background.sh
+exec --no-startup-id $confpath/setup_background.sh
 exec --no-startup-id nm-applet
 exec --no-startup-id dropbox start
 #exec --no-startup-id skype
-exec xautolock -time 15 -locker "/home/lorian/Dropbox/dotfiles/i3/lock.sh"
+exec xautolock -time 15 -locker "$confpath/lock.sh"
 #exec --no-startup-id "/home/lorian/uvavpn_trayicon/uvavpn_trayicon"
 #exec --no-startup-id bash -c "sleep 10; redshift-gtk"
 exec redshift-gtk
+exec compton --vsync opengl
+
+#exec --no-startup-id i3-msg 'workspace $1; exec telegram'
+#exec --no-startup-id i3-msg 'workspace $2; exec chrome'
+exec --no-startup-id i3-msg 'workspace $1; exec telegram; workspace $2; exec chrome'
 
 client.focused #0088CC #0088CC #ffffff #dddddd
 client.focused_inactive #333333 #333333 #888888 #292d2e

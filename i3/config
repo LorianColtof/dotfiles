@@ -167,9 +167,9 @@ bindsym $mod+r mode "resize"
 bindsym $mod+p focus parent
 bindsym $mod+a focus child
 
-bindsym XF86AudioRaiseVolume exec $confpath/sound +
-bindsym XF86AudioLowerVolume exec $confpath/sound -
-bindsym XF86AudioMute exec $confpath/sound togglemute
+bindsym XF86AudioRaiseVolume exec $confpath/sound up
+bindsym XF86AudioLowerVolume exec $confpath/sound down
+bindsym XF86AudioMute exec $confpath/sound mute
 
 #bindsym XF86KbdBrightnessDown exec ~/.i3/keyboard_backlight down
 #bindsym XF86KbdBrightnessUp exec ~/.i3/keyboard_backlight up
@@ -206,15 +206,7 @@ bar {
         inactive_workspace #333333 #333333 #888888
         urgent_workspace #2f343a #900000 #ffffff
     }
-    tray_output all
 }
-
-#bar {
-#	status_command python3 /home/lorian/Dropbox/i3pystatus/i3statusconf.py
-#	position top
-#	workspace_buttons no
-#	tray_output none
-#}
 
 for_window [title="Guake!"] floating enable
 for_window [instance="truecrypt"] floating enable
@@ -227,21 +219,18 @@ for_window [class="Photoshop.exe"] border none
 for_window [class="Termite"] border pixel 1
 for_window [title="Quit i3"] floating enable border none
 assign [class="Telegram"] $1
-#assign [class="(google-chrome)|(Chrome)"] $2
 
 
 exec --no-startup-id gnome-settings-daemon
-exec --no-startup-id  /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon
 exec --no-startup-id telegram
 exec --no-startup-id chrome
 exec --no-startup-id $confpath/setup_background.sh
 exec --no-startup-id nm-applet
-exec --no-startup-id dropbox start
-#exec --no-startup-id skype
-exec xautolock -time 15 -locker "$confpath/lock.sh"
-#exec --no-startup-id "/home/lorian/uvavpn_trayicon/uvavpn_trayicon"
-#exec --no-startup-id bash -c "sleep 10; redshift-gtk"
-exec redshift-gtk
+exec --no-startup-id dropbox
+exec --no-startup-id xautolock -time 15 -locker "$confpath/lock.sh"
+exec --no-startup-id redshift-gtk
 exec --no-startup-id volnoti
 
 client.focused #0088CC #0088CC #ffffff #dddddd

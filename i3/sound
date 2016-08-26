@@ -2,55 +2,49 @@
 import shutil
 import subprocess
 import sys
-import re
-
-VOLUME_REGEX = re.compile(r"Front Left:.+\[(\d+)%\]\s\[((on)|(off))\]")
 
 class SoundController:
-    has_amixer = False
-
-    step = 5
-    currently_muted = False
-
     def __init__(self):
-        self.has_amixer = shutil.which('alsamixer') is not None
+        self.has_pulseaudio_ctl = shutil.which('pulseaudio-ctl') is not None
+        if not self.has_pulseaudio_ctl:
+            sys.stderr.write('pulseaudio-ctl is not installed')
 
-    def switch_mute(self):
-        if self.has_amixer:
-            command = "amixer -q -D pulse sset Master 1+ toggle"
+    def toggle_mute(self):
+        if self.has_pulseaudio_ctl:
+            command = "pulseaudio-ctl mute"
             subprocess.run(command.split())
 
     def increase_volume(self):
-        if self.has_amixer:
-            command = "amixer -q -D pulse sset Master %s%%+" % self.step
+        if self.has_pulseaudio_ctl:
+            command = "pulseaudio-ctl up"
             subprocess.run(command.split())
 
     def decrease_volume(self):
-        if self.has_amixer:
-            command = "amixer -q -D pulse sset Master %s%%-" % self.step
+        if self.has_pulseaudio_ctl:
+            command = "pulseaudio-ctl down"
             subprocess.run(command.split())
 
     def get_volume(self):
-        if self.has_amixer:
-            command = "amixer -D pulse get Master"
+        if self.has_pulseaudio_ctl:
+            command = "pulseaudio-ctl full-status"
             proc = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
             out, err = proc.communicate()
-            for line in out.decode("utf-8").split("\n"):
-                m = VOLUME_REGEX.match(line.strip())
-                if m:
-                    return int(m.group(1)), m.group(2) == 'off'
+            (volume, sink_mute, _) = out.split()
 
-            return None
+            volume = int(volume.decode('utf-8'))
+            sink_mute = sink_mute == b'yes'
+
+            return (volume, sink_mute)
 
 if __name__ == "__main__":
     c = SoundController()
 
-    if sys.argv[1] == "+":
+    if sys.argv[1] == "up":
         c.increase_volume()
-    elif sys.argv[1] == "-":
+    elif sys.argv[1] == "down":
         c.decrease_volume()
-    elif sys.argv[1] == "togglemute":
-        c.switch_mute()
+    elif sys.argv[1] == "mute":
+        c.toggle_mute()
 
     subprocess.run(["pkill", "-SIGUSR1", "-f", "python3 .+/i3statusconf\.py"])
     vol, muted = c.get_volume()

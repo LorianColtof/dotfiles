@@ -63,7 +63,7 @@ status.register("network",
 
 # Note: requires both netifaces and basiciw (for essid and quality)
 status.register("network",
-    interface="wlan0",
+    interface="wlp5s0",
 	format_down="{interface}",
     format_up="{interface}: {essid} {quality:03.0f}% ({v4cidr})",)
 

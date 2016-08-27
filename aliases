@@ -6,26 +6,24 @@ alias gs='git status'
 alias cduva='cd /home/lorian/Dropbox/UvA/'
 alias cdssl='cd /home/lorian/Dropbox/SSL-Leiden/'
 alias cdvia='cd /home/lorian/Dropbox/VIA/'
+alias cddotfiles="cd /home/lorian/Dropbox/arch-dotfiles/"
 
 alias sl="sl -e"
 alias LS="sl -e"
-alias copy="xclip -selection c"
+alias copy="xsel -i -b"
 
 alias clearl="clear;ls -l"
 alias wine32="WINEPREFIX=~/.wine32 wine"
 
-alias uvavpn="sudo /opt/uvavpn/ncsvc -h uvavpn.uva.nl -u 10769153 -r users -f /opt/uvavpn/certificaat-uvavpn.der"
+alias uvavpn="sudo openconnect --juniper -u 10769153 uvavpn.uva.nl"
 
 alias vimupdateplugins="vim -c PluginUpdate"
 alias viminstallplugins="vim -c PluginInstall"
 
-alias ssldeclaraties='nemo /home/lorian/Dropbox/SSL-Leiden/Declaraties & 2> /dev/null'
 alias sudo='sudo -E'
 
 alias pls='sudo /usr/bin/zsh -c "$(fc -ln -1)"'
 
-alias cddotfiles="cd /home/lorian/Dropbox/arch-dotfiles/"
-alias sudo='sudo -E'
 
 alias mountstack="sudo mount -t davfs https://loriancoltof.stackstorage.com/remote.php/webdav/ /mnt/stack"
 

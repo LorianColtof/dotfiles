@@ -1,18 +1,16 @@
 _SCRIPTDIR=$(cd $(dirname $0);echo $PWD)
 
-#source $_SCRIPTDIR/agnoster.zsh-theme
-#source $_SCRIPTDIR/avit.zsh-theme
 # Load grml zsh config
 source /etc/zsh/zshrc
 
-
+setopt PROMPT_SUBST
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 
-if [[ $OS -ne Windows_NT ]]
+if [[ $(uname) == Linux ]]
 then
 	GIT_PROMPT_EXECUTABLE="haskell"
 	source /home/lorian/Dropbox/zsh-git-prompt/zshrc.sh
@@ -21,10 +19,6 @@ then
 fi
 
 zstyle ':prompt:grml:right:setup' use-rprompt false
-# Set up the prompt
-RIGHT_PROMPT='$(git_super_status)' # %F{blue}[$(date +"%d-%m-%Y-%T")]'
-
-RPROMPT=$RIGHT_PROMPT
 
 bindkey -v
 

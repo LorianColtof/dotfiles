@@ -47,7 +47,6 @@ bindsym $mod+d exec rofi -show run -run-shell-command "{terminal} -e 'zsh -i -c 
 # installed.
  bindsym $mod+shift+d exec i3-dmenu-desktop --dmenu="rofi -i -dmenu"
 
-bindsym $mod+shift+s exec $confpath/runrofissh.sh
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down

@@ -28,3 +28,208 @@ alias cddotfiles="cd /home/lorian/Dropbox/arch-dotfiles/"
 alias sudo='sudo -E'
 
 alias mountstack="sudo mount -t davfs https://loriancoltof.stackstorage.com/remote.php/webdav/ /mnt/stack"
+
+
+BLD="\e[01m"
+BLU="\e[01;34m"
+RED="\e[01;31m"
+NRM="\e[00m"
+GRM="\e[01;32m"
+
+VENVDIR=~/.venv
+
+
+printinfo() {
+    echo -e "${BLD}$1${NRM}"
+}
+
+printerror() {
+    echo -e "${BLD}${RED}Error: ${NRM}${BLD}$1${NRM}"
+}
+
+confirm() {
+    read REPLY"?$1 [y/N] "
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        return 1
+    fi
+    return 0
+}
+
+
+venv()
+{
+    args=${@:2}
+    case $1 in
+        c|create)
+            _venvcreate $(echo $args)
+            ;;
+        a|activate)
+            _venvactivate $(echo $args)
+            ;;
+        r|remove)
+            _venvremove $(echo $args)
+            ;;
+        l|list)
+            _venvlist $(echo $args)
+            ;;
+        *)
+            echo -e "${BLD}Usage:${NRM} venv [create|activate|remove|list]"
+    esac
+}
+
+_venvcreate()
+{
+    if [ ! -d $VENVDIR  ]
+    then
+        printinfo "Creating directory $VENVDIR"
+        mkdir -p $VENVDIR
+        if [ $? -ne 0 ]
+        then
+            printerror "Creating directory failed. aborting"
+            return 1
+        fi
+    fi
+
+    name='venv'
+    virtualenv_args=$@
+    if [ -n "$1" ]
+    then
+        last_arg=${@[$#]}
+        if [[ ! $last_arg =~ -.* ]]
+        then
+            name=$last_arg
+            virtualenv_args=${@:1:-1}
+        fi
+    fi
+
+    printinfo "Creating new virtualenv with name ${BLU}$name${NRM}"
+
+    location=$(pwd)
+    fullname=$(echo $location | tr '/' '%')_$name
+    venvpath=$VENVDIR/$fullname
+    if [ -d $venvpath ]
+    then
+        printerror "A virtualenv with name ${BLU}$name${NRM}${BLD} in this directory already exists"
+        return 1
+    fi
+    cd $VENVDIR
+
+    virtualenv --prompt=\($name\) $fullname $(echo $virtualenv_args)
+    if [ $? -ne 0 ]
+    then
+        printerror "Creating virtualenv failed. aborting"
+        return 1
+    fi
+
+    printinfo "Creating activate script for zsh"
+    sed 's/PS1/RPROMPT/g' $venvpath/bin/activate > $venvpath/bin/activate.zsh
+    if [ $? -ne 0 ]
+    then
+        printerror "Creating activate script failed. aborting"
+        return 1
+    fi
+
+    cd $location
+    printinfo "Done"
+
+    confirm "Activate virtualenv now?"
+    if [ $? -ne 0 ]
+    then
+        _venvactivate $name
+    fi
+}
+
+_venvactivate()
+{
+    name='venv'
+    if [ -n "$1" ]
+    then
+        if [[ $1 =~ -.* ]]
+        then
+            printerror "Invalid virtalenv name: ${BLU}$1"
+            return 1
+        fi
+        name=$1
+    fi
+
+    fullname=$(pwd | tr '/' '%')_$name
+    venvpath=$VENVDIR/$fullname
+    if [ ! -d $venvpath ]
+    then
+        printerror "Virtualenv ${BLU}$name${NRM}${BLD} does not exist for path $(pwd)"
+        return 1
+    fi
+
+    source $venvpath/bin/activate.zsh
+}
+
+
+_venvremove()
+{
+    name='venv'
+    if [ -n "$1" ]
+    then
+        if [[ $1 =~ -.* ]]
+        then
+            printerror "Invalid virtalenv name: ${BLU}$1"
+            return 1
+        fi
+        name=$1
+    fi
+
+    fullname=$(pwd | tr '/' '%')_$name
+    venvpath=$VENVDIR/$fullname
+    if [ ! -d $venvpath ]
+    then
+        printerror "Virtualenv ${BLU}$name${NRM}${BLD} does not exist for path $(pwd)"
+        return 1
+    fi
+
+    confirm "Are you sure you want to remove virtualenv '$name' for path $(pwd)?"
+    if [ $? -ne 0 ]
+    then
+        rm -r $venvpath
+    fi
+}
+
+_venvlist()
+{
+
+    case $1 in
+        -a|--all)
+            current_path=""
+            for v in $(ls $VENVDIR | grep "^%")
+            do
+                v=$(echo $v | tr '%' '/' | sort)
+                name=${v##*_}
+                v_path=${v%_*}/
+                if [ "$current_path" != "$v_path" ]
+                then
+                    if [ "$current_path" != "" ]
+                    then
+                        echo -ne "\n"
+                    fi
+                    current_path=$v_path
+                    printinfo "$current_path:"
+                fi
+                echo "    ${BLD}${BLU}$name${NRM}"
+            done
+            ;;
+        *)
+            prefix=$(pwd | tr '/' '%')_
+            venvs=$(ls $VENVDIR | grep "^$prefix" | sed -e "s/^$prefix//g")
+            if [ ${#venvs[@]} -eq 0 ]
+            then
+                printinfo "No virtualenvs for path $(pwd)"
+            else
+                printinfo "Virtualenvs for path $(pwd):\n"
+                for v in $(echo $venvs)
+                do
+                    echo "    ${BLD}${BLU}$v${NRM}"
+                done
+            fi
+            ;;
+    esac
+
+}

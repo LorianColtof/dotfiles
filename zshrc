@@ -75,3 +75,6 @@ setopt NO_HUP
 
 source $_SCRIPTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $_SCRIPTDIR/agnoster.zsh-theme
+
+VTESCRIPT=/etc/profile.d/vte.sh
+[[ -s $VTESCRIPT ]] && source $VTESCRIPT

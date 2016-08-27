@@ -1,5 +1,7 @@
 from i3pystatus import Status
 import os
+import netifaces
+
 
 status = Status(standalone=True)
 
@@ -43,6 +45,16 @@ if os.path.isdir("/sys/class/power_supply/BAT0"):
                         "FULL": "=",
                     })
 
+
+eth = None
+wlan = None
+
+for interface in netifaces.interfaces():
+    if interface.startswith('w'):
+        wlan = interface
+    elif interface.startswith('e'):
+        eth = interface
+
 # Shows the address and up/down state of eth0. If it is up the address is shown
 # in green (the default value of color_up) and the CIDR-address is shown
 # (i.e. 10.10.10.42/24).
@@ -50,16 +62,18 @@ if os.path.isdir("/sys/class/power_supply/BAT0"):
 # (defaults of format_down and color_down)
 #
 # Note: the network module requires PyPI package netifaces
-status.register("network",
-                interface="enp3s0",
-                format_down="{interface}",
-                format_up="{interface}: {v4cidr}",)
+if eth:
+    status.register("network",
+                    interface=eth,
+                    format_down="{interface}",
+                    format_up="{interface}: {v4cidr}",)
 
 # Note: requires both netifaces and basiciw (for essid and quality)
-status.register("network",
-                interface="wlp5s0",
-                format_down="{interface}",
-                format_up="{interface}: {essid} {quality:03.0f}% ({v4cidr})",)
+if wlan:
+    status.register(
+        "network", interface=wlan,
+        format_down="{interface}",
+        format_up="{interface}: {essid} {quality:03.0f}% ({v4cidr})",)
 
 # Shows disk usage of /
 # Format:

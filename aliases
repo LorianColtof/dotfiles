@@ -6,7 +6,7 @@ alias gs='git status'
 alias cduva='cd /home/lorian/Dropbox/UvA/'
 alias cdssl='cd /home/lorian/Dropbox/SSL-Leiden/'
 alias cdvia='cd /home/lorian/Dropbox/VIA/'
-alias cddotfiles="cd /home/lorian/Dropbox/arch-dotfiles/"
+alias cddotfiles="cd /home/lorian/Dropbox/dotfiles/"
 
 alias sl="sl -e"
 alias LS="sl -e"

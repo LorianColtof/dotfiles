@@ -27,7 +27,7 @@ set $mod Mod4
 #096BAA
 
 # Set path of config file, so we can easily execute scripts from this directory
-set $confpath /home/lorian/Dropbox/arch-dotfiles/i3
+set $confpath /home/lorian/Dropbox/dotfiles/i3
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position

@@ -9,13 +9,18 @@ endif
 
 " -------------------------- Plugins --------------------------
 
+"set rtp^="/home/lorian/.opam/system/share/ocp-indent/vim"
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+execute "set rtp+=" . g:opamshare . "/ocp-indent/vim"
+
 " set the runtime path to include Vundle and initialize
 set rtp+=/home/lorian/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'Syntastic'
+Plugin 'scrooloose/syntastic'
 
 Plugin 'majutsushi/tagbar'
 
@@ -110,6 +115,10 @@ autocmd VimLeave * call system("xclip -selection c", getreg('+'))
 " -------------------------- Keymaps --------------------------
 
 let g:mapleader = ','
+let g:maplocalleader = ',,'
+
+map <localleader>l :MerlinLocate<CR>
+
 
 " Toggle tagbar
 nmap <silent> <leader>v :TagbarToggle<CR>
@@ -175,6 +184,10 @@ noremap <Up> <Nop>
 "noremap <Left> <Nop>
 noremap <Right> <Nop>
 
+" Jump to
+nnoremap <silent> ]c /\v^(\<\|\=\|\>){7}([^=].+)?$<CR>
+nnoremap <silent> [c ?\v^(\<\|\=\|\>){7}([^=].+)\?$<CR>
+
 "Move blocks of text up and down with the arrow keys
 vnoremap <silent> <down> :m '>+1<CR>gv=gv
 vnoremap <silent> <up> :m '<-2<CR>gv=gv
@@ -231,6 +244,7 @@ set mouse=a		" Enable mouse usage (all modes)
 
 set backspace=2				" Make backspace work
 set number					" Always show line numbers
+set relativenumber
 
 set autoindent
 set smartindent
@@ -277,10 +291,6 @@ let g:airline_symbols.whitespace = 'Ξ'
 let g:airline#extensions#tabline#enabled = 1
 set ttimeoutlen=50 				" Stop the delay in airline when leaving insertmode.
 set laststatus=2				" always show the statusbar.
-set termencoding=utf-8
-
-let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
-
 let g:tagbar_autofocus=1		" Autofocus on the tagbar when it is opened.
 let g:syntastic_javascript_checkers = ['jsxhint']
 let g:syntastic_python_checkers = ['python', 'flake8', 'pep8']
@@ -293,3 +303,4 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 let g:ycm_confirm_extra_conf = 0
+let g:syntastic_ocaml_checkers = ['merlin']

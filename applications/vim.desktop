@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Version=1.0
 Type=Application
-Exec=i3-sensible-terminal -e "zsh -i -c \"vim %U\""
+Exec=i3-sensible-terminal -e "zsh -i -c 'vim %U'"
 Icon=gvim
 Categories=Utility;TextEditor;
 StartupNotify=true

@@ -1,6 +1,2 @@
 [options]
     font = DejaVu Sans Mono for Powerline 10
-
-
-#[colors]
-    #background = rgba(24, 24, 24, 0.9)

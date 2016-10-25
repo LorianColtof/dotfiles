@@ -6,3 +6,5 @@ Host viabapc
     User via
 Host robots
     HostName robots.loriancoltof.nl
+Host via
+    HostName svia.nl

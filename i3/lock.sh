@@ -1,9 +1,21 @@
-
+#!/bin/bash
 
 FILE=/tmp/screenshot.png
+PIDFILE=/tmp/i3lock.pid
+
+if [ -e $PIDFILE ]
+then
+    echo "i3lock is already running with PID $(<$PIDFILE)"
+    exit 1
+fi
 
 scrot $FILE
 mogrify -scale 10% -scale 1000% $FILE
-#mogrify -scale 10% -scale 1000% -gravity center -pointsize 40  -fill white -draw "text 0,50 'LOCKED!'" $FILE
-i3lock -i $FILE
-rm $FILE
+i3lock -i $FILE -n &
+PID=$!
+echo Running $PID
+echo $PID > $PIDFILE
+
+trap "kill $(<$PIDFILE); rm $FILE $PIDFILE" EXIT
+
+wait

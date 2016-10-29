@@ -51,7 +51,8 @@ printerror() {
 }
 
 confirm() {
-    read REPLY"?$1 [y/N] "
+    echo -ne "${BLD}$1${NRM}"
+    read REPLY"? [y/N] "
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         return 1

@@ -10,7 +10,8 @@ endif
 " -------------------------- Plugins --------------------------
 
 "set rtp^="/home/lorian/.opam/system/share/ocp-indent/vim"
-let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+"let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+let g:opamshare = '/home/lorian/.opam/4.02.1/share'
 execute "set rtp+=" . g:opamshare . "/merlin/vim"
 execute "set rtp+=" . g:opamshare . "/ocp-indent/vim"
 
@@ -24,7 +25,13 @@ Plugin 'scrooloose/syntastic'
 
 Plugin 'majutsushi/tagbar'
 
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
+
+Plugin 'Shougo/deoplete.nvim'
+
+Plugin 'zchee/deoplete-jedi'
+
+"Plugin 'm2mdas/phpcomplete-extended'
 
 Plugin 'plasticboy/vim-markdown'
 
@@ -50,9 +57,9 @@ Plugin 'PotatoesMaster/i3-vim-syntax'
 
 Plugin 'scrooloose/nerdcommenter'
 
-Plugin 'honza/vim-snippets'
-
 Plugin 'SirVer/ultisnips'
+
+Plugin 'honza/vim-snippets'
 
 Plugin 'chriskempson/base16-vim'
 
@@ -67,6 +74,10 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'bkad/CamelCaseMotion'
 
 Plugin 'tpope/vim-fugitive'
+
+Plugin 'morhetz/gruvbox'
+
+Plugin 'hkupty/iron.nvim'
 
 call vundle#end()
 
@@ -159,8 +170,7 @@ nnoremap <silent> <leader>x :call g:ToggleColorColumn()<CR>
 
 nmap <silent> <C-T> :RetabIndent<CR>
 
-"nmap <silent> <C-G> :!grunt screeps<CR>
-nmap <silent> <C-G> :make<CR>
+noremap <C-G> :w<CR>:!pdflatex -shell-escape %<CR><CR>
 
 
 noremap <C-h> <C-w>h
@@ -180,29 +190,37 @@ vmap <C-_> <plug>NERDCommenterToggle<CR>gv
 inoremap # x<BS>#
 
 noremap <Up> <Nop>
-"noremap <Down> <Nop>
-"noremap <Left> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-" Jump to
+" Jump to merge conflicts
 nnoremap <silent> ]c /\v^(\<\|\=\|\>){7}([^=].+)?$<CR>
 nnoremap <silent> [c ?\v^(\<\|\=\|\>){7}([^=].+)\?$<CR>
+
+" Jump to hunks
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
 
 "Move blocks of text up and down with the arrow keys
 vnoremap <silent> <down> :m '>+1<CR>gv=gv
 vnoremap <silent> <up> :m '<-2<CR>gv=gv
+
+
+xnoremap i$ :<C-u>normal! T$vt$<CR>
+onoremap i$ :normal vi$<CR>
+
 " -------------------------- Colors --------------------------
 
+set termguicolors
 set background=dark			" Terminal background is dark
-set t_Co=256				" Set color scheme to 256
-let base16colorspace=256
-colorscheme base16-default-dark
+"colorscheme base16-default-dark
+let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_italic=1
+colorscheme gruvbox
 
 " Highlight cursor line
 set cursorline
-
-" Visual selection color
-"hi Visual ctermbg=244
 
 hi SyntasticError ctermfg=232 ctermbg=160
 
@@ -215,7 +233,7 @@ hi IndentGuidesEven ctermbg=245
 hi Search term=reverse ctermfg=15 ctermbg=69
 
 " For 80 chars per line limit
-let g:column_limit=80
+let g:column_limit=79
 let s:column_limit_color=202
 function! g:ToggleColorColumn()
     if &colorcolumn != ''
@@ -230,12 +248,11 @@ endfunction
 
 execute 'hi ColorColumn ctermbg='.(s:column_limit_color)
 
+" -------------------------- Other settings --------------------------
+
 " Better split window opening
 set splitbelow
 set splitright
-
-
-" -------------------------- Other settings --------------------------
 
 set showcmd		" Show (partial) command in status line.
 set ignorecase	" Do case insensitive matching
@@ -254,10 +271,7 @@ set softtabstop=4
 set shiftwidth=4
 set smarttab
 "set breakindent
-
-set foldmethod=indent
-set foldnestmax=2
-
+"
 set wildmenu
 set clipboard=unnamedplus	" Use the X clipboard
 set so=10					" Set scroll limit
@@ -276,7 +290,7 @@ set autoread
 " Automically unhighlight search results
 let g:incsearch#auto_nohlsearch = 1
 
-let g:airline_theme = 'powerlineish'
+"let g:airline_theme = 'powerlineish'
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 
@@ -296,11 +310,20 @@ let g:syntastic_javascript_checkers = ['jsxhint']
 let g:syntastic_python_checkers = ['python', 'flake8', 'pep8']
 let g:syntastic_python_pep8_args='--ignore=E114,E265'
 
-let g:UltiSnipsExpandTrigger="<c-f>"
-let g:UltiSnipsListSnippets="<c-a>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsListSnippets="<c-a>"
+"let g:UltiSnipsJumpForwardTrigger="<c-b>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 let g:ycm_confirm_extra_conf = 0
 let g:syntastic_ocaml_checkers = ['merlin']
+
+
+let g:deoplete#enable_at_startup = 1
+
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "UltiSnipsExtra"]
+
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
+

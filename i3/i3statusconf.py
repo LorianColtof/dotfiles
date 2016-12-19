@@ -14,10 +14,10 @@ status.register("clock", format="%a %-d %b %Y %T Week %V")
 status.register("cpu_usage_bar", format="CPU:{usage_bar}")
 
 # Shows your CPU temperature, if you have a Intel CPU
-status.register("temp", format="{temp:.0f}°C")
+status.register("temp", format=" {temp:.0f}°C")
 
 if os.path.isdir("/sys/class/backlight/intel_backlight"):
-    status.register("backlight", format="Backlight: {percentage}%",
+    status.register("backlight", format=" {percentage}%",
                     backlight="intel_backlight")
 
 
@@ -36,13 +36,14 @@ if os.path.isdir("/sys/class/power_supply/BAT0"):
     status.register("battery",
                     format="{status} |{bar_design}| {percentage_design:.2f}% {remaining:%E%hh:%Mm} {consumption:.2f}W",  # noqa
                     not_present_text="(no battery)",
-                    alert=False,
-                    alert_percentage=4,
+                    alert=True,
+                    alert_percentage=15,
                     color='#4b6dff',
                     status={
-                        "DIS": "↓",
-                        "CHR": "↑",
-                        "FULL": "=",
+                        "DLP": "",
+                        "DIS": "",
+                        "CHR": "",
+                        "FULL": " ",
                     })
 
 
@@ -66,27 +67,27 @@ if eth:
     status.register("network",
                     interface=eth,
                     format_down="{interface}",
-                    format_up="{interface}: {v4cidr}",)
+                    format_up="  {interface}: {v4cidr}",)
 
 # Note: requires both netifaces and basiciw (for essid and quality)
 if wlan:
     status.register(
         "network", interface=wlan,
         format_down="{interface}",
-        format_up="{interface}: {essid} {quality:03.0f}% ({v4cidr})",)
+        format_up="  {interface}: {essid} {quality:03.0f}% ({v4cidr})",)
 
 # Shows disk usage of /
 # Format:
 # 42/128G [86G]
 status.register("disk",
                 path="/",
-                format="{used}/{total}GB [{avail}GB]")
+                format="  {used}/{total}GB [{avail}GB]")
 
 # Shows pulseaudio default sink volume
 #
 # Note: requires libpulseaudio from PyPI
 status.register("pulseaudio",
-                format="{muted} ♪ {volume}%",
+                format="♪ {muted} {volume}%",
                 muted=" (muted)")
 
 

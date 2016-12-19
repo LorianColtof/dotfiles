@@ -60,10 +60,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -96,8 +96,8 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # Workspace names
-set $1 "1: Telegram"
-set $2 2
+set $1 "1  "
+set $2 "2 "
 set $3 3
 set $4 4
 set $5 5
@@ -204,13 +204,13 @@ bar {
     status_command python3 $confpath/i3statusconf.py
     font pango:DejaVu Sans Mono 9
     colors {
-        separator #666666
-        background #222222
-        statusline #dddddd
-        focused_workspace #0088CC #0088CC #ffffff
-        active_workspace #333333 #333333 #ffffff
-        inactive_workspace #333333 #333333 #888888
-        urgent_workspace #2f343a #900000 #ffffff
+        separator           #586e75
+        background          #002b36
+        statusline          #ffffff
+        focused_workspace   #586e75 #586e75 #ffffff
+        active_workspace    #073642 #073642 #ffffff
+        inactive_workspace  #002b36 #002b36 #aea79f
+        urgent_workspace    #77216f #77216f #ffffff
     }
     tray_output DVI-I-1
     tray_output eDP1
@@ -245,10 +245,10 @@ exec --no-startup-id i3-msg 'workspace $1; exec telegram-desktop; workspace $2; 
 exec --no-startup-id xss-lock --ignore-sleep -- $confpath/exit_terminal.sh
 exec --no-startup-id workrave
 
-client.focused #0088CC #0088CC #ffffff #dddddd
-client.focused_inactive #333333 #333333 #888888 #292d2e
-client.unfocused #333333 #333333 #888888 #292d2e
-client.urgent #2f343a #900000 #ffffff #900000
+client.focused          #3F8AC2 #096BAA #ffffff #00DA8E
+client.focused_inactive #333333 #5F676A #ffffff #484e50
+client.unfocused        #333333 #424242 #888888 #292d2e
+client.urgent           #C10004 #900000 #ffffff #900000
 
 focus_follows_mouse no
 workspace_auto_back_and_forth yes

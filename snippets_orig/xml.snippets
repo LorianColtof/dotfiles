@@ -1,0 +1,53 @@
+priority -50
+
+snippet newnode "Create node" b
+<node name="$1">
+	<description>$2</description>
+	<sons>
+		$0
+	</sons>
+</node>
+endsnippet
+
+snippet newnodeset "Create nodeset" b
+<nodeset name="$1">
+	<target>
+		$0
+	</target>
+</nodeset>
+endsnippet
+
+snippet attrs "Create attributes" b
+<attributes>
+	$0
+</attributes>
+endsnippet
+
+snippet attr "Create attribute" b
+<attribute name="$1">
+	<description>$2</description>
+	<type name="$3">
+		<targets>
+			<target mandatory="${4:yes}">
+				<phases><all /></phases>
+			</target>
+		</targets>
+	</type>
+</attribute>
+endsnippet
+
+snippet newnsnode "Create node in nodeset" b
+<node name="$1" />
+endsnippet
+
+snippet newson "Create son" b
+<son name="$1">
+	<targets>
+		<target mandatory="${2:yes}">
+			<${3:node/set} name="$1" />
+			<phases><all /></phases>
+		</target>
+	</targets>
+</son>
+endsnippet
+# vim:ft=snippets:

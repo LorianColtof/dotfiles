@@ -4,3 +4,6 @@
 [submodule "base16-shell"]
 	path = base16-shell
 	url = git@github.com:chriskempson/base16-shell.git
+[submodule "snippets"]
+	path = snippets
+	url = git@github.com:MaicoTimmerman/snippets.git

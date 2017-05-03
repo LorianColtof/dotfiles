@@ -8,7 +8,10 @@ alias gs='git status'
 alias cduva='cd /home/lorian/Dropbox/UvA/'
 alias cdssl='cd /home/lorian/Dropbox/SSL-Leiden/'
 alias cdvia='cd /home/lorian/Dropbox/VIA/'
+alias cdviaduct='cd /home/lorian/Dropbox/VIA/ICT/viaduct'
 alias cddotfiles="cd /home/lorian/Dropbox/dotfiles/"
+
+alias startmysql="sudo systemctl start mysqld"
 
 alias sl="sl -e"
 alias LS="sl -e"
@@ -18,9 +21,6 @@ alias clearl="clear;ls -l"
 alias wine32="WINEPREFIX=~/.wine32 wine"
 
 alias uvavpn="sudo openconnect --juniper -u 10769153 uvavpn.uva.nl"
-
-alias vimupdateplugins="vim -c PluginUpdate"
-alias viminstallplugins="vim -c PluginInstall"
 
 alias sudo='sudo -E'
 
@@ -32,6 +32,37 @@ alias mountstack="sudo mount -t davfs https://loriancoltof.stackstorage.com/remo
 alias createlatexmakefile="python3 $_SCRIPTDIR/latex/latex.py"
 
 alias ssh="TERM=xterm-256color ssh"
+
+alias checkmixedindent="ag '( \t|\t )' *.(c|h)"
+alias checktrailingwhitespace="ag ' $' *.(c|h)"
+
+plug() {
+    case $1 in
+        update)
+            cmd="PlugUpdate"
+            ;;
+        upgrade)
+            cmd="PlugUpgrade"
+            ;;
+        install)
+            cmd="PlugInstall"
+            ;;
+        *)
+            echo "Je doet het niet goed"
+            return
+    esac
+
+    vim -c $cmd
+
+}
+
+presentation() {
+    pdfpc $@ &
+    i3-msg workspace "pdfpc-presentation"
+    i3-msg move workspaceto output left
+    i3-msg workspace "pdfpc-presentation"
+}
+
 
 BLD="\e[01m"
 BLU="\e[01;34m"

@@ -72,8 +72,15 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # Move workspaces to left/right screen
-bindsym $mod+Ctrl+Left move workspace to output left
-bindsym $mod+Ctrl+Right move workspace to output right
+bindsym $mod+Ctrl+Left focus output left
+bindsym $mod+Ctrl+Right focus output right
+bindsym $mod+Ctrl+Shift+Left move workspace to output left
+bindsym $mod+Ctrl+Shift+Right move workspace to output right
+
+bindsym $mod+Ctrl+h focus output left
+bindsym $mod+Ctrl+l focus output right
+bindsym $mod+Ctrl+Shift+h move workspace to output left
+bindsym $mod+Ctrl+Shift+l move workspace to output right
 
 # split in horizontal orientation
 bindsym $mod+n split h
@@ -172,15 +179,14 @@ bindsym XF86AudioLowerVolume exec --no-startup-id $confpath/sound down
 bindsym XF86AudioMute exec --no-startup-id $confpath/sound mute
 
 # Media player controls
-bindsym XF86AudioPlay exec --no-startup-id playerctl play
-bindsym XF86AudioPause exec --no-startup-id playerctl pause
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 bindsym XF86KbdBrightnessDown exec --no-startup-id asus-kbd-backlight down
 bindsym XF86KbdBrightnessUp exec --no-startup-id asus-kbd-backlight up
 
-bindsym $mod+C exec --no-startup-id "nmcli_dmenu"
+bindsym $mod+C exec --no-startup-id "networkmanager_dmenu"
 
 bindsym Mod4+F5 exec --no-startup-id "brightness -"
 bindsym Mod4+F6 exec --no-startup-id "brightness +"
@@ -213,7 +219,7 @@ bar {
         urgent_workspace    #77216f #77216f #ffffff
     }
     tray_output DVI-I-1
-    tray_output eDP1
+    tray_output eDP-1
 }
 
 for_window [title="Guake!"] floating enable
@@ -230,6 +236,7 @@ for_window [title="screenkey"] floating enable
 for_window [class="Termite"] border pixel 1
 for_window [title="Quit i3"] floating enable border none
 assign [class="Telegram"] $1
+assign [class="Pdfpc" window_role="presentation"] "pdfpc-presentation"
 
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1

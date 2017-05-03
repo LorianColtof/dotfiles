@@ -9,87 +9,81 @@ endif
 
 " -------------------------- Plugins --------------------------
 
-"set rtp^="/home/lorian/.opam/system/share/ocp-indent/vim"
-"let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-let g:opamshare = '/home/lorian/.opam/4.02.1/share'
-execute "set rtp+=" . g:opamshare . "/merlin/vim"
-execute "set rtp+=" . g:opamshare . "/ocp-indent/vim"
+call plug#begin('~/.vim/plugged')
 
-" set the runtime path to include Vundle and initialize
-set rtp+=/home/lorian/.vim/bundle/Vundle.vim
-call vundle#begin()
+Plug 'scrooloose/syntastic'
 
-Plugin 'gmarik/Vundle.vim'
+Plug 'majutsushi/tagbar'
 
-Plugin 'scrooloose/syntastic'
+"Plug 'Valloric/YouCompleteMe'
 
-Plugin 'majutsushi/tagbar'
+Plug 'Shougo/deoplete.nvim'
 
-"Plugin 'Valloric/YouCompleteMe'
+Plug 'zchee/deoplete-jedi'
 
-Plugin 'Shougo/deoplete.nvim'
+"Plug 'm2mdas/phpcomplete-extended'
 
-Plugin 'zchee/deoplete-jedi'
+Plug 'plasticboy/vim-markdown'
 
-"Plugin 'm2mdas/phpcomplete-extended'
+Plug 'neovimhaskell/haskell-vim'
 
-Plugin 'plasticboy/vim-markdown'
+Plug 'haya14busa/incsearch.vim'
 
-Plugin 'neovimhaskell/haskell-vim'
+Plug 'bling/vim-airline'
 
-Plugin 'haya14busa/incsearch.vim'
+Plug 'vim-airline/vim-airline-themes'
 
-Plugin 'bling/vim-airline'
+Plug 'hynek/vim-python-pep8-indent'
 
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'nathanaelkane/vim-indent-guides'
 
-Plugin 'hynek/vim-python-pep8-indent'
+Plug 'airblade/vim-gitgutter'
 
-Plugin 'nathanaelkane/vim-indent-guides'
+Plug 'rhlobo/vim-super-retab'
 
-Plugin 'airblade/vim-gitgutter'
+Plug 'scrooloose/nerdtree'
 
-Plugin 'rhlobo/vim-super-retab'
+Plug 'PotatoesMaster/i3-vim-syntax'
 
-Plugin 'scrooloose/nerdtree'
+Plug 'MaicoTimmerman/ast.vim'
+"
+Plug 'tomtom/tcomment_vim'
 
-Plugin 'PotatoesMaster/i3-vim-syntax'
+Plug 'SirVer/ultisnips'
 
-Plugin 'scrooloose/nerdcommenter'
+Plug 'honza/vim-snippets'
 
-Plugin 'SirVer/ultisnips'
+Plug 'chriskempson/base16-vim'
 
-Plugin 'honza/vim-snippets'
+Plug 'ctrlpvim/ctrlp.vim'
 
-Plugin 'chriskempson/base16-vim'
+Plug 'othree/html5.vim'
 
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'pangloss/vim-javascript'
 
-Plugin 'othree/html5.vim'
+Plug 'Lokaltog/vim-easymotion'
 
-Plugin 'pangloss/vim-javascript'
+Plug 'bkad/CamelCaseMotion'
 
-Plugin 'Lokaltog/vim-easymotion'
+Plug 'tpope/vim-fugitive'
 
-Plugin 'bkad/CamelCaseMotion'
+Plug 'morhetz/gruvbox'
 
-Plugin 'tpope/vim-fugitive'
+Plug 'hkupty/iron.nvim'
 
-Plugin 'morhetz/gruvbox'
+Plug 'Valloric/MatchTagAlways'
 
-Plugin 'hkupty/iron.nvim'
+Plug 'tpope/vim-surround'
 
-call vundle#end()
+Plug 'jiangmiao/auto-pairs'
+
+Plug 'Yggdroot/indentLine'
+
+Plug 'MaicoTimmerman/ast.vim'
+
+call plug#end()
 
 filetype plugin indent on
-
-" Brief help
-" :PluginList		- lists configured plugins
-" :PluginInstall	- installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean		- confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
 
 " -------------------------- Auto commands --------------------------
 
@@ -99,6 +93,8 @@ au BufRead,BufNewFile *.cls set filetype=tex
 au BufRead,BufNewFile *.cu set filetype=cpp					" CUDA source files
 au BufRead,BufNewFile *.hs set expandtab					" Haskell doesn't like tabs as indentation
 au BufRead,BufNewFile gitconfig set filetype=gitconfig		" gitconfig file in dotfiles repo
+au BufRead,BufNewFile *.{cvc,mac} set syntax=c
+au BufRead,BufNewFile *.{tex,txt} setlocal spell spelllang=en_us
 
 " Remove all trailing whitespace
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
@@ -172,6 +168,8 @@ nmap <silent> <C-T> :RetabIndent<CR>
 
 noremap <C-G> :w<CR>:!pdflatex -shell-escape %<CR><CR>
 
+nmap <C-M> :bn<CR>
+nmap <C-N> :bp<CR>
 
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -182,10 +180,6 @@ noremap <C-up> <C-w>k
 noremap <C-down> <C-w>j
 noremap <C-left> <C-w>h
 noremap <C-right> <C-w>l
-
-"Easier comment toggle
-map <C-_> <plug>NERDCommenterToggle
-vmap <C-_> <plug>NERDCommenterToggle<CR>gv
 
 inoremap # x<BS>#
 
@@ -210,14 +204,27 @@ vnoremap <silent> <up> :m '<-2<CR>gv=gv
 xnoremap i$ :<C-u>normal! T$vt$<CR>
 onoremap i$ :normal vi$<CR>
 
+" ...but only if the count is undefined (otherwise, things like 4j
+" break if wrapped LINES are present)
+nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+xnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+xnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+
+noremap q: :q<CR>
+noremap Q <nop>
+
+
 " -------------------------- Colors --------------------------
 
 set termguicolors
 set background=dark			" Terminal background is dark
+"set background=light
 "colorscheme base16-default-dark
 let g:gruvbox_contrast_dark='hard'
 let g:gruvbox_italic=1
 colorscheme gruvbox
+"colorscheme base16-default-light
 
 " Highlight cursor line
 set cursorline
@@ -246,7 +253,18 @@ function! g:ToggleColorColumn()
     endif
 endfunction
 
+autocmd BufReadPost * call g:ToggleColorColumn()
+
 execute 'hi ColorColumn ctermbg='.(s:column_limit_color)
+
+"disable syntastic on a per buffer basis (some work files blow it up)
+function! SyntasticDisableBuffer()
+    let b:syntastic_mode = "passive"
+    SyntasticReset
+    echo 'Syntastic disabled for this buffer'
+endfunction
+
+command! SyntasticDisableBuffer call SyntasticDisableBuffer()
 
 " -------------------------- Other settings --------------------------
 
@@ -318,7 +336,7 @@ let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 let g:ycm_confirm_extra_conf = 0
 let g:syntastic_ocaml_checkers = ['merlin']
-
+let g:syntastic_c_no_include_search = 1
 
 let g:deoplete#enable_at_startup = 1
 

@@ -13,7 +13,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-default-dark.sh"
 if [[ $(uname) == Linux ]]
 then
 	GIT_PROMPT_EXECUTABLE="haskell"
-	source /home/lorian/Dropbox/zsh-git-prompt/zshrc.sh
+	source $_SCRIPTDIR/zsh-git-prompt/zshrc.sh
 	# Set up the prompt
 	RPROMPT='$(git_super_status)'
 fi

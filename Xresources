@@ -57,30 +57,5 @@ rofi.color-urgent: #fdf6e3, #dc322f, #eee8d5, #dc322f, #fdf6e3
 *.color20:      base04
 *.color21:      base06
 
-
-
-Xft.dpi: 96
 Xft*antialias: true
 Xft*hinting: true
-
-URxvt.scrollBar: false
-
-
-URxvt*cursorBlink: true
-
-URxvt.font: xft:DejaVu Sans Mono for Powerline:size=11
-!
-URxvt.letterSpace: -1
-URxvt.depth: 32
-
-URxvt.perl-ext-common: default,matcher,clipboard
-! Open clickable URLs with Google Chrome
-URxvt.url-launcher: chrome
-URxvt.matcher.button: 1
-URxvt.iso14755: False
-URxvt.colorUL: lightgreen
-
-
-URxvt.keysym.Shift-Control-C: perl:clipboard:copy
-URxvt.keysym.Shift-Control-V: perl:clipboard:paste
-

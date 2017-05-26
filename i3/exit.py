@@ -48,9 +48,8 @@ def logout_action():
 
 def suspend_action():
     if confirmation("Suspend"):
-        os.system("xautolock -locknow")
-        sleep(0.8)
         os.system("systemctl suspend")
+        os.system("xautolock -locknow")
         return True
     return False
 

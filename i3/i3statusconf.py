@@ -67,7 +67,7 @@ if eth:
     status.register("network",
                     interface=eth,
                     format_down="{interface}",
-                    format_up="  {interface}: {v4cidr}",)
+                    format_up="  {interface}: {v4cidr}",)
 
 # Note: requires both netifaces and basiciw (for essid and quality)
 if wlan:

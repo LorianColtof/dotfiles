@@ -137,7 +137,7 @@ nmap <silent> <C-O> :pc<CR>
 nmap  <silent> <C-I> <Plug>IndentGuidesToggle
 
 " <Ctrl+Enter> to run make
-noremap <NL> :make<CR>
+noremap <leader>m :make<CR>
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 "nnoremap <silent> <C-s> :nohl<CR>

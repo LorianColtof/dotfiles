@@ -81,6 +81,8 @@ Plug 'Yggdroot/indentLine'
 
 Plug 'MaicoTimmerman/ast.vim'
 
+Plug 'LaTeX-Box-Team/LaTeX-Box'
+
 call plug#end()
 
 filetype plugin indent on
@@ -168,8 +170,8 @@ nmap <silent> <C-T> :RetabIndent<CR>
 
 noremap <C-G> :w<CR>:!pdflatex -shell-escape %<CR><CR>
 
-nmap <C-M> :bn<CR>
-nmap <C-N> :bp<CR>
+nnoremap <Left> :tabn<CR>
+nnoremap <Right> :tabp<CR>
 
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -185,8 +187,6 @@ inoremap # x<BS>#
 
 noremap <Up> <Nop>
 noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
 
 " Jump to merge conflicts
 nnoremap <silent> ]c /\v^(\<\|\=\|\>){7}([^=].+)?$<CR>
@@ -345,3 +345,6 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "UltiSnipsExtra"]
 let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog = '/usr/bin/python3'
 
+let g:tex_conceal = ""
+let g:LatexBox_latexmk_options = "-shell-escape -bibtex -pdflatex=xelatex"
+let g:vim_markdown_math = 1

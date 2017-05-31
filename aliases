@@ -9,7 +9,7 @@ alias cduva='cd /home/lorian/Dropbox/UvA/'
 alias cdssl='cd /home/lorian/Dropbox/SSL-Leiden/'
 alias cdvia='cd /home/lorian/Dropbox/VIA/'
 alias cdviaduct='cd /home/lorian/Dropbox/VIA/ICT/viaduct'
-alias cddotfiles="cd /home/lorian/Dropbox/dotfiles/"
+alias cddotfiles="cd $_SCRIPTDIR"
 
 alias startmysql="sudo systemctl start mysqld"
 
@@ -35,6 +35,10 @@ alias ssh="TERM=xterm-256color ssh"
 
 alias checkmixedindent="ag '( \t|\t )' *.(c|h)"
 alias checktrailingwhitespace="ag ' $' *.(c|h)"
+
+launch() {
+    $@ &> /dev/null &
+}
 
 plug() {
     case $1 in

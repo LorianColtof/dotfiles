@@ -9,6 +9,9 @@ setopt PROMPT_SUBST
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-default-dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
+alias makelight="source $HOME/.config/base16-shell/scripts/base16-default-light.sh "
+alias makedark="source $HOME/.config/base16-shell/scripts/base16-default-dark.sh "
+
 
 if [[ $(uname) == Linux ]]
 then

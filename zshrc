@@ -51,7 +51,8 @@ setopt NO_HUP
 source $_SCRIPTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
 if [ $TERM != "linux" ]
 then
-    source $_SCRIPTDIR/agnoster.zsh-theme
+    source $_SCRIPTDIR/agnoster-zsh-theme/agnoster.zsh-theme
+
 fi
 
 VTESCRIPT=/etc/profile.d/vte.sh

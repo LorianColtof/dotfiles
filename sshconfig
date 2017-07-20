@@ -8,3 +8,6 @@ Host robots
     HostName robots.loriancoltof.nl
 Host via
     HostName svia.nl
+Host nexus
+    HostName 84.22.114.97
+    User lorian

@@ -10,6 +10,8 @@
     submodule = log
 [pull]
     rebase = true
+[rebase]
+    autoStash = true
 [alias]
     get = "!git stash && git pull --rebase && git stash pop"
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit

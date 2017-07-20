@@ -10,3 +10,6 @@
 [submodule "zsh-git-prompt"]
 	path = zsh-git-prompt
 	url = git@github.com:olivierverdier/zsh-git-prompt.git
+[submodule "agnoster-zsh-theme"]
+	path = agnoster-zsh-theme
+	url = git@github.com:agnoster/agnoster-zsh-theme.git

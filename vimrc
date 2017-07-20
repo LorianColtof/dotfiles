@@ -79,9 +79,9 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'Yggdroot/indentLine'
 
-Plug 'MaicoTimmerman/ast.vim'
-
 Plug 'LaTeX-Box-Team/LaTeX-Box'
+
+Plug 'digitaltoad/vim-pug'
 
 call plug#end()
 
@@ -92,6 +92,7 @@ filetype plugin indent on
 au BufRead,BufNewFile *.pl set filetype=prolog				" Prolog source files
 au BufRead,BufNewFile *.pgf set filetype=tex				" LaTeX PGF figures
 au BufRead,BufNewFile *.cls set filetype=tex
+au BufRead,BufNewFile *.tex set filetype=tex
 au BufRead,BufNewFile *.cu set filetype=cpp					" CUDA source files
 au BufRead,BufNewFile *.hs set expandtab					" Haskell doesn't like tabs as indentation
 au BufRead,BufNewFile gitconfig set filetype=gitconfig		" gitconfig file in dotfiles repo
@@ -124,7 +125,7 @@ autocmd VimLeave * call system("xclip -selection c", getreg('+'))
 " -------------------------- Keymaps --------------------------
 
 let g:mapleader = ','
-let g:maplocalleader = ',,'
+let g:maplocalleader = ' '
 
 map <localleader>l :MerlinLocate<CR>
 
@@ -266,6 +267,11 @@ endfunction
 
 command! SyntasticDisableBuffer call SyntasticDisableBuffer()
 
+
+" let g:airline#extensions#tabline#show_buffers = 0
+" let g:airline#extensions#tabline#show_splits = 1
+" let g:airline#extensions#tabline#show_tabs = 1
+
 " -------------------------- Other settings --------------------------
 
 " Better split window opening
@@ -314,6 +320,8 @@ let g:airline#extensions#branch#enabled = 1
 
 let g:airline_powerline_fonts = 1 " Enable powerline icons.
 
+let g:airline#extensions#tabline#show_splits = 0
+
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -345,6 +353,7 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "UltiSnipsExtra"]
 let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog = '/usr/bin/python3'
 
+let g:vim_markdown_conceal = 0
 let g:tex_conceal = ""
 let g:LatexBox_latexmk_options = "-shell-escape -bibtex -pdflatex=xelatex"
 let g:vim_markdown_math = 1

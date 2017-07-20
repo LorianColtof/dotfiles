@@ -12,6 +12,7 @@ alias cdviaduct='cd /home/lorian/Dropbox/VIA/ICT/viaduct'
 alias cddotfiles="cd $_SCRIPTDIR"
 
 alias startmysql="sudo systemctl start mysqld"
+alias startpostgres="sudo systemctl start postgresql"
 
 alias sl="sl -e"
 alias LS="sl -e"

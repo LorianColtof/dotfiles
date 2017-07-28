@@ -1,4 +1,4 @@
-Host pi
+Host home
     HostName loriancoltof.nl
     User lorian
 Host viabapc

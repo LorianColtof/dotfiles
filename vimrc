@@ -332,7 +332,7 @@ let g:airline#extensions#tabline#enabled = 1
 set ttimeoutlen=50 				" Stop the delay in airline when leaving insertmode.
 set laststatus=2				" always show the statusbar.
 let g:tagbar_autofocus=1		" Autofocus on the tagbar when it is opened.
-let g:syntastic_javascript_checkers = ['jsxhint']
+let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_python_checkers = ['python', 'flake8', 'pep8']
 let g:syntastic_python_pep8_args='--ignore=E114,E265'
 

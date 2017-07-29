@@ -201,6 +201,10 @@ bindcode 248 exec $confpath/start_arandr.py
 
 bindsym $mod+Shift+N exec nautilus
 
+bindsym $mod+Z exec systemctl --user restart airhorn
+
+bindsym $mod+Q exec $confpath/toggle_colors.sh
+
 
 font pango:DejaVu Sans Mono 9
 
@@ -209,15 +213,6 @@ font pango:DejaVu Sans Mono 9
 bar {
     status_command python3 $confpath/i3statusconf.py
     font pango:DejaVu Sans Mono 9
-    colors {
-        separator           #586e75
-        background          #002b36
-        statusline          #ffffff
-        focused_workspace   #586e75 #586e75 #ffffff
-        active_workspace    #073642 #073642 #ffffff
-        inactive_workspace  #002b36 #002b36 #aea79f
-        urgent_workspace    #77216f #77216f #ffffff
-    }
     tray_output DVI-I-1
     tray_output eDP-1
 }
@@ -251,11 +246,6 @@ exec --no-startup-id volnoti
 exec --no-startup-id i3-msg 'workspace $1; exec telegram-desktop; workspace $2; exec chrome'
 exec --no-startup-id xss-lock --ignore-sleep -- $confpath/exit_terminal.sh
 exec --no-startup-id workrave
-
-client.focused          #3F8AC2 #096BAA #ffffff #00DA8E
-client.focused_inactive #333333 #5F676A #ffffff #484e50
-client.unfocused        #333333 #424242 #888888 #292d2e
-client.urgent           #C10004 #900000 #ffffff #900000
 
 focus_follows_mouse no
 workspace_auto_back_and_forth yes

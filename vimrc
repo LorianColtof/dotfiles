@@ -217,15 +217,21 @@ noremap Q <nop>
 
 
 " -------------------------- Colors --------------------------
+function! SetBackgroundColor()
+    if filereadable($HOME.'/.colors_light')
+        set bg=light
+    else
+        set bg=dark
+    endif
+endfunction
 
 set termguicolors
-set background=dark			" Terminal background is dark
-"set background=light
-"colorscheme base16-default-dark
 let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_contrast_light='hard'
 let g:gruvbox_italic=1
 colorscheme gruvbox
-"colorscheme base16-default-light
+"
+call SetBackgroundColor()
 
 " Highlight cursor line
 set cursorline

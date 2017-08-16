@@ -1,3 +1,7 @@
 #!/bin/bash
-BACKGROUND=~/Dropbox/arch-linux-wallpaper-light.png
+
+BACKGROUNDS=(~/wallpapers/*)
+
+index=$(($RANDOM % ${#BACKGROUNDS[@]}))
+BACKGROUND=${BACKGROUNDS[$index]}
 feh --bg-fill $BACKGROUND

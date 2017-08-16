@@ -9,6 +9,7 @@ alias cduva='cd /home/lorian/Dropbox/UvA/'
 alias cdssl='cd /home/lorian/Dropbox/SSL-Leiden/'
 alias cdvia='cd /home/lorian/Dropbox/VIA/'
 alias cdviaduct='cd /home/lorian/Dropbox/VIA/ICT/viaduct'
+alias cdzfp='cd /home/lorian/Dropbox/ZFP/'
 alias cddotfiles="cd $_SCRIPTDIR"
 
 alias startmysql="sudo systemctl start mysqld"

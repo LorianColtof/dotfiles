@@ -11,3 +11,7 @@ Host via
 Host nexus
     HostName 84.22.114.97
     User lorian
+Host nas
+    HostName almere.loriancoltof.nl
+    User coltof
+    Port 2222

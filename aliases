@@ -38,6 +38,18 @@ alias ssh="TERM=xterm-256color ssh"
 alias checkmixedindent="ag '( \t|\t )' *.(c|h)"
 alias checktrailingwhitespace="ag ' $' *.(c|h)"
 
+ssltunnel() {
+    systemd-ask-password "SSH password:" > /tmp/ssltunnel-pass
+    systemctl --user restart ssltunnel.service
+    sleep 3
+    if systemctl --user status ssltunnel.service &> /dev/null
+    then
+        echo "Tunnel created successfully"
+    else
+        echo "Error creating tunnel. Invalid password?"
+    fi
+}
+
 launch() {
     $@ &> /dev/null &
 }

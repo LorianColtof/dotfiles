@@ -1,0 +1,7 @@
+[Unit]
+Description=SSL Vivor SSH tunnel
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c '/usr/bin/sshpass -p $(cat /tmp/ssltunnel-pass) ssh ssltunnel@gate.vivor.net -N -L 0.0.0.0:3307:sql.sslleiden.nl:3306'
+ExecStartPost=/bin/bash -c 'sleep 1; rm -f /tmp/ssltunnel-pass'

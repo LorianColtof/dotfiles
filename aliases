@@ -81,6 +81,90 @@ presentation() {
     i3-msg workspace "pdfpc-presentation"
 }
 
+display() {
+    case $1 in
+        reset)
+            xrandr --auto
+            _fix_touchscreen
+            ;;
+        extend)
+            args=(${@[@]:2})
+            _extend $args
+            ;;
+        *)
+            echo "Je doet het niet goed"
+            ;;
+    esac
+}
+
+_extend() {
+    position="left"
+
+    if ! ( [ "$#" -lt 1 ] ||  [[ $1 == "left" ]] || [[ $1 == "right" ]] ); then
+        echo "position should be either 'left' or 'right'"
+        return
+    elif [ "$#" -ge 1 ]; then
+        position=$1
+
+    fi
+
+    if ! xrandr -q | grep "HDMI1 connected" &> /dev/null; then
+        echo "HDMI1 not connected" > /dev/stderr
+        return
+    fi
+
+    res=($(xrandr -q | grep "HDMI1 connected" -A 1 | \
+        tail -n 1 | cut -d' ' -f4 | sed 's/x/ /g'))
+    monWidth=${res[1]}
+    monHeight=${res[2]}
+
+    laptop_res=($(xrandr -q | grep "eDP1 connected" -A 1 | \
+        tail -n 1 | cut -d' ' -f4 | sed 's/x/ /g'))
+    laptopWidth=${laptop_res[1]}
+    laptopHeight=${laptop_res[2]}
+
+
+    if [[ $position == "left" ]]; then
+        offset="-$(echo "$monWidth * 2" | bc )x0"
+    else
+        offset="${laptopWidth}x0"
+    fi
+
+    xrandr --output eDP1 --pos 0x0 \
+        --output HDMI1 --mode ${monWidth}x${monHeight} \
+        --pos $offset \
+        --scale 2x2
+
+    _fix_touchscreen
+}
+
+_fix_touchscreen() {
+    touchscreen_id=$(xinput --list | grep Touchscreen | \
+        sed -n 's/.*id=\([0-9]\+\).*/\1/p')
+    xinput --map-to-output $touchscreen_id eDP1
+}
+
+_set_gpu_status() {
+    echo $1 | sudo tee /proc/acpi/bbswitch > /dev/null
+}
+
+_print_gpu_status() {
+    gpu_status=$(cat /proc/acpi/bbswitch | cut -d ' ' -f 2)
+    echo "GPU status: $gpu_status"
+}
+
+gpu() {
+    case $1 in
+        on)
+            _set_gpu_status ON
+            ;;
+        off)
+            _set_gpu_status OFF
+            ;;
+    esac
+
+    _print_gpu_status
+}
 
 BLD="\e[01m"
 BLU="\e[01;34m"

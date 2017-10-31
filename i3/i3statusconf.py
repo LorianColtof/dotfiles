@@ -91,11 +91,12 @@ status.register("pulseaudio",
                 muted=" (muted)")
 
 
-status.register(
-    "shell", format="GPU: {output: >3s}",
-    interval=1, color="#00ff00",
-    on_doubleleftclick="/home/lorian/dotfiles/i3/i3pystatus_toggle_gpu",
-    command="/home/lorian/dotfiles/i3/i3pystatus_gpu.sh")
+if os.path.isfile("/proc/acpi/bbswitch"):
+    status.register(
+        "shell", format="GPU: {output: >3s}",
+        interval=1, color="#00ff00",
+        on_doubleleftclick="/home/lorian/dotfiles/i3/i3pystatus_toggle_gpu",
+        command="/home/lorian/dotfiles/i3/i3pystatus_gpu.sh")
 
 
 status.run()

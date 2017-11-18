@@ -21,5 +21,5 @@ killall -SIGUSR1 termite
 
 for socket in /tmp/nvim*/0
 do
-    nvr --servername $socket --remote-send ":call SetBackgroundColor()<CR>" &
+    nvr --servername $socket --remote-send "<ESC>:call SetBackgroundColor()<CR>" &
 done

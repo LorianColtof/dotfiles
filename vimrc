@@ -363,3 +363,5 @@ let g:vim_markdown_conceal = 0
 let g:tex_conceal = ""
 let g:LatexBox_latexmk_options = "-shell-escape -bibtex -pdflatex=xelatex"
 let g:vim_markdown_math = 1
+
+set guicursor=n:blinkon1

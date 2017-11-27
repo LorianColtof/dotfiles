@@ -11,17 +11,11 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
 
 Plug 'majutsushi/tagbar'
 
-"Plug 'Valloric/YouCompleteMe'
-
-Plug 'Shougo/deoplete.nvim'
-
-Plug 'zchee/deoplete-jedi'
-
-"Plug 'm2mdas/phpcomplete-extended'
+Plug 'roxma/nvim-completion-manager'
 
 Plug 'plasticboy/vim-markdown'
 
@@ -35,8 +29,6 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'hynek/vim-python-pep8-indent'
 
-Plug 'nathanaelkane/vim-indent-guides'
-
 Plug 'airblade/vim-gitgutter'
 
 Plug 'rhlobo/vim-super-retab'
@@ -46,7 +38,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'PotatoesMaster/i3-vim-syntax'
 
 Plug 'MaicoTimmerman/ast.vim'
-"
+
 Plug 'tomtom/tcomment_vim'
 
 Plug 'SirVer/ultisnips'
@@ -77,10 +69,6 @@ Plug 'tpope/vim-surround'
 
 Plug 'jiangmiao/auto-pairs'
 
-Plug 'Yggdroot/indentLine'
-
-Plug 'LaTeX-Box-Team/LaTeX-Box'
-
 Plug 'digitaltoad/vim-pug'
 
 call plug#end()
@@ -94,7 +82,6 @@ au BufRead,BufNewFile *.pgf set filetype=tex				" LaTeX PGF figures
 au BufRead,BufNewFile *.cls set filetype=tex
 au BufRead,BufNewFile *.tex set filetype=tex
 au BufRead,BufNewFile *.cu set filetype=cpp					" CUDA source files
-au BufRead,BufNewFile *.hs set expandtab					" Haskell doesn't like tabs as indentation
 au BufRead,BufNewFile gitconfig set filetype=gitconfig		" gitconfig file in dotfiles repo
 au BufRead,BufNewFile *.{cvc,mac} set syntax=c
 au BufRead,BufNewFile *.{tex,txt} setlocal spell spelllang=en_us
@@ -136,15 +123,8 @@ nmap <silent> <leader>v :TagbarToggle<CR>
 " Close scratch
 nmap <silent> <C-O> :pc<CR>
 
-" Toggle indent guides
-nmap  <silent> <C-I> <Plug>IndentGuidesToggle
-
 " <Ctrl+Enter> to run make
 noremap <leader>m :make<CR>
-
-" <Ctrl-l> redraws the screen and removes any search highlighting.
-"nnoremap <silent> <C-s> :nohl<CR>
-"nnoremap <C-s> :nohl<CR>
 
 " Make < > shifts keep selection
 vnoremap < <gv
@@ -215,6 +195,8 @@ xnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 noremap q: :q<CR>
 noremap Q <nop>
 
+inoremap jkl <Esc>
+inoremap jlk <Esc>
 
 " -------------------------- Colors --------------------------
 function! SetBackgroundColor()
@@ -237,11 +219,6 @@ call SetBackgroundColor()
 set cursorline
 
 hi SyntasticError ctermfg=232 ctermbg=160
-
-" Indent guide colors
-let g:indent_guides_auto_colors = 0
-hi IndentGuidesOdd	ctermbg=240
-hi IndentGuidesEven ctermbg=245
 
 " Search highlighting
 hi Search term=reverse ctermfg=15 ctermbg=69
@@ -273,7 +250,6 @@ endfunction
 
 command! SyntasticDisableBuffer call SyntasticDisableBuffer()
 
-
 " let g:airline#extensions#tabline#show_buffers = 0
 " let g:airline#extensions#tabline#show_splits = 1
 " let g:airline#extensions#tabline#show_tabs = 1
@@ -300,8 +276,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set smarttab
-"set breakindent
-"
+
 set wildmenu
 set clipboard=unnamedplus	" Use the X clipboard
 set so=10					" Set scroll limit
@@ -317,10 +292,9 @@ set incsearch				" Incremental serach
 
 set autoread
 
-" Automically unhighlight search results
+" Automatically unhighlight search results
 let g:incsearch#auto_nohlsearch = 1
 
-"let g:airline_theme = 'powerlineish'
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 
@@ -338,21 +312,16 @@ let g:airline#extensions#tabline#enabled = 1
 set ttimeoutlen=50 				" Stop the delay in airline when leaving insertmode.
 set laststatus=2				" always show the statusbar.
 let g:tagbar_autofocus=1		" Autofocus on the tagbar when it is opened.
-let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_python_checkers = ['python', 'flake8', 'pep8']
-let g:syntastic_python_pep8_args='--ignore=E114,E265'
+let g:ale_python_pylint_options = '--disable C0103'
 
 let g:UltiSnipsExpandTrigger="<tab>"
 "let g:UltiSnipsListSnippets="<c-a>"
 "let g:UltiSnipsJumpForwardTrigger="<c-b>"
 "let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:ycm_path_to_python_interpreter = '/usr/bin/python'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-let g:ycm_confirm_extra_conf = 0
-let g:syntastic_ocaml_checkers = ['merlin']
-let g:syntastic_c_no_include_search = 1
 
-let g:deoplete#enable_at_startup = 1
+" TODO: port to ale someday
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+let g:syntastic_c_no_include_search = 1
 
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "UltiSnipsExtra"]
 
@@ -361,7 +330,7 @@ let g:python3_host_prog = '/usr/bin/python3'
 
 let g:vim_markdown_conceal = 0
 let g:tex_conceal = ""
-let g:LatexBox_latexmk_options = "-shell-escape -bibtex -pdflatex=xelatex"
 let g:vim_markdown_math = 1
 
+" Fix cursor blink
 set guicursor=n:blinkon1

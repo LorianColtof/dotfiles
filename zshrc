@@ -25,8 +25,8 @@ function precmd () {
 setopt histignorealldups sharehistory
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
 zstyle ':completion:*' menu select
@@ -46,6 +46,12 @@ then
     source $_SCRIPTDIR/agnoster-zsh-theme/agnoster.zsh-theme
 
 fi
+
+# Expand autocompletion with Ctrl+F
+bindkey '^F' forward-char
+
+# Make backspace work after entering Vi insert mode
+bindkey -v '^?' backward-delete-char
 
 VTESCRIPT=/etc/profile.d/vte.sh
 [[ -s $VTESCRIPT ]] && source $VTESCRIPT

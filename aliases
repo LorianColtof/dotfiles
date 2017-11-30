@@ -12,6 +12,14 @@ alias cdviaduct='cd /home/lorian/Dropbox/VIA/ICT/viaduct'
 alias cdzfp='cd /home/lorian/Dropbox/ZFP/'
 alias cddotfiles="cd $_SCRIPTDIR"
 
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../.."
+
+alias ccat='pygmentize -g -O linenos'
+
 alias startmysql="sudo systemctl start mysqld"
 alias startpostgres="sudo systemctl start postgresql"
 
@@ -24,10 +32,18 @@ alias wine32="WINEPREFIX=~/.wine32 wine"
 
 alias uvavpn="sudo openconnect --juniper -u 10769153 uvavpn.uva.nl"
 
+pls() {
+    hist=$(fc -ln -1)
+    echo "Executing this command with sudo:"
+    echo $hist
+    zsh -c "sudo -E $hist"
+}
+
+alias getip='dig +short myip.opendns.com @resolver1.opendns.com'
+
 alias sudo='sudo -E'
 
-alias pls='sudo /usr/bin/zsh -c "$(fc -ln -1)"'
-
+alias loadrc="source ~/.zshrc"
 
 alias mountstack="sudo mount -t davfs https://loriancoltof.stackstorage.com/remote.php/webdav/ /mnt/stack"
 
@@ -37,6 +53,8 @@ alias ssh="TERM=xterm-256color ssh"
 
 alias checkmixedindent="ag '( \t|\t )' *.(c|h)"
 alias checktrailingwhitespace="ag ' $' *.(c|h)"
+
+alias zathura="GDK_SCALE=1 GDK_DPI_SCALE=1 launch zathura"
 
 ssltunnel() {
     systemd-ask-password "SSH password:" > /tmp/ssltunnel-pass
@@ -164,6 +182,28 @@ gpu() {
     esac
 
     _print_gpu_status
+}
+
+saldo() {
+    USER=32
+
+    for __ in $(seq 1 3);
+    do
+        echo -n "POS PIN: "
+        stty -echo
+        read pin
+        stty echo
+        echo ""
+        saldo=$(curl -s "https://dev.automatis.nl/pos/api/?action=get_user_balance&pin=$pin&user=$USER" \
+                -H 'Referer: https://dev.automatis.nl/' --insecure)
+        if [[ $saldo == \"* || $saldo == "" ]];
+        then
+            echo "Invalid PIN"
+        else
+            printf "Saldo: €%s\n" $saldo
+            break
+        fi
+    done
 }
 
 BLD="\e[01m"

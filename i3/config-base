@@ -217,7 +217,7 @@ font pango:DejaVu Sans Mono 9
 bar {
     status_command python3 $confpath/i3statusconf.py
     font pango:DejaVu Sans Mono 9
-    tray_output DVI-I-1
+    tray_output HDMI-0
     tray_output eDP-1
 }
 
@@ -247,7 +247,7 @@ exec --no-startup-id dropbox
 exec --no-startup-id redshift-gtk
 exec --no-startup-id volnoti
 #exec compton --vsync opengl
-exec --no-startup-id i3-msg 'workspace $1; exec telegram-desktop; workspace $2; exec chrome'
+exec --no-startup-id i3-msg 'workspace $1; exec --no-startup-id telegram-desktop; workspace $2; exec --no-startup-id chrome'
 exec --no-startup-id xss-lock --ignore-sleep -- $confpath/exit_terminal.sh
 exec --no-startup-id workrave
 

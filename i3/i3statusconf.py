@@ -1,9 +1,24 @@
 from i3pystatus import Status
 import os
 import netifaces
+from enum import Enum
 
 
 status = Status(standalone=True)
+
+homedir = os.getenv('HOME')
+
+if os.path.isfile(os.path.join(homedir, '.colors_light')):
+    class Color(Enum):
+        RED = '#9d0006'
+        GREEN = '#379c09'
+        BLUE = '#076678'
+else:
+    class Color(Enum):
+        RED = '#ff0000'
+        GREEN = '#00ff00'
+        BLUE = '#4b6dff'
+
 
 # Displays clock like this:
 # Tue 30 Jul 11:59:46 PM Week 31
@@ -11,7 +26,8 @@ status = Status(standalone=True)
 status.register("clock", format="%a %-d %b %Y %T Week %V")
 
 # Show CPU usage bar
-status.register("cpu_usage_bar", format="CPU:{usage_bar}")
+status.register("cpu_usage_bar", format="CPU:{usage_bar}",
+                start_color=Color.GREEN.value, end_color=Color.RED.value)
 
 # Shows your CPU temperature, if you have a Intel CPU
 status.register("temp", format=" {temp:.0f}°C")
@@ -38,7 +54,7 @@ if os.path.isdir("/sys/class/power_supply/BAT0"):
                     not_present_text="(no battery)",
                     alert=True,
                     alert_percentage=15,
-                    color='#4b6dff',
+                    color=Color.BLUE.value,
                     status={
                         "DLP": "",
                         "DIS": "",
@@ -66,6 +82,7 @@ for interface in netifaces.interfaces():
 if eth:
     status.register("network",
                     interface=eth,
+                    color_up=Color.GREEN.value, color_down=Color.RED.value,
                     format_down="{interface}",
                     format_up="  {interface}: {v4cidr}",)
 
@@ -73,6 +90,7 @@ if eth:
 if wlan:
     status.register(
         "network", interface=wlan,
+        color_up=Color.GREEN.value, color_down=Color.RED.value,
         format_down="{interface}",
         format_up="  {interface}: {essid} {quality:03.0f}% ({v4cidr})",)
 
@@ -87,16 +105,18 @@ status.register("disk",
 #
 # Note: requires libpulseaudio from PyPI
 status.register("pulseaudio",
-                format="♪ {muted} {volume}%",
-                muted=" (muted)")
+                format="♪ {muted}{volume}%",
+                color_muted=Color.RED.value,
+                muted="(muted) ")
 
 
 if os.path.isfile("/proc/acpi/bbswitch"):
     status.register(
         "shell", format="GPU: {output: >3s}",
-        interval=1, color="#00ff00",
-        on_doubleleftclick="/home/lorian/dotfiles/i3/i3pystatus_toggle_gpu",
-        command="/home/lorian/dotfiles/i3/i3pystatus_gpu.sh")
-
+        interval=1, color=Color.GREEN.value,
+        error_color=Color.RED.value,
+        on_doubleleftclick=os.path.join(homedir,
+                                        "dotfiles/i3/i3pystatus_toggle_gpu"),
+        command=os.path.join(homedir, "dotfiles/i3/i3pystatus_gpu.sh"))
 
 status.run()

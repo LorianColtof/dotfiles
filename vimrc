@@ -198,6 +198,8 @@ noremap Q <nop>
 inoremap jkl <Esc>
 inoremap jlk <Esc>
 
+inoremap <C-f> <C-n><C-y>
+
 " -------------------------- Colors --------------------------
 function! SetBackgroundColor()
     if filereadable($HOME.'/.colors_light')
@@ -315,9 +317,6 @@ let g:tagbar_autofocus=1		" Autofocus on the tagbar when it is opened.
 let g:ale_python_pylint_options = '--disable C0103'
 
 let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsListSnippets="<c-a>"
-"let g:UltiSnipsJumpForwardTrigger="<c-b>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " TODO: port to ale someday
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
@@ -334,3 +333,5 @@ let g:vim_markdown_math = 1
 
 " Fix cursor blink
 set guicursor=n:blinkon1
+
+let g:ale_linters = {'python': ['flake8', 'mypy']}

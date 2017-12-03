@@ -52,8 +52,9 @@ if os.path.isdir("/sys/class/power_supply/BAT0"):
     status.register("battery",
                     format="{status} |{bar_design}| {percentage_design:.2f}% {remaining:%E%hh:%Mm} {consumption:.2f}W",  # noqa
                     not_present_text="(no battery)",
+                    interval=5,
                     alert=True,
-                    alert_percentage=15,
+                    alert_percentage=10,
                     color=Color.BLUE.value,
                     status={
                         "DLP": "",

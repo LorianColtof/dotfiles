@@ -15,3 +15,5 @@ Host nas
     HostName almere.loriancoltof.nl
     User coltof
     Port 2222
+
+# vim: ft=sshconfig

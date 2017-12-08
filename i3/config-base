@@ -234,6 +234,7 @@ for_window [title="Box2D.*"] floating enable
 for_window [title="screenkey"] floating enable
 for_window [class="Termite"] border pixel 1
 for_window [title="Quit i3"] floating enable border none
+for_window [class="Syncthing GTK"] floating enable
 assign [class="Telegram"] $1
 assign [class="Pdfpc" window_role="presentation"] "pdfpc-presentation"
 
@@ -244,6 +245,7 @@ exec --no-startup-id $confpath/setup_background.sh
 exec --no-startup-id xautolock -time 15 -locker physlock
 exec --no-startup-id nm-applet
 exec --no-startup-id dropbox
+exec --no-startup-id syncting-gtk
 exec --no-startup-id redshift-gtk
 exec --no-startup-id volnoti
 #exec compton --vsync opengl

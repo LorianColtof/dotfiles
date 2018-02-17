@@ -5,6 +5,7 @@
     editor = vim
 [push]
     default = simple
+	followTags = true
 [diff]
     tool = vimdiff
     submodule = log
@@ -13,10 +14,12 @@
 [rebase]
     autoStash = true
 [alias]
-    get = "!git stash && git pull --rebase && git stash pop"
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     fatus = "!git fetch && git status"
 [status]
     submodulesummary = true
 [help]
     autocorrect = 5
+[filter "clean_ipynb"]
+	clean = ipynb_drop_output
+	smudge = cat

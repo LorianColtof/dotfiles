@@ -5,11 +5,11 @@ alias ls='ls --color=auto'
 alias ll='ls -al'
 alias grep='grep --color=auto'
 alias gs='git status'
-alias cduva='cd /home/lorian/Dropbox/UvA/'
-alias cdssl='cd /home/lorian/Dropbox/SSL-Leiden/'
-alias cdvia='cd /home/lorian/Dropbox/VIA/'
-alias cdviaduct='cd /home/lorian/Dropbox/VIA/ICT/viaduct'
-alias cdzfp='cd /home/lorian/Dropbox/ZFP/'
+alias cduva='cd /home/lorian/Sync/UvA/'
+alias cdssl='cd /home/lorian/Sync/SSL-Leiden/'
+alias cdvia='cd /home/lorian/Sync/VIA/'
+alias cdviaduct='cd /home/lorian/Sync/VIA/ICT/viaduct'
+alias cdzfp='cd /home/lorian/Sync/ZFP/'
 alias cddotfiles="cd $_SCRIPTDIR"
 
 alias ..="cd .."

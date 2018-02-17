@@ -55,7 +55,7 @@ def configure(repl):
     repl.wrap_lines = True
 
     # Mouse support.
-    repl.enable_mouse_support = False
+    repl.enable_mouse_support = True
 
     # Complete while typing. (Don't require tab before the
     # completion menu is shown.)
@@ -83,7 +83,7 @@ def configure(repl):
 
     # Enable auto suggestions. (Pressing right arrow will complete the input,
     # based on the history.)
-    repl.enable_auto_suggest = False
+    repl.enable_auto_suggest = True
 
     # Enable open-in-editor. Pressing C-X C-E in emacs mode or 'v' in
     # Vi navigation mode will open the input in the current editor.
@@ -105,7 +105,7 @@ def configure(repl):
 
     # Enable 24bit True color. (Not all terminals support this. -- maybe check
     # $TERM before changing.)
-    repl.true_color = False
+    repl.true_color = True
 
     # Install custom colorscheme named 'my-colorscheme' and use it.
     """

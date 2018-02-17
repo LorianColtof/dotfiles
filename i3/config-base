@@ -103,7 +103,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # Workspace names
-set $1 "1  "
+set $1 "1 "
 set $2 "2 "
 set $3 3
 set $4 4

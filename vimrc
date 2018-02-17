@@ -335,3 +335,5 @@ let g:vim_markdown_math = 1
 set guicursor=n:blinkon1
 
 let g:ale_linters = {'python': ['flake8', 'mypy']}
+
+set title

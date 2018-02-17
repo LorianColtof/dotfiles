@@ -10,8 +10,7 @@ else
     touch ~/.colors_light
 fi
 
-i3-style $_SCRIPTDIR/theme-$NEWMODE.yaml -c $_SCRIPTDIR/config-base \
-    -o $_SCRIPTDIR/config && i3-msg restart
+$_SCRIPTDIR/reload_config.sh
 
 TERMITE_CONFIG=~/.config/termite/
 cat $TERMITE_CONFIG/base.config $TERMITE_CONFIG/colors-$NEWMODE.config \

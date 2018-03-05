@@ -199,8 +199,6 @@ bindsym $mod+Shift+F exec --no-startup-id rofi -show window
 bindsym $mod+Shift+S exec --no-startup-id $confpath/rofi_ssh.sh
 bindsym $mod+B exec "chrome"
 
-bindcode 248 exec $confpath/start_arandr.py
-
 bindsym $mod+Shift+N exec nautilus
 
 bindsym Ctrl+Shift+$mod+Z exec systemctl --user restart airhorn

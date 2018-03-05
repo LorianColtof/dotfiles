@@ -71,6 +71,14 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'digitaltoad/vim-pug'
 
+Plug 'thaerkh/vim-indentguides'
+
+Plug 'dag/vim-fish'
+
+Plug 'Glench/Vim-Jinja2-Syntax'
+
+Plug 'chase/vim-ansible-yaml'
+
 call plug#end()
 
 filetype plugin indent on
@@ -335,5 +343,7 @@ let g:vim_markdown_math = 1
 set guicursor=n:blinkon1
 
 let g:ale_linters = {'python': ['flake8', 'mypy']}
+
+let g:indentguides_toggleListMode = 0
 
 set title

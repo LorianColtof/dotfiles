@@ -203,7 +203,7 @@ bindsym $mod+Shift+N exec nautilus
 
 bindsym Ctrl+Shift+$mod+Z exec systemctl --user restart airhorn
 
-bindsym $mod+Q exec $confpath/toggle_colors.sh
+bindsym $mod+Mod1+Q exec $confpath/toggle_colors.sh
 
 
 font pango:DejaVu Sans Mono 9
@@ -232,7 +232,7 @@ for_window [title="screenkey"] floating enable
 for_window [class="Termite"] border pixel 1
 for_window [title="Quit i3"] floating enable border none
 for_window [class="Syncthing GTK"] floating enable
-assign [class="Telegram"] workspace 1
+# assign [class="Telegram"] workspace 1
 assign [class="Pdfpc" window_role="presentation"] "pdfpc-presentation"
 
 

@@ -20,6 +20,15 @@ function action_suspend {
     systemctl suspend
 }
 
+function action_hibernate {
+    if ! confirm "hibernate"
+    then
+        return 1
+    fi
+
+    systemctl hibernate
+}
+
 function action_log_out {
     if ! confirm "log out"
     then
@@ -52,12 +61,15 @@ c=1
 
 while ! [[ $c -eq 0 ]]
 do
-    action=$(echo -ne "Suspend|Log out|Reboot|Poweroff" | rofi -sep "|" -dmenu -lines 4 -width 20 \
-        -i -hide-scrollbar -no-custom -p "Action:")
+    action=$(echo -ne "Suspend|Hibernate|Log out|Reboot|Poweroff" | rofi -sep "|" -dmenu -lines 5 -width 20 \
+        -i -hide-scrollbar -no-custom -p "Action")
 
     case $action in
         "Suspend")
             action_suspend
+            ;;
+        "Hibernate")
+            action_hibernate
             ;;
         "Log out")
             action_log_out

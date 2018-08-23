@@ -15,7 +15,31 @@ Plug 'w0rp/ale'
 
 Plug 'majutsushi/tagbar'
 
-Plug 'roxma/nvim-completion-manager'
+Plug 'ncm2/ncm2'
+
+Plug 'ncm2/ncm2-bufword'
+
+Plug 'ncm2/ncm2-path'
+
+Plug 'ncm2/ncm2-cssomni'
+
+Plug 'ncm2/ncm2-tern'
+
+Plug 'ncm2/ncm2-jedi'
+
+Plug 'ncm2/ncm2-pyclang'
+
+Plug 'ncm2/ncm2-vim'
+
+Plug 'phpactor/ncm2-phpactor'
+
+Plug 'ncm2/ncm2-ultisnips'
+
+Plug 'ncm2/ncm2-html-subscope'
+
+Plug 'ncm2/ncm2-markdown-subscope'
+
+Plug 'roxma/nvim-yarp'
 
 Plug 'plasticboy/vim-markdown'
 
@@ -71,19 +95,25 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'digitaltoad/vim-pug'
 
-Plug 'thaerkh/vim-indentguides'
-
+" Plug 'thaerkh/vim-indentguides'
+"
 Plug 'dag/vim-fish'
 
 Plug 'Glench/Vim-Jinja2-Syntax'
 
 Plug 'chase/vim-ansible-yaml'
 
+" Plug 'OmniSharp/omnisharp-vim'
+
+Plug 'kchmck/vim-coffee-script'
+
 call plug#end()
 
 filetype plugin indent on
 
 " -------------------------- Auto commands --------------------------
+"
+autocmd BufEnter * call ncm2#enable_for_buffer()
 
 au BufRead,BufNewFile *.pl set filetype=prolog				" Prolog source files
 au BufRead,BufNewFile *.pgf set filetype=tex				" LaTeX PGF figures
@@ -96,6 +126,10 @@ au BufRead,BufNewFile *.{tex,txt} setlocal spell spelllang=en_us
 
 " Remove all trailing whitespace
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
+"
+" Don't conceal stuff
+let g:indentLine_setConceal = 0
+
 
 " Jump to the last position when reopening a file
 if has("autocmd")
@@ -266,6 +300,8 @@ command! SyntasticDisableBuffer call SyntasticDisableBuffer()
 
 " -------------------------- Other settings --------------------------
 
+set completeopt=noinsert,menuone,noselect
+
 " Better split window opening
 set splitbelow
 set splitright
@@ -310,7 +346,7 @@ let g:airline#extensions#branch#enabled = 1
 
 let g:airline_powerline_fonts = 1 " Enable powerline icons.
 
-let g:airline#extensions#tabline#show_splits = 0
+" let g:airline#extensions#tabline#show_splits = 0
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -347,3 +383,6 @@ let g:ale_linters = {'python': ['flake8', 'mypy']}
 let g:indentguides_toggleListMode = 0
 
 set title
+
+let g:OmniSharp_server_path = '/home/lorian/omnisharp/OmniSharp.exe'
+let g:OmniSharp_server_use_mono = 1

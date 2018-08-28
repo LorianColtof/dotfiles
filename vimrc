@@ -60,7 +60,7 @@ Plug 'rhlobo/vim-super-retab'
 Plug 'scrooloose/nerdtree'
 
 Plug 'PotatoesMaster/i3-vim-syntax'
-
+"
 Plug 'MaicoTimmerman/ast.vim'
 
 Plug 'tomtom/tcomment_vim'
@@ -86,7 +86,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
 
 Plug 'hkupty/iron.nvim'
-
+"
 Plug 'Valloric/MatchTagAlways'
 
 Plug 'tpope/vim-surround'
@@ -107,6 +107,8 @@ Plug 'chase/vim-ansible-yaml'
 
 Plug 'kchmck/vim-coffee-script'
 
+Plug 'juliosueiras/cakebuild.vim'
+
 call plug#end()
 
 filetype plugin indent on
@@ -117,6 +119,7 @@ autocmd BufEnter * call ncm2#enable_for_buffer()
 
 au BufRead,BufNewFile *.pl set filetype=prolog				" Prolog source files
 au BufRead,BufNewFile *.pgf set filetype=tex				" LaTeX PGF figures
+au BufRead,BufNewFile *.tex set filetype=tex				" Avoid plaintex
 au BufRead,BufNewFile *.cls set filetype=tex
 au BufRead,BufNewFile *.tex set filetype=tex
 au BufRead,BufNewFile *.cu set filetype=cpp					" CUDA source files
@@ -129,7 +132,6 @@ autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 "
 " Don't conceal stuff
 let g:indentLine_setConceal = 0
-
 
 " Jump to the last position when reopening a file
 if has("autocmd")
@@ -337,6 +339,8 @@ set hlsearch 				" Highlight search
 set incsearch				" Incremental serach
 
 set autoread
+
+set magic
 
 " Automatically unhighlight search results
 let g:incsearch#auto_nohlsearch = 1

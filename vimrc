@@ -382,7 +382,7 @@ let g:vim_markdown_math = 1
 " Fix cursor blink
 set guicursor=n:blinkon1
 
-let g:ale_linters = {'python': ['flake8', 'mypy']}
+let g:ale_linters = {'python': ['flake8', 'mypy'], 'javascript': ['eslint']}
 
 let g:indentguides_toggleListMode = 0
 

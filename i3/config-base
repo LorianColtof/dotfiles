@@ -232,7 +232,7 @@ for_window [title="screenkey"] floating enable
 for_window [class="Termite"] border pixel 1
 for_window [title="Quit i3"] floating enable border none
 for_window [class="Syncthing GTK"] floating enable
-# assign [class="Telegram"] workspace 1
+assign [class="Telegram"] workspace 1
 assign [class="Pdfpc" window_role="presentation"] "pdfpc-presentation"
 
 
@@ -246,7 +246,8 @@ exec --no-startup-id nm-applet
 exec --no-startup-id syncting-gtk
 exec --no-startup-id redshift-gtk
 exec --no-startup-id volnoti
-exec --no-startup-id i3-msg 'workspace number 1; exec --no-startup-id telegram-desktop; workspace number 2; exec --no-startup-id chrome'
+exec --no-startup-id telegram-desktop
+exec --no-startup-id i3-msg 'workspace number 2; exec --no-startup-id chrome'
 exec --no-startup-id xss-lock -l $confpath/lock/lock.sh
 exec --no-startup-id workrave
 

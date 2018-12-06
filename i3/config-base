@@ -232,7 +232,7 @@ for_window [title="screenkey"] floating enable
 for_window [class="Termite"] border pixel 1
 for_window [title="Quit i3"] floating enable border none
 for_window [class="Syncthing GTK"] floating enable
-assign [class="Telegram"] workspace 1
+assign [class="Telegram"] workspace number 1
 assign [class="Pdfpc" window_role="presentation"] "pdfpc-presentation"
 
 

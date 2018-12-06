@@ -18,7 +18,10 @@ cat $TERMITE_CONFIG/base.config $TERMITE_CONFIG/colors-$NEWMODE.config \
 
 killall -SIGUSR1 termite
 
-for socket in /tmp/nvim*/0
-do
-    nvr --servername $socket --remote-send "<ESC>:call SetBackgroundColor()<CR>" &
-done
+if ls /tmp/nvim*/0 &> /dev/null; then
+    for socket in /tmp/nvim*/0
+    do
+        echo $socket
+        nvr --nostart --servername $socket --remote-send "<ESC>:call SetBackgroundColor()<CR>" &
+    done
+fi

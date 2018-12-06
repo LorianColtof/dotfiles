@@ -53,6 +53,7 @@ xf86-video-intel
 xf86-video-vesa
 xorg-xbacklight
 xorg-xinit
+xorg-xinput
 xorg-xprop
 xorg-xrandr
 xsel

@@ -162,10 +162,6 @@ _fix_touchscreen() {
     xinput --map-to-output $touchscreen_id eDP1
 }
 
-_set_gpu_status() {
-    echo $1 | sudo tee /proc/acpi/bbswitch > /dev/null
-}
-
 _print_gpu_status() {
     gpu_status=$(cat /proc/acpi/bbswitch | cut -d ' ' -f 2)
     echo "GPU status: $gpu_status"
@@ -174,10 +170,10 @@ _print_gpu_status() {
 gpu() {
     case $1 in
         on)
-            _set_gpu_status ON
+            $_SCRIPTDIR/gpu/gpu-switch on
             ;;
         off)
-            _set_gpu_status OFF
+            $_SCRIPTDIR/gpu/gpu-switch off
             ;;
     esac
 

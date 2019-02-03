@@ -109,6 +109,8 @@ Plug 'kchmck/vim-coffee-script'
 
 Plug 'juliosueiras/cakebuild.vim'
 
+Plug 'ledger/vim-ledger'
+
 call plug#end()
 
 filetype plugin indent on
@@ -126,6 +128,7 @@ au BufRead,BufNewFile *.cu set filetype=cpp					" CUDA source files
 au BufRead,BufNewFile gitconfig set filetype=gitconfig		" gitconfig file in dotfiles repo
 au BufRead,BufNewFile *.{cvc,mac} set syntax=c
 au BufRead,BufNewFile *.{tex,txt} setlocal spell spelllang=en_us
+au BufRead,BufNewFile *.journal set filetype=ledger
 
 " Remove all trailing whitespace
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
@@ -362,7 +365,11 @@ let g:airline#extensions#tabline#enabled = 1
 set ttimeoutlen=50 				" Stop the delay in airline when leaving insertmode.
 set laststatus=2				" always show the statusbar.
 let g:tagbar_autofocus=1		" Autofocus on the tagbar when it is opened.
+
+
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_python_pylint_options = '--disable C0103'
+let g:ale_python_flake8_options = '--ignore=D100,D101,D102,D103,D104,D105,D106,D107'
 
 let g:UltiSnipsExpandTrigger="<tab>"
 

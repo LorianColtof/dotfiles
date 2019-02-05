@@ -54,7 +54,7 @@ if os.path.isdir("/sys/class/power_supply/BAT0"):
                     not_present_text="(no battery)",
                     interval=5,
                     alert=True,
-                    alert_percentage=10,
+                    alert_percentage=5,
                     color=Color.BLUE.value,
                     status={
                         "DLP": "",

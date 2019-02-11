@@ -26,7 +26,7 @@ else:
 status.register("clock", format="%a %-d %b %Y %T Week %V")
 
 # Show CPU usage bar
-status.register("cpu_usage_bar", format="CPU:{usage_bar}",
+status.register("cpu_usage_bar", format="CPU:{usage_bar}", dynamic_color=True,
                 start_color=Color.GREEN.value, end_color=Color.RED.value)
 
 # Shows your CPU temperature, if you have a Intel CPU

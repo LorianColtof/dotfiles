@@ -82,6 +82,8 @@ bindsym $mod+Ctrl+l focus output right
 bindsym $mod+Ctrl+Shift+h move workspace to output left
 bindsym $mod+Ctrl+Shift+l move workspace to output right
 
+bindsym $mod+Shift+P exec $confpath/switch_outputs.py
+
 # split in horizontal orientation
 bindsym $mod+n split h
 

@@ -1,11 +1,6 @@
 set nocompatible			  " be iMproved, required
 filetype off				  " required
 
-" Enable syntax highlighting
-if has("syntax")
-  syntax on
-endif
-
 
 " -------------------------- Plugins --------------------------
 
@@ -86,7 +81,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
 
 Plug 'hkupty/iron.nvim'
-"
+
 Plug 'Valloric/MatchTagAlways'
 
 Plug 'tpope/vim-surround'
@@ -111,9 +106,17 @@ Plug 'juliosueiras/cakebuild.vim'
 
 Plug 'ledger/vim-ledger'
 
+Plug 'lervag/vimtex'
+
 call plug#end()
 
 filetype plugin indent on
+
+" Enable syntax highlighting
+if has("syntax")
+  syntax on
+endif
+
 
 " -------------------------- Auto commands --------------------------
 "
@@ -129,6 +132,7 @@ au BufRead,BufNewFile gitconfig set filetype=gitconfig		" gitconfig file in dotf
 au BufRead,BufNewFile *.{cvc,mac} set syntax=c
 au BufRead,BufNewFile *.{tex,txt} setlocal spell spelllang=en_us
 au BufRead,BufNewFile *.journal set filetype=ledger
+au BufRead,BufNewFile *.vue set filetype=html
 
 " Remove all trailing whitespace
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
@@ -370,6 +374,7 @@ let g:tagbar_autofocus=1		" Autofocus on the tagbar when it is opened.
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_python_pylint_options = '--disable C0103'
 let g:ale_python_flake8_options = '--ignore=D100,D101,D102,D103,D104,D105,D106,D107'
+let g:ale_python_mypy_options = '--ignore-missing-imports'
 
 let g:UltiSnipsExpandTrigger="<tab>"
 
@@ -397,3 +402,20 @@ set title
 
 let g:OmniSharp_server_path = '/home/lorian/omnisharp/OmniSharp.exe'
 let g:OmniSharp_server_use_mono = 1
+
+let g:tex_no_error=1
+
+let g:tcomment_textobject_inlinecomment = 0
+
+let g:vimtex_compiler_progname = 'nvr'
+
+let g:vimtex_compiler_latexmk = {
+        \ 'options' : [
+        \   '-xelatex',
+        \   '-shell-escape',
+        \   '-verbose',
+        \   '-file-line-error',
+        \   '-synctex=1',
+        \   '-interaction=nonstopmode',
+        \ ],
+        \}

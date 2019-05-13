@@ -63,7 +63,8 @@ WINDOW_ICONS = {
     'atom': fa.icons['file-code'],
     'steam': fa.icons['steam'],
     'zenity': fa.icons['window-maximize'],
-    'pavucontrol': fa.icons['volume-up']
+    'pavucontrol': fa.icons['volume-up'],
+    'jetbrains-pycharm': fa.icons['python']
 }
 
 # This icon is used for any application not in the list above

@@ -202,8 +202,8 @@ nmap <silent> <C-T> :RetabIndent<CR>
 
 noremap <C-G> :w<CR>:!pdflatex -shell-escape %<CR><CR>
 
-nnoremap <Left> :tabn<CR>
-nnoremap <Right> :tabp<CR>
+nnoremap <silent> <Left> :tabn<CR>
+nnoremap <silent> <Right> :tabp<CR>
 
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -250,6 +250,9 @@ inoremap jkl <Esc>
 inoremap jlk <Esc>
 
 inoremap <C-f> <C-n><C-y>
+
+nmap <silent> <C-_> :TComment<CR>j
+vmap <silent> <C-_> :TCommentBlock<CR>gv
 
 " -------------------------- Colors --------------------------
 function! SetBackgroundColor()
@@ -384,7 +387,7 @@ let g:syntastic_c_no_include_search = 1
 
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "UltiSnipsExtra"]
 
-let g:python_host_prog = '/usr/bin/python'
+let g:python_host_prog = '/usr/bin/python2'
 let g:python3_host_prog = '/usr/bin/python3'
 
 let g:vim_markdown_conceal = 0
@@ -406,6 +409,7 @@ let g:OmniSharp_server_use_mono = 1
 let g:tex_no_error=1
 
 let g:tcomment_textobject_inlinecomment = 0
+let g:tcomment_mapleader1 = 0
 
 let g:vimtex_compiler_progname = 'nvr'
 

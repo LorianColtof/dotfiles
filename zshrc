@@ -7,7 +7,10 @@ setopt PROMPT_SUBST
 
 if [[ $(uname) == Linux ]]
 then
-	GIT_PROMPT_EXECUTABLE="haskell"
+	if ! uname -r | grep Microsoft > /dev/null
+	then
+		GIT_PROMPT_EXECUTABLE="haskell"
+	fi
 	source $_SCRIPTDIR/zsh-git-prompt/zshrc.sh
 fi
 
@@ -61,6 +64,8 @@ function zle-line-init zle-keymap-select {
 
 zle -N zle-line-init
 zle -N zle-keymap-select
+
+export LS_COLORS='ow=01;36;40'
 
 # Fix Ctrl+Shift+T
 VTESCRIPT=/etc/profile.d/vte.sh

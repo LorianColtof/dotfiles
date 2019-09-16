@@ -1,3 +1,5 @@
 *.sw?
 i3/config
 termite/config
+
+.mypy_cache

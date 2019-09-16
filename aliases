@@ -221,8 +221,23 @@ printerror() {
 
 confirm() {
     echo -ne "${BLD}$1${NRM}"
-    read REPLY"? [y/N] "
-    if [[ $REPLY =~ ^[Yy]$ ]]
+
+    default_yes=false
+
+    if ! [[ -z "$2" ]]
+    then
+        default_yes=$2
+    fi
+
+    if $default_yes
+    then
+        question=REPLY"? [Y/n] "
+    else
+        question=REPLY"? [y/N] "
+    fi
+
+    read $question
+    if [[ $REPLY =~ ^[Yy]$ ]] || ($default_yes && [[ $REPLY =~ ^$ ]])
     then
         return 1
     fi
@@ -308,7 +323,7 @@ _venvcreate()
     cd $location
     printinfo "Done"
 
-    confirm "Activate virtualenv now?"
+    confirm "Activate virtualenv now?" true
     if [ $? -ne 0 ]
     then
         _venvactivate $name

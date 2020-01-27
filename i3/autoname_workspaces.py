@@ -42,7 +42,7 @@ import fontawesome as fa
 # xprop (https://linux.die.net/man/1/xprop). Run `xprop | grep WM_CLASS`
 # then click on the application you want to inspect.
 WINDOW_ICONS = {
-    'telegram-desktop': fa.icons['telegram'],
+    'telegram-desktop-bin': fa.icons['telegram'],
     'termite': fa.icons['terminal'],
     'urxvt': fa.icons['terminal'],
     'chromium': fa.icons['chrome'],
@@ -61,6 +61,7 @@ WINDOW_ICONS = {
     'subl3': fa.icons['file-code'],
     'vim': fa.icons['file-code'],
     'atom': fa.icons['file-code'],
+    'vscodium': fa.icons['file-code'],
     'steam': fa.icons['steam'],
     'zenity': fa.icons['window-maximize'],
     'pavucontrol': fa.icons['volume-up'],

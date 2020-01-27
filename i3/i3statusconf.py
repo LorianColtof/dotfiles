@@ -50,7 +50,7 @@ if os.path.isdir("/sys/class/backlight/intel_backlight"):
 #   http://www.knopwob.org/dunst/
 if os.path.isdir("/sys/class/power_supply/BAT0"):
     status.register("battery",
-                    format="{status} |{bar_design}| {percentage_design:.2f}% {remaining:%E%hh:%Mm} {consumption:.2f}W",  # noqa
+                    format="{status} |{bar}| {percentage:.2f}% {remaining:%E%hh:%Mm} {consumption:.2f}W",  # noqa
                     not_present_text="(no battery)",
                     interval=5,
                     alert=True,
@@ -84,23 +84,25 @@ if eth:
     status.register("network",
                     interface=eth,
                     color_up=Color.GREEN.value, color_down=Color.RED.value,
-                    format_down="{interface}",
-                    format_up="  {interface}: {v4cidr}",)
+                    format_down=" {interface}",
+                    format_up=" {interface}: {v4cidr}",
+                    on_upscroll=None, on_downscroll=None)
 
 # Note: requires both netifaces and basiciw (for essid and quality)
 if wlan:
     status.register(
         "network", interface=wlan,
         color_up=Color.GREEN.value, color_down=Color.RED.value,
-        format_down="{interface}",
-        format_up="  {interface}: {essid} {quality:03.0f}% ({v4cidr})",)
+        format_down=" {interface}",
+        format_up=" {interface}: {essid} {quality:03.0f}% ({v4cidr})",
+        on_upscroll=None, on_downscroll=None)
 
 # Shows disk usage of /
 # Format:
 # 42/128G [86G]
 status.register("disk",
                 path="/",
-                format="  {used}/{total}GB [{avail}GB]")
+                format=" {used}/{total}GB [{avail}GB]")
 
 # Shows pulseaudio default sink volume
 #

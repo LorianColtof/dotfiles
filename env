@@ -8,3 +8,5 @@ export MONO_MWF_SCALING=disable
 export PATH=$PATH:/home/lorian/cil/bin/:/opt/android-sdk/platform-tools:~/.local/bin/
 export TERMINAL=termite
 export DEFAULT_USER=lorian
+
+export CUDA_INSTALL_PATH=/opt/cuda

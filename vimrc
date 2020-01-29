@@ -6,7 +6,7 @@ filetype off				  " required
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 
 Plug 'majutsushi/tagbar'
 
@@ -127,7 +127,6 @@ au BufRead,BufNewFile *.pgf set filetype=tex				" LaTeX PGF figures
 au BufRead,BufNewFile *.tex set filetype=tex				" Avoid plaintex
 au BufRead,BufNewFile *.cls set filetype=tex
 au BufRead,BufNewFile *.tex set filetype=tex
-au BufRead,BufNewFile *.cu set filetype=cpp					" CUDA source files
 au BufRead,BufNewFile gitconfig set filetype=gitconfig		" gitconfig file in dotfiles repo
 au BufRead,BufNewFile *.{cvc,mac} set syntax=c
 au BufRead,BufNewFile *.{tex,txt} setlocal spell spelllang=en_us

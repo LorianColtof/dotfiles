@@ -13,11 +13,20 @@ Host nexus
     User lorian
 Host nas
     HostName almere.loriancoltof.nl
-    User coltof
+    User lorian
     Port 2222
 Host desktop
     HostName loriancoltof.nl
     User lorian
     Port 2222
+Host ssldocker
+    HostName testdocker.sslleiden.nl
+    User lorian
+Host ssldockerdev
+    HostName develop.sslleiden.nl
+    User lorian
+Host sslrv
+    HostName 192.168.178.167
+    User rv
 
 # vim: ft=sshconfig

@@ -133,6 +133,7 @@ au BufRead,BufNewFile *.{tex,txt} setlocal spell spelllang=en_us
 au BufRead,BufNewFile *.journal set filetype=ledger
 au BufRead,BufNewFile *.vue set filetype=html
 au FileType cake setlocal tabstop=4 softtabstop=4 shiftwidth=4
+au FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 " Remove all trailing whitespace
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif

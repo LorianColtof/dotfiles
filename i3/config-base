@@ -216,6 +216,7 @@ bar {
     tray_output HDMI-0
     tray_output eDP-1
     tray_output eDP1
+    tray_output DP-1
 }
 
 for_window [title="Guake!"] floating enable

@@ -5,7 +5,11 @@ export WINEDEBUG=-all
 export WINEPREFIX=~/.wine32
 export MONO_MWF_SCALING=disable
 
-export PATH=$PATH:/home/lorian/cil/bin/:/opt/android-sdk/platform-tools:~/.local/bin/
+export LS_COLORS='ow=01;36;40'
+
+android_build_tools_version=$(ls /opt/android-sdk/build-tools | sort | tail -n1)
+export PATH=$PATH:~/.local/bin/:/opt/android-sdk/tools:/opt/android-sdk/platform-tools:/opt/android-sdk/build-tools/$android_build_tools_version
+
 export TERMINAL=termite
 export DEFAULT_USER=lorian
 

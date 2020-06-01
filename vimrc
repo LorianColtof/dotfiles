@@ -108,6 +108,8 @@ Plug 'ledger/vim-ledger'
 
 Plug 'lervag/vimtex'
 
+Plug 'ekalinin/Dockerfile.vim'
+
 call plug#end()
 
 filetype plugin indent on
@@ -132,6 +134,7 @@ au BufRead,BufNewFile *.{cvc,mac} set syntax=c
 au BufRead,BufNewFile *.{tex,txt} setlocal spell spelllang=en_us
 au BufRead,BufNewFile *.journal set filetype=ledger
 au BufRead,BufNewFile *.vue set filetype=html
+au BufRead,BufNewFile Dockerfile* set filetype=Dockerfile
 au FileType cake setlocal tabstop=4 softtabstop=4 shiftwidth=4
 au FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
 

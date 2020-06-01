@@ -3,9 +3,10 @@
     email = loriancoltof@gmail.com
 [core]
     editor = vim
+    autocrlf = input
 [push]
     default = simple
-	followTags = true
+    followTags = true
 [diff]
     tool = vimdiff
     submodule = log

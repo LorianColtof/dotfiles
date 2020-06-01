@@ -4,10 +4,9 @@ Host home
 Host viabapc
     HostName via1.hosting.os3.nl
     User via
-Host robots
-    HostName robots.loriancoltof.nl
 Host via
     HostName svia.nl
+    User lorian
 Host nexus
     HostName intranet.hetzwartefietsenplan.com
     User lorian
@@ -30,7 +29,13 @@ Host ssldockerdev
     HostName develop.sslleiden.nl
     User lorian
 Host sslrv
-    HostName 192.168.178.167
-    User rv
+    HostName kantoor.sslleiden.nl
+    User lorian
+Host router
+    HostName 192.168.1.1
+    User root
+Host lisa
+    HostName lisa-gpu.surfsara.nl
+    User lcoltof
 
 # vim: ft=sshconfig

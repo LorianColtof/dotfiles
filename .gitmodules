@@ -1,15 +1,15 @@
 [submodule "zsh-autosuggestions"]
-	path = oh-my-zsh-custom/plugins/zsh-autosuggestions
+	path = zsh/.config/zsh-dotfiles/oh-my-zsh-custom/plugins/zsh-autosuggestions
 	url = git@github.com:zsh-users/zsh-autosuggestions.git
 [submodule "snippets"]
-	path = snippets
+	path = nvim/.vim/plugged/vim-snippets/UltiSnipsExtra
 	url = git@github.com:MaicoTimmerman/snippets.git
 [submodule "zsh-git-prompt"]
-	path = oh-my-zsh-custom/plugins/git-prompt
+	path = zsh/.config/zsh-dotfiles/oh-my-zsh-custom/plugins/git-prompt
 	url = git@github.com:olivierverdier/zsh-git-prompt.git
 [submodule "agnoster-zsh-theme"]
-	path = oh-my-zsh-custom/agnoster
+	path = zsh/.config/zsh-dotfiles/oh-my-zsh-custom/agnoster
 	url = git@github.com:agnoster/agnoster-zsh-theme.git
 [submodule "oh-my-zsh"]
-	path = oh-my-zsh
+	path = zsh/.config/zsh-dotfiles/oh-my-zsh
 	url = git@github.com:ohmyzsh/ohmyzsh.git

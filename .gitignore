@@ -1,5 +1,5 @@
 *.sw?
-i3/config
-termite/config
+i3/.config/i3/config
+termite/.config/termite/config
 
 .mypy_cache

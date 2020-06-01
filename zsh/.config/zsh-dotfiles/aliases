@@ -5,12 +5,12 @@ alias ls='ls --color=auto'
 alias ll='ls -alh'
 alias grep='grep --color=auto'
 alias gs='git status'
-alias cduva='cd /home/lorian/Sync/UvA/'
-alias cdssl='cd /home/lorian/Sync/SSL-Leiden/'
-alias cdvia='cd /home/lorian/Sync/VIA/'
-alias cdviaduct='cd /home/lorian/Sync/VIA/ICT/viaduct'
-alias cdzfp='cd /home/lorian/Sync/ZFP/'
-alias cddotfiles="cd $_SCRIPTDIR"
+alias cduva='cd ~/Sync/UvA/'
+alias cdssl='cd ~/Sync/SSL-Leiden/'
+alias cdvia='cd ~/Sync/VIA/'
+alias cdviaduct='cd ~/Sync/VIA/ICT/viaduct'
+alias cdzfp='cd ~/Sync/ZFP/'
+alias cddotfiles="cd ~/dotfiles"
 
 alias ..="cd .."
 alias ...="cd ../.."
@@ -170,15 +170,17 @@ _print_gpu_status() {
     echo "GPU status: $gpu_status"
 }
 
-unalias gpu
+if command -v gpu >/dev/null; then
+    unalias gpu
+fi
 
 gpu() {
     case $1 in
         on)
-            $_SCRIPTDIR/gpu/gpu-switch on
+            $_SCRIPTDIR/scripts/gpu/gpu-switch on
             ;;
         off)
-            $_SCRIPTDIR/gpu/gpu-switch off
+            $_SCRIPTDIR/scripts/gpu/gpu-switch off
             ;;
     esac
 

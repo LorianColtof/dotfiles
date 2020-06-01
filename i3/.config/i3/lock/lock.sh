@@ -1,4 +1,7 @@
 #!/bin/bash
+
+echo "START LOCK"
+
 SCRIPTDIR=$(cd $(dirname $0);echo $PWD)
 TMPBG=/tmp/screen.png
 LOCK=$SCRIPTDIR/beeldmerk.png
@@ -22,17 +25,23 @@ if [[ -e /dev/fd/${XSS_SLEEP_LOCK_FD:--1} ]]; then
         pkill -xu $EUID "$@" i3lock
     }
 
+    echo "FD: $XSS_SLEEP_LOCK_FD"
+
     trap kill_i3lock TERM INT
 
     lock {XSS_SLEEP_LOCK_FD}<&-
 
+    echo "CLOSE FD"
     exec {XSS_SLEEP_LOCK_FD}<&-
 
     while kill_i3lock -0; do
+        echo "sleep..."
         sleep 0.5
     done
+
 else
     lock -n
 fi
 
+echo "END LOCK"
 rm $TMPBG $LOCKFILE

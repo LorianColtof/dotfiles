@@ -119,7 +119,7 @@ if os.path.isfile("/proc/acpi/bbswitch"):
         interval=1, color=Color.GREEN.value,
         error_color=Color.RED.value,
         on_doubleleftclick=os.path.join(homedir,
-                                        "dotfiles/gpu/gpu-switch toggle"),
-        command=os.path.join(homedir, "dotfiles/gpu/i3pystatus_gpu.sh"))
+                                        "dotfiles/scripts/gpu/gpu-switch toggle"),
+        command=os.path.join(homedir, "dotfiles/scripts/gpu/i3pystatus_gpu.sh"))
 
 status.run()

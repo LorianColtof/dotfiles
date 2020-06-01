@@ -27,7 +27,7 @@ set $mod Mod4
 #096BAA
 
 # Set path of config file, so we can easily execute scripts from this directory
-set $confpath /home/lorian/dotfiles/i3
+set $confpath .config/i3/
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -193,7 +193,7 @@ bindsym $mod+Shift+m exec --no-startup-id spectacle -r
 bindsym Mod4+F5 exec --no-startup-id "brightness -"
 bindsym Mod4+F6 exec --no-startup-id "brightness +"
 
-bindsym Ctrl+Mod1+L exec $confpath/lock/lock.sh
+# bindsym Ctrl+Mod1+L exec $confpath/lock/lock.sh
 
 bindsym $mod+Shift+F exec --no-startup-id rofi -show window
 bindsym $mod+Shift+S exec --no-startup-id $confpath/rofi_ssh.sh
@@ -204,7 +204,6 @@ bindsym $mod+Shift+N exec nautilus
 bindsym Ctrl+Shift+$mod+Z exec systemctl --user restart airhorn
 
 bindsym $mod+Mod1+Q exec $confpath/toggle_colors.sh
-
 
 font pango:DejaVu Sans Mono 9
 
@@ -235,6 +234,7 @@ for_window [title="Quit i3"] floating enable border none
 for_window [class="Syncthing GTK"] floating enable
 assign [class="Telegram"] workspace number 1
 assign [class="Pdfpc" window_role="presentation"] "pdfpc-presentation"
+assign [class="MATLAB.*"] workspace number 3
 
 
 exec_always $confpath/autoname_workspaces.py &
@@ -249,7 +249,7 @@ exec --no-startup-id redshift-gtk
 exec --no-startup-id volnoti
 exec --no-startup-id telegram-desktop
 exec --no-startup-id i3-msg 'workspace number 2; exec --no-startup-id chrome'
-exec --no-startup-id xss-lock -l $confpath/lock/lock.sh
+#exec --no-startup-id xss-lock -l $confpath/lock/lock.sh
 exec --no-startup-id workrave
 exec --no-startup-id picom
 

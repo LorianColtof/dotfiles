@@ -1,10 +1,10 @@
-_SCRIPTDIR=$(cd $(dirname $0);echo $PWD)
+export _CONFIGDIR=~/.config/zsh-dotfiles
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 #
 # Path to your oh-my-zsh installation.
-export ZSH="$_SCRIPTDIR/oh-my-zsh"
+export ZSH="$_CONFIGDIR/oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -62,7 +62,7 @@ ZSH_THEME="agnoster"
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
-ZSH_CUSTOM="$_SCRIPTDIR/oh-my-zsh-custom"
+ZSH_CUSTOM="$_CONFIGDIR/oh-my-zsh-custom"
 
 ZSH_DISABLE_COMPFIX="true"
 
@@ -79,7 +79,7 @@ if [[ $(uname) == Linux ]]; then
     plugins+=(git-prompt)
 
     # Make sure that the submodule can be used as a oh-my-zsh plugin
-    pushd $_SCRIPTDIR/oh-my-zsh-custom/plugins/git-prompt/ >/dev/null
+    pushd $_CONFIGDIR/oh-my-zsh-custom/plugins/git-prompt/ >/dev/null
     if [ ! -f git-prompt.plugin.zsh ]; then
         ln -s zshrc.sh git-prompt.plugin.zsh
     fi
@@ -99,8 +99,8 @@ HISTFILE=~/.zsh_history
 
 zstyle ':completion:*' menu select
 
-source $_SCRIPTDIR/aliases
-source $_SCRIPTDIR/env
+source $_CONFIGDIR/aliases
+source $_CONFIGDIR/env
 
 # Expand autocompletion with Ctrl+F
 bindkey '^F' forward-char

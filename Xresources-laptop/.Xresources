@@ -1,0 +1,2 @@
+#include ".config/Xresources-dotfiles/config"
+#include ".config/Xresources-dotfiles/config-hidpi"

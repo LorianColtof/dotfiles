@@ -1,12 +1,15 @@
 [submodule "zsh-autosuggestions"]
-	path = zsh-autosuggestions
+	path = oh-my-zsh-custom/plugins/zsh-autosuggestions
 	url = git@github.com:zsh-users/zsh-autosuggestions.git
 [submodule "snippets"]
 	path = snippets
 	url = git@github.com:MaicoTimmerman/snippets.git
 [submodule "zsh-git-prompt"]
-	path = zsh-git-prompt
+	path = oh-my-zsh-custom/plugins/git-prompt
 	url = git@github.com:olivierverdier/zsh-git-prompt.git
 [submodule "agnoster-zsh-theme"]
-	path = agnoster-zsh-theme
+	path = oh-my-zsh-custom/agnoster
 	url = git@github.com:agnoster/agnoster-zsh-theme.git
+[submodule "oh-my-zsh"]
+	path = oh-my-zsh
+	url = git@github.com:ohmyzsh/ohmyzsh.git

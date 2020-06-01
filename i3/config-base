@@ -27,7 +27,7 @@ set $mod Mod4
 #096BAA
 
 # Set path of config file, so we can easily execute scripts from this directory
-set $confpath /home/lorian/Sync/dotfiles/i3
+set $confpath /home/lorian/dotfiles/i3
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -250,5 +250,6 @@ exec --no-startup-id telegram-desktop
 exec --no-startup-id i3-msg 'workspace number 2; exec --no-startup-id chrome'
 exec --no-startup-id xss-lock -l $confpath/lock/lock.sh
 exec --no-startup-id workrave
+exec --no-startup-id picom
 
 workspace_auto_back_and_forth yes

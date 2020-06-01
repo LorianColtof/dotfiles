@@ -2,7 +2,7 @@
 _SCRIPTDIR=$(cd $(dirname $0);echo $PWD)
 
 alias ls='ls --color=auto'
-alias ll='ls -al'
+alias ll='ls -alh'
 alias grep='grep --color=auto'
 alias gs='git status'
 alias cduva='cd /home/lorian/Sync/UvA/'
@@ -43,11 +43,9 @@ alias getip='dig +short myip.opendns.com @resolver1.opendns.com'
 
 alias sudo='sudo -E'
 
-alias loadrc="source ~/.zshrc"
+alias loadrc="src"
 
 alias mountstack="sudo mount -t davfs https://loriancoltof.stackstorage.com/remote.php/webdav/ /mnt/stack"
-
-alias createlatexmakefile="python3 $_SCRIPTDIR/latex/latex.py"
 
 alias ssh="TERM=xterm-256color ssh"
 
@@ -162,10 +160,17 @@ _fix_touchscreen() {
     xinput --map-to-output $touchscreen_id eDP1
 }
 
+br() {
+    ddcutil -d 1 setvcp 10 $1
+    ddcutil -d 2 setvcp 10 $1
+}
+
 _print_gpu_status() {
     gpu_status=$(cat /proc/acpi/bbswitch | cut -d ' ' -f 2)
     echo "GPU status: $gpu_status"
 }
+
+unalias gpu
 
 gpu() {
     case $1 in
@@ -180,27 +185,6 @@ gpu() {
     _print_gpu_status
 }
 
-saldo() {
-    USER=32
-
-    for __ in $(seq 1 3);
-    do
-        echo -n "POS PIN: "
-        stty -echo
-        read pin
-        stty echo
-        echo ""
-        saldo=$(curl -s "https://dev.automatis.nl/pos/api/?action=get_user_balance&pin=$pin&user=$USER" \
-                -H 'Referer: https://dev.automatis.nl/' --insecure)
-        if [[ $saldo == \"* || $saldo == "" ]];
-        then
-            echo "Invalid PIN"
-        else
-            printf "Saldo: €%s\n" $saldo
-            break
-        fi
-    done
-}
 
 BLD="\e[01m"
 BLU="\e[01;34m"

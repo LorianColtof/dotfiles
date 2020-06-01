@@ -1,0 +1,6 @@
+#include ".config/Xresources-dotfiles/config"
+
+Xcursor*size: 24
+Xcursor.size: 24
+
+! vim: ft=xdefaults

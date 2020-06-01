@@ -165,14 +165,53 @@ br() {
     ddcutil -d 2 setvcp 10 $1
 }
 
+_get_gpu_status() {
+    cat /proc/acpi/bbswitch | cut -d ' ' -f 2
+}
+
 _print_gpu_status() {
-    gpu_status=$(cat /proc/acpi/bbswitch | cut -d ' ' -f 2)
+    gpu_status=$(_get_gpu_status)
     echo "GPU status: $gpu_status"
 }
 
 if command -v gpu >/dev/null; then
     unalias gpu
 fi
+
+_check_gpu_off() {
+    did_force=$1
+
+    sleep 0.5
+    if [[ $(_get_gpu_status) != "OFF" ]]; then
+
+        pids=($(sudo fuser /dev/nvidia* 2> /dev/null))
+
+        if [ -n "$pids" ]; then
+            echo "Unable to turn off gpu."
+            echo "Some processes are still using it.\n"
+            ps u "${pids[@]}"
+
+        elif [ ! $did_force ]; then
+            echo "Trying force..."
+            gpu forceoff
+        else
+            if lsmod | grep nvidia > /dev/null; then
+                echo "Trying to unload the NVIDIA modules..."
+
+                if lsmod | grep nvidia_uvm > /dev/null; then
+                    sudo rmmod nvidia_uvm
+                fi
+
+                sudo rmmod nvidia
+                $_SCRIPTDIR/gpu/gpu-switch off
+            fi
+
+            if [[ $(_get_gpu_status) != "OFF" ]]; then
+                echo "Turning GPU off failed."
+            fi
+        fi
+    fi
+}
 
 gpu() {
     case $1 in
@@ -181,10 +220,17 @@ gpu() {
             ;;
         off)
             $_SCRIPTDIR/scripts/gpu/gpu-switch off
+            _check_gpu_off false
             ;;
+        forceoff)
+            optirun --no-xorg true && \
+            $_SCRIPTDIR/gpu/gpu-switch off
+            _check_gpu_off true
+            ;;
+        *)
+            _print_gpu_status
     esac
 
-    _print_gpu_status
 }
 
 

@@ -74,7 +74,16 @@ ZSH_DISABLE_COMPFIX="true"
 plugins=(sudo vi-mode git zsh-autosuggestions fzf zsh_reload dirhistory gitignore zsh-interactive-cd)
 
 if [[ $(uname) == Linux ]]; then
+    GIT_PROMPT_EXECUTABLE="haskell"
+
     plugins+=(git-prompt)
+
+    # Make sure that the submodule can be used as a oh-my-zsh plugin
+    pushd $_SCRIPTDIR/oh-my-zsh-custom/plugins/git-prompt/ >/dev/null
+    if [ ! -f git-prompt.plugin.zsh ]; then
+        ln -s zshrc.sh git-prompt.plugin.zsh
+    fi
+    popd >/dev/null
 fi
 
 source $ZSH/oh-my-zsh.sh

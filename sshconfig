@@ -9,12 +9,16 @@ Host robots
 Host via
     HostName svia.nl
 Host nexus
-    HostName intranet.hetzwartefietsenplan.nl
+    HostName intranet.hetzwartefietsenplan.com
     User lorian
 Host nas
     HostName almere.loriancoltof.nl
     User lorian
     Port 2222
+Host nasvm
+    HostName almere.loriancoltof.nl
+    User coltof
+    Port 2223
 Host desktop
     HostName loriancoltof.nl
     User lorian

@@ -234,6 +234,10 @@ gpu() {
 
 }
 
+yq() {
+  docker run --rm -i -v "${PWD}":/workdir mikefarah/yq yq "$@"
+}
+
 
 BLD="\e[01m"
 BLU="\e[01;34m"

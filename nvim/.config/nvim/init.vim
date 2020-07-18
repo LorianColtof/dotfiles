@@ -110,6 +110,8 @@ Plug 'lervag/vimtex'
 
 Plug 'ekalinin/Dockerfile.vim'
 
+Plug 'editorconfig/editorconfig-vim'
+
 call plug#end()
 
 filetype plugin indent on

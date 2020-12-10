@@ -7,7 +7,7 @@
 basiciw==0.2.2            # via -r requirements.in
 colour==0.1.5             # via -r requirements.in
 enum-compat==0.0.2        # via i3ipc
-fontawesome==4.7.0.post5  # via -r requirements.in
+fontawesome==5.10.1.post1 # via -r requirements.in
 i3ipc==1.5.1              # via -r requirements.in
 i3pystatus==3.35          # via -r requirements.in
 netifaces==0.10.7         # via -r requirements.in

@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 import i3ipc
 from ilock import ILock, ILockException
-from notify import Notification
+import notify2
 from time import sleep
+
+APP_NAME = 'i3-python'
 
 
 def switch_outputs():
@@ -11,15 +13,16 @@ def switch_outputs():
     active_outputs = sorted((o for o in i3.get_outputs() if o.active),
                             key=lambda o: o.rect.x)
     if len(active_outputs) != 2:
-        Notification(
-            f'Cannot switch with {len(active_outputs)} workspace(s).', '')
+        notify2.init(APP_NAME)
+        notify2.Notification(
+            f'Cannot switch with {len(active_outputs)} workspace(s).').show()
         return
 
     ws_left = active_outputs[0].current_workspace
 
     workspaces = {w.name: w for w in i3.get_workspaces()}
 
-    focused_ws_name = [w for w in workspaces.values() if w.focused][0]['name']
+    focused_ws_name = i3.get_tree().find_focused().workspace().name
 
     if focused_ws_name == ws_left:
         focused_output = active_outputs[0]
@@ -49,7 +52,7 @@ def switch_outputs():
 
 def main():
     try:
-        with ILock('i3-python', timeout=0):
+        with ILock(APP_NAME, timeout=0):
             switch_outputs()
     except ILockException:
         print("Lock failed")

@@ -56,6 +56,9 @@ if os.path.isdir("/sys/class/power_supply/BAT0"):
                     alert=True,
                     alert_percentage=15,
                     color=Color.BLUE.value,
+                    full_color=Color.GREEN.value,
+                    charging_color=Color.GREEN.value,
+                    critical_color=Color.RED.value,
                     status={
                         "DLP": "",
                         "DIS": "",

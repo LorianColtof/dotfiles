@@ -41,7 +41,7 @@ window_colors:
     urgent:
         border:          'base02'
         background:      'base08'
-        text:            'base07'
+        text:            'base00'
         indicator:       'base08'
 bar_colors:
     separator:           'base03'
@@ -62,4 +62,4 @@ bar_colors:
     urgent_workspace:
         border:          'base08'
         background:      'base08'
-        text:            'base07'
+        text:            'base00'

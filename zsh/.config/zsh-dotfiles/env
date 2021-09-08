@@ -16,5 +16,6 @@ fi
 
 export TERMINAL=termite
 export DEFAULT_USER=lorian
+export DOCKER_BUILDKIT=1
 
 export CUDA_INSTALL_PATH=/opt/cuda

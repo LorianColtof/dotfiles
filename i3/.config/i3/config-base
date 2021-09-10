@@ -45,7 +45,7 @@ bindsym $mod+d exec --no-startup-id rofi -show run -run-shell-command "{terminal
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
- bindsym $mod+shift+d exec --no-startup-id rofi -show drun -show-icons -theme slate
+ bindsym $mod+shift+d exec --no-startup-id $confpath/rofi_drun.sh
 
 # change focus
 bindsym $mod+h focus left

@@ -24,12 +24,6 @@
 *.background:   base00
 *.cursorColor:  base05
 
-rofi.color-enabled: true
-rofi.color-window: #2b2b2b, #2b2b2b, #e6e1dc
-rofi.color-normal: #2b2b2b, #e6e1dc, #2b2b2b, #586e75, #e6e1dc
-rofi.color-active: #2b2b2b, #268bd2, #2b2b2b, #268bd2, #2b2b2b
-rofi.color-urgent: #fdf6e3, #dc322f, #eee8d5, #dc322f, #fdf6e3
-
 *.color0:       base00
 *.color1:       base08
 *.color2:       base0B

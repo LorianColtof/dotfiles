@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function confirm {
-    answer=$(echo -ne "Yes|No" | rofi -dmenu -lines 2 -width 25 -i -p "Are you sure you want to $1? " \
+    answer=$(echo -ne "Yes|No" | rofi -dmenu -lines 2 -theme-str 'window {width: 20%; height: 10%;}' -i -p "Are you sure you want to $1? " \
         -sep '|' -hide-scrollbar -select 'No')
     if [[ $? -eq 0 ]] && [ $answer == "Yes" ]
     then
@@ -61,7 +61,7 @@ c=1
 
 while ! [[ $c -eq 0 ]]
 do
-    action=$(echo -ne "Suspend|Hibernate|Log out|Reboot|Poweroff" | rofi -sep "|" -dmenu -lines 5 -width 20 \
+    action=$(echo -ne "Suspend|Hibernate|Log out|Reboot|Poweroff" | rofi -sep "|" -dmenu -lines 5 -theme-str 'window {width: 20%; height: 15%;}' \
         -i -hide-scrollbar -no-custom -p "Action")
 
     case $action in

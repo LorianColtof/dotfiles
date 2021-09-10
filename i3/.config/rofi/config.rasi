@@ -1,0 +1,7 @@
+configuration {
+    theme: "Arc-Dark";
+    modi: "window,run,ssh,drun";
+
+    // Auto-detect DPI
+    dpi: 0;
+}

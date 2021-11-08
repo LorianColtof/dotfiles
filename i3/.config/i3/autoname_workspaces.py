@@ -62,10 +62,14 @@ WINDOW_ICONS = {
     'vim': fa.icons['file-code'],
     'atom': fa.icons['file-code'],
     'vscodium': fa.icons['file-code'],
+    'code-oss': fa.icons['file-code'],
     'steam': fa.icons['steam'],
     'zenity': fa.icons['window-maximize'],
     'pavucontrol': fa.icons['volume-up'],
-    'jetbrains-pycharm': fa.icons['python']
+    'jetbrains-pycharm': fa.icons['python'],
+    'jetbrains-rider': fa.icons['file-code'],
+    'jetbrains-phpstorm': fa.icons['php'],
+    'vbox-windows-vm': fa.icons['windows']
 }
 
 # This icon is used for any application not in the list above
@@ -93,6 +97,11 @@ def icon_for_window(window):
 
     if name is not None and len(name) > 0 and name[0].endswith(' - NVIM'):
         return WINDOW_ICONS['vim']
+
+    if name is not None and len(name) > 0 and classes is not None and \
+            "VirtualBox Machine" in classes and \
+            'windows' in name[0].lower():
+        return WINDOW_ICONS['vbox-windows-vm']
 
     if classes is not None and len(classes) > 0:
         for cls in classes:

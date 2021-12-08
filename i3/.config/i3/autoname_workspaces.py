@@ -43,6 +43,7 @@ import fontawesome as fa
 # then click on the application you want to inspect.
 WINDOW_ICONS = {
     'telegram-desktop': fa.icons['telegram'],
+    'alacritty': fa.icons['terminal'],
     'termite': fa.icons['terminal'],
     'urxvt': fa.icons['terminal'],
     'chromium': fa.icons['chrome'],

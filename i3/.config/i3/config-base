@@ -241,7 +241,7 @@ for_window [class="Photoshop.exe"] border none
 for_window [class="Tk" title="Figure.*"] floating enable
 for_window [title="Box2D.*"] floating enable
 for_window [title="screenkey"] floating enable
-for_window [class="Termite"] border pixel 1
+for_window [class="Alacritty"] border pixel 1
 for_window [title="Quit i3"] floating enable border none
 for_window [class="Syncthing GTK"] floating enable
 assign [class="Telegram"] workspace number 1

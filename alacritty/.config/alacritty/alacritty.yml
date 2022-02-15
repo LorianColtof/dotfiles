@@ -1,3 +1,8 @@
+font:
+  normal:
+    family: DejaVu Sans Mono
+  size: 9
+
 key_bindings:
   - key: T
     mods: Control|Shift

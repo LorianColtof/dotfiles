@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=XSession
-Exec=env KDEWM=/usr/local/bin/i3-plasma /usr/bin/startplasma-x11
-TryExec=/usr/bin/startplasma-x11
-DesktopNames=KDE
-Name=Plasma + i3
-X-KDE-PluginInfo-Version=5.23.5

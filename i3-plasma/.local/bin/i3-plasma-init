@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -euo pipefail
+
+systemctl --user mask plasma-kwin_x11.service
+systemctl --user daemon-reload
+systemctl --user add-wants plasma-workspace-x11.target plasma-i3.service
+

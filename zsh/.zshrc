@@ -71,7 +71,7 @@ ZSH_DISABLE_COMPFIX="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo vi-mode git zsh-autosuggestions fzf zsh_reload dirhistory gitignore zsh-interactive-cd)
+plugins=(sudo vi-mode git zsh-autosuggestions fzf zsh_reload dirhistory gitignore zsh-interactive-cd kube-ps1)
 
 if [[ $(uname) == Linux ]]; then
     GIT_PROMPT_EXECUTABLE="haskell"
@@ -110,12 +110,27 @@ bindkey '^S' sudo-command-line
 # Remove ESC timeout
 export KEYTIMEOUT=1
 
+ENABLE_KUBE_PS1=false
+
 function zle-line-init zle-keymap-select {
     RPROMPT="${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/}"
     if [[ $(uname) == Linux ]]; then
          RPROMPT="$RPROMPT $(git_super_status)"
     fi
+
+    if $ENABLE_KUBE_PS1; then
+      RPROMPT="$RPROMPT $(kube_ps1)"
+    fi
     zle reset-prompt
+}
+
+# Toggle command
+function kpr {
+  if $ENABLE_KUBE_PS1; then
+    ENABLE_KUBE_PS1=false
+  else
+    ENABLE_KUBE_PS1=true
+  fi
 }
 
 zle -N zle-line-init

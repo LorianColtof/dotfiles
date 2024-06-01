@@ -7,7 +7,7 @@ export MONO_MWF_SCALING=disable
 
 export LS_COLORS='ow=01;36;40'
 
-export PATH=$PATH:~/.local/bin/
+export PATH="$PATH:$HOME/.local/bin/:${KREW_ROOT:-$HOME/.krew}/bin"
 
 if [ -d /opt/android-sdk ]; then
     android_build_tools_version=$(ls /opt/android-sdk/build-tools | sort | tail -n1)
@@ -18,7 +18,7 @@ if [ -d ~/.dotnet/tools ]; then
     export PATH=$PATH:~/.dotnet/tools
 fi
 
-export TERMINAL=termite
+export TERMINAL=alacritty
 export DEFAULT_USER=lorian
 export DOCKER_BUILDKIT=1
 

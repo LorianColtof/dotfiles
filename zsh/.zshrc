@@ -4,7 +4,7 @@ export _CONFIGDIR=~/.config/zsh-dotfiles
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 #
 # Path to your oh-my-zsh installation.
-export ZSH="$_CONFIGDIR/oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -66,12 +66,23 @@ ZSH_CUSTOM="$_CONFIGDIR/oh-my-zsh-custom"
 
 ZSH_DISABLE_COMPFIX="true"
 
+alias zshreload="exec zsh"
+
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo vi-mode git zsh-autosuggestions fzf zsh_reload dirhistory gitignore zsh-interactive-cd kube-ps1)
+plugins=(
+    sudo
+    vi-mode
+    git
+    zsh-autosuggestions
+    fzf
+    dirhistory
+    gitignore
+    zsh-interactive-cd
+    kube-ps1)
 
 if [[ $(uname) == Linux ]]; then
     GIT_PROMPT_EXECUTABLE="haskell"
@@ -151,7 +162,10 @@ function +vi-git-abbrev() {
 
 AGNOSTER_PROMPT_SEGMENTS=("${AGNOSTER_PROMPT_SEGMENTS[@]:0:2}" \
                         "custom_prompt_virtualenv" \
-                        "${AGNOSTER_PROMPT_SEGMENTS[@]:3}")
+                        "${AGNOSTER_PROMPT_SEGMENTS[4]}" \
+                        "custom_prompt_git" \
+                        "${AGNOSTER_PROMPT_SEGMENTS[@]:5}" \
+                    )
 
 function custom_prompt_virtualenv() {
   if [[ -n $VIRTUAL_ENV ]]; then
@@ -161,6 +175,37 @@ function custom_prompt_virtualenv() {
   fi
 }
 
+
+function custom_prompt_git() {
+  local color ref
+
+  is_dirty() {
+    test -n "$(git status --porcelain --ignore-submodules | head -n1)"
+  }
+
+  ref="$vcs_info_msg_0_"
+
+  if [[ -n "$ref" ]]; then
+    if [[ "$(git config --get oh-my-zsh.hide-status 2>/dev/null)" = "true" ]]; then
+      color=yellow
+      ref="${ref} $GEAR"
+    elif is_dirty; then
+      color=yellow
+      ref="${ref} $PLUSMINUS"
+    else
+      color=green
+      ref="${ref} "
+    fi
+    if [[ "${ref/.../}" == "$ref" ]]; then
+      ref="$BRANCH $ref"
+    else
+      ref="$DETACHED ${ref/.../}"
+    fi
+    prompt_segment $color $PRIMARY_FG
+    print -n " $ref"
+  fi
+}
+
 # Fix Ctrl+Shift+T
 VTESCRIPT=/etc/profile.d/vte.sh
-[[ -s $VTESCRIPT ]] && source $VTESCRIPT
+[[ ! -s $VTESCRIPT ]] || source $VTESCRIPT
